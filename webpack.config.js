@@ -1,3 +1,7 @@
+var HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackRootPlugin = require('html-webpack-root-plugin');
+let path = require('path');
+
 module.exports = {
     mode: "development",
 
@@ -15,6 +19,13 @@ module.exports = {
     // Enable sourcemaps for debugging webpack's output.
     devtool: "source-map",
 
+    devServer: {
+        contentBase: path.join(__dirname, 'dist/web/frontend'),
+        compress: true,
+        port: 3000,
+        hot: true
+    },
+
     resolve: {
         // Add '.ts' and '.tsx' as resolvable extensions.
         extensions: [".ts", ".tsx", ".js"]
@@ -31,8 +42,8 @@ module.exports = {
             // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
             {enforce: "pre", test: /\.js$/, loader: "source-map-loader"},
             {
-                test:/\.(s*)css$/,
-                use:['style-loader','css-loader', 'sass-loader']
+                test: /\.(s*)css$/,
+                use: ['style-loader', 'css-loader', 'sass-loader']
             }
         ]
     },
@@ -43,4 +54,5 @@ module.exports = {
         },
         usedExports: true
     },
+    plugins: [new HtmlWebpackPlugin(), new HtmlWebpackRootPlugin()]
 };
