@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import ReactDOM from "react-dom";
 
-import "./style.css";
+import "./sass/style.scss";
 
 const App = () => {
     const [counter, setCounter] = useState(0);
