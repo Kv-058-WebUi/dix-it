@@ -39,6 +39,19 @@ module.exports = {
                 loader: "ts-loader",
             },
 
+            {
+                test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            name: '[name].[ext]',
+                            outputPath: 'fonts/'
+                        }
+                    }
+                ]
+            },
+
             // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
             {enforce: "pre", test: /\.js$/, loader: "source-map-loader"},
             {
