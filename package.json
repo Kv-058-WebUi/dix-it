@@ -11,8 +11,11 @@
     "dev-UI": "webpack-dev-server --open",
     "dev-backend": "ts-node-dev --respawn ./src/main.ts",
     "dev-fullstack": "concurrently --kill-others \"npm run dev-backend\" \"npm run dev-UI\"",
-    "heroku-postbuild": "cd src/web/frontend && npm run tsc"
+
+    "heroku-postbuild": "cd src/web/frontend && npm run tsc",
+    "publishheroku": "git push dixit master"
   },
+  "heroku-run-build-script": true,
   "engines": {
     "node": "10.16"
   },
