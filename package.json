@@ -7,8 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:backend": "tsc",
     "build:frontend": "webpack",
-    "start": "node ./dist/main.js",
-    "start-dev": "webpack-dev-server --open"
+    "production": "node ./dist/main.js",
+    "dev-UI": "webpack-dev-server --open",
+    "dev-backend": "ts-node-dev --respawn ./src/main.ts"
   },
   "keywords": [],
   "author": "",
@@ -27,6 +28,7 @@
     "source-map-loader": "^0.2.4",
     "style-loader": "^1.0.0",
     "ts-loader": "^6.2.1",
+    "ts-node-dev": "^1.0.0-pre.44",
     "typescript": "^3.7.2",
     "webpack": "^4.41.2",
     "webpack-cli": "^3.3.10",
