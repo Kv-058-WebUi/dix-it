@@ -18,10 +18,19 @@ app.get("/*", (req, res) => {
 });
 
 // Start function
-export const start = (port: number): Promise<void> => {
-    const server = http.createServer(app);
+// export const start = (port: number): Promise<void> => {
+//     const server = http.createServer(app);
 
-    return new Promise<void>((resolve, reject) => {
-        server.listen(port, resolve);
+//     return new Promise<void>((resolve, reject) => {
+//         server.listen(port, resolve);
+//     });
+// };
+
+export const start = (port: number): Promise<void> => {
+  return new Promise<void>((resolve, reject) => {
+    const server = app.listen(process.env.PORT || 5000, function() {
+      console.log(`Listening on port ${process.env.PORT} 3000`);
     });
+  });
 };
+
