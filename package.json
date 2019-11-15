@@ -12,6 +12,9 @@
     "dev-backend": "ts-node-dev --respawn ./src/main.ts",
     "dev-fullstack": "concurrently --kill-others \"npm run dev-backend\" \"npm run dev-UI\""
   },
+  "engines": {
+    "node": "10.16"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
