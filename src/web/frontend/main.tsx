@@ -1,7 +1,8 @@
 import React, {useState} from "react";
 import ReactDOM from "react-dom";
 
-import "./sass/style.scss";
+// import "./sass/style.scss";
+import "./styles/main.scss";
 
 const App = () => {
     const [counter, setCounter] = useState(0);
@@ -9,7 +10,7 @@ const App = () => {
     return (
         <div className="App">
             <h1>{counter}</h1>
-            <button onClick={() => setCounter(counter + 1)}>Press me</button>
+            <button className="play-button" onClick={() => setCounter(counter + 1)}>Press me</button>
         </div>
     )
 };
