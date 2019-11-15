@@ -33,10 +33,10 @@
     "typescript": "^3.7.2",
     "webpack": "^4.41.2",
     "webpack-cli": "^3.3.10",
-    "webpack-dev-server": "^3.9.0"
+    "webpack-dev-server": "^3.9.0",
+    "concurrently": "^5.0.0"
   },
   "dependencies": {
-    "concurrently": "^5.0.0",
     "ejs": "^2.7.1",
     "express": "^4.17.1",
     "react": "^16.11.0",
