@@ -9,7 +9,8 @@
     "build:frontend": "webpack",
     "production": "node ./dist/main.js",
     "dev-UI": "webpack-dev-server --open",
-    "dev-backend": "ts-node-dev --respawn ./src/main.ts"
+    "dev-backend": "ts-node-dev --respawn ./src/main.ts",
+    "dev-fullstack": "concurrently --kill-others \"npm run dev-backend\" \"npm run dev-UI\""
   },
   "keywords": [],
   "author": "",
@@ -35,6 +36,7 @@
     "webpack-dev-server": "^3.9.0"
   },
   "dependencies": {
+    "concurrently": "^5.0.0",
     "ejs": "^2.7.1",
     "express": "^4.17.1",
     "react": "^16.11.0",
