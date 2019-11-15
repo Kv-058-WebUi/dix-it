@@ -40,7 +40,7 @@ module.exports = {
             },
 
             {
-                test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+                test: /\.(woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
                 use: [
                     {
                         loader: 'file-loader',
@@ -50,6 +50,17 @@ module.exports = {
                         }
                     }
                 ]
+            },
+            {
+                test: /\.(jpe?g|gif|png|svg)$/i,
+                use: [
+                    {
+                        loader: 'url-loader',
+                        options: {
+                            limit: 10000
+                        }
+                    }
+            ]
             },
 
             // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
