@@ -15,10 +15,11 @@
     "dev-backend": "ts-node-dev --respawn ./src/main.ts",
     "dev-fullstack": "concurrently --kill-others \"npm run dev-backend\" \"npm run dev-UI\"",
     "heroku-prebuild": "echo This runs before Heroku installs your dependencies.",
-    "heroku-postbuild": "npm run build:backend && npm run build:css && cd src/web/frontend && npm run tsc",
+    "heroku-postbuild": "npm run build:backend && npm run build:css && webpack",
     "publishheroku": "git push dixit master"
   },
   "savedScripts": {
+    "heroku-postbuild": "npm run build:backend && npm run build:css && cd src/web/frontend && npm run tsc",
     "build": "concurrently --kill-others \"node-sass src/web/frontend/sass/ -o src/web/frontend/css/\" \"webpack --config webpack.config.js\"",
     "build:all": "npm run build:backend && npm run build:css && npm run build:react",
     "build:UI": "npm-run-all -p build:css build:react"
