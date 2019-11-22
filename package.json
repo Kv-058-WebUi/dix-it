@@ -8,7 +8,8 @@
     "build:backend": "tsc",
     "build:css": "node-sass src/web/frontend/sass/ -o src/web/frontend/css/",
     "build:react": "webpack --config webpack.config.js",
-    "build:UI": "npm-run-all -p build:css build:react",
+    "build:UI": "npm run build:css && npm run build:react",
+    "build": "npm run build:backend && npm run build:css && npm run build:react",
     "start": "node ./dist/main.js",
     "dev-css": "npm run build:css && node-sass src/web/frontend/sass/ -o src/web/frontend/css/ --watch --recursive",
     "dev-UI": "concurrently --kill-others \"npm run dev-css\" \"webpack-dev-server --open\"",
@@ -19,7 +20,8 @@
     "publishheroku": "git push dixit master"
   },
   "savedScripts": {
-    "build:UI": "concurrently --kill-others \"node-sass src/web/frontend/sass/ -o src/web/frontend/css/\" \"webpack --config webpack.config.js\""
+    "build": "concurrently --kill-others \"node-sass src/web/frontend/sass/ -o src/web/frontend/css/\" \"webpack --config webpack.config.js\"",
+    "build:UI": "npm-run-all -p build:css build:react"
   },
   "heroku-run-build-script": true,
   "engines": {
