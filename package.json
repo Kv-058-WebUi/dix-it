@@ -6,14 +6,19 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:backend": "tsc",
-    "build:UI": "webpack",
+    "build:css": "node-sass src/web/frontend/sass/ -o src/web/frontend/css/",
+    "build:react": "webpack --config webpack.config.js",
+    "build:UI": "npm-run-all -p build:css build:react",
     "start": "node ./dist/main.js",
-    "dev-UI": "webpack-dev-server --open",
+    "dev-css": "npm run build:css && node-sass src/web/frontend/sass/ -o src/web/frontend/css/ --watch --recursive",
+    "dev-UI": "concurrently --kill-others \"npm run dev-css\" \"webpack-dev-server --open\"",
     "dev-backend": "ts-node-dev --respawn ./src/main.ts",
     "dev-fullstack": "concurrently --kill-others \"npm run dev-backend\" \"npm run dev-UI\"",
-
     "heroku-postbuild": "cd src/web/frontend && npm run tsc",
     "publishheroku": "git push dixit master"
+  },
+  "savedScripts": {
+    "build:UI": "concurrently --kill-others \"node-sass src/web/frontend/sass/ -o src/web/frontend/css/\" \"webpack --config webpack.config.js\""
   },
   "heroku-run-build-script": true,
   "engines": {
@@ -33,6 +38,7 @@
     "html-webpack-plugin": "^3.2.0",
     "html-webpack-root-plugin": "^0.10.0",
     "node-sass": "^4.13.0",
+    "npm-run-all": "^4.1.5",
     "sass-loader": "^8.0.0",
     "source-map-loader": "^0.2.4",
     "style-loader": "^1.0.0",
@@ -45,6 +51,7 @@
     "webpack-dev-server": "^3.9.0"
   },
   "dependencies": {
+    "@types/node-sass": "^4.11.0",
     "ejs": "^2.7.1",
     "express": "^4.17.1",
     "react": "^16.11.0",

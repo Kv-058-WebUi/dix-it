@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import ReactDOM from "react-dom";
 
 // import "./sass/style.scss";
-import "./styles/main.scss";
+import "./css/main.css";
 
 const App = () => {
     const [counter, setCounter] = useState(0);
