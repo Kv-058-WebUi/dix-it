@@ -8,8 +8,10 @@
 
 
 body {
-  overflow-x: hidden;
+  overflow: hidden;
+  background-color: $dixitBackground;
   background-image: url('../images/start_frame_bg.png');
+  background-size: cover;
 }
 
 body.overlay {

@@ -1,0 +1,30 @@
+.header {
+  position: relative;
+  height: 80px;
+  background: rgba(2, 1, 6, 0.5);
+  width: 100%;
+  color: white;
+  font-family: Montserrat;
+  display: flex;
+  align-items: center;
+  padding: 18px 50px;
+
+  .online {
+    padding: 0 25px;
+    font-size: 20px;
+  }
+}
+
+.logo {
+  float: left;
+}
+
+.nav {
+  font-size: 20px;
+  margin-left: auto;
+
+  a {
+    margin: 30px;
+  }
+}
+

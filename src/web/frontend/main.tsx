@@ -1,19 +1,29 @@
 import React, {useState} from "react";
 import ReactDOM from "react-dom";
-
-// import "./sass/style.scss";
+import MainPage from './components/MainPage';
 import "./styles/main.scss";
+
 
 const App = () => {
     const [counter, setCounter] = useState(0);
 
     return (
-        <div className="App">
-            <h1>{counter}</h1>
-            <button className="play-button" onClick={() => setCounter(counter + 1)}>Press me</button>
+        <div>
+            <MainPage />
         </div>
     )
 };
+
+// Router
+//  - login page (/login or index)
+//      - header
+//      - main
+//          - menu
+//              - button
+//              - other links
+//      - footer
+//  - lobby page (/lobby)
+//  - gameboard page (/game/:id)
 
 ReactDOM.render(
     <App/>,
