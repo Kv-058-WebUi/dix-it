@@ -7,7 +7,8 @@ type HeaderProps = {
     onlineCount: Number
 };
 type HeaderState = {
-    showRules: Boolean
+    showRules: Boolean,
+    showSignin: Boolean
 };
 
 export default class Header extends Component<HeaderProps, HeaderState> {
@@ -15,7 +16,8 @@ export default class Header extends Component<HeaderProps, HeaderState> {
         super(props);
 
         this.state = {
-            showRules: false
+            showRules: false,
+            showSignin: false
         };
     }
 
@@ -23,26 +25,45 @@ export default class Header extends Component<HeaderProps, HeaderState> {
         onlineCount: 0
     };
 
-    handleHeaderClick = (e: any) => {
-        const clickedOnRulesChild = e.target.closest('.rules');
-        if (e.target.className === 'help' || clickedOnRulesChild) {
-            this.setState({ showRules: true });
-        } else {
+    // event delegation:
+    // handleHeaderClick = (e: any) => {
+    //     const clickedOnRulesChild = e.target.closest('.rules');
+    //     if (e.target.className === 'help' || clickedOnRulesChild) {
+    //         this.setState({ showRules: true });
+    //     } else {
+    //         this.setState({ showRules: false });
+    //     }
+    //     if (e.target.className === 'signin') {
+    //         this.setState({ showSignin: true });
+    //     }
+    // };
+
+    handleHelpClick = () => this.setState({ showRules: true });
+
+    handleSigninClick = () => this.setState({ showSignin: true });
+
+    handleRulesClick = (e: any) => {
+        if (!e.target.closest('.rules')) {
             this.setState({ showRules: false });
         }
     };
 
     render() {
         return (
-            <nav className='header' onClick={this.handleHeaderClick}>
+            <nav className='header'>
                 <Link to='/'><img className='logo' src={require('../images/LOGO.png')} alt='logo'/></Link>
                 <p className='online'>Online: {this.props.onlineCount}</p>
                 <div className='nav'>
-                    <a href='/signin'>Sign In</a>
+                    <a href='#' onClick={this.handleSigninClick}>Sign In</a>
                     <a href='mailto:name@email.com'>Contact Us</a>
-                    <a href='#'><img className='help' src={require('../images/help.png')} alt='rules'/></a>
+                    <a href='#' onClick={this.handleHelpClick}><img className='help' src={require('../images/help.png')} alt='rules'/></a>
                 </div>
-                { this.state.showRules ? <Rules /> : '' }
+                { this.state.showRules ? (
+                    <div onClick={this.handleRulesClick}>
+                        <Rules />
+                    </div>
+                ) : '' }
+                {/*{ this.state.showSignin ? <Component /> : '' }*/}
             </nav>
         );
     }
