@@ -27,17 +27,6 @@ const App = () => {
     );
 };
 
-// Router
-//  - login page (/login or index)
-//      - header
-//      - main
-//          - menu
-//              - button
-//              - other links
-//      - footer
-//  - lobby page (/lobby)
-//  - gameboard page (/game/:id)
-
 function GameBoard () {
     return <h2>GameBoard PAGE</h2>;
 }

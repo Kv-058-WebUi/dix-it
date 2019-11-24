@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
-import '../styles/components/header.scss';
 import Rules from "./Rules";
+import '../styles/components/header.scss';
 
 type HeaderProps = {
     onlineCount: Number
@@ -23,8 +23,7 @@ export default class Header extends Component<HeaderProps, HeaderState> {
         onlineCount: 0
     };
 
-    onHeaderClick = (e: any) => {
-        console.log(e.target);
+    handleHeaderClick = (e: any) => {
         const clickedOnRulesChild = e.target.closest('.rules');
         if (e.target.className === 'help' || clickedOnRulesChild) {
             this.setState({ showRules: true });
@@ -35,7 +34,7 @@ export default class Header extends Component<HeaderProps, HeaderState> {
 
     render() {
         return (
-            <nav className='header' onClick={this.onHeaderClick}>
+            <nav className='header' onClick={this.handleHeaderClick}>
                 <Link to='/'><img className='logo' src={require('../images/LOGO.png')} alt='logo'/></Link>
                 <p className='online'>Online: {this.props.onlineCount}</p>
                 <div className='nav'>
