@@ -1,6 +1,8 @@
 .menu {
-  position: relative;
-  padding: 0 350px;
+  position: absolute;
+  top: 50%;
+  left: 20%;
+  transform: translate(0, -50%);
 
 
   .button {

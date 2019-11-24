@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
+import { Link } from "react-router-dom";
 import '../styles/components/menu.scss';
-
 
 export default class Menu extends Component {
     render() {
@@ -8,10 +8,10 @@ export default class Menu extends Component {
             <div className={'menu'}>
                 <button className={'button'}>Play</button>
                 <ul className={'links'}>
-                    <li><a href='#'>Join the game</a></li>
+                    <li><Link to="/lobby">Join the game</Link></li>
                     <li><a href='#'>Create room</a></li>
                 </ul>
             </div>
         );
     }
-}
+};

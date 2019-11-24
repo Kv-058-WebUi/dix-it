@@ -2,16 +2,29 @@ import React, {useState} from "react";
 import ReactDOM from "react-dom";
 import MainPage from './components/MainPage';
 import "./styles/main.scss";
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+} from "react-router-dom";
 
 
 const App = () => {
-    const [counter, setCounter] = useState(0);
-
     return (
-        <div>
-            <MainPage />
-        </div>
-    )
+        <Router>
+            <Switch>
+                <Route path="/game">
+                    <GameBoard />
+                </Route>
+                <Route path="/lobby">
+                    <Lobby />
+                </Route>
+                <Route path="/">
+                    <MainPage />
+                </Route>
+            </Switch>
+        </Router>
+    );
 };
 
 // Router
@@ -24,6 +37,14 @@ const App = () => {
 //      - footer
 //  - lobby page (/lobby)
 //  - gameboard page (/game/:id)
+
+function GameBoard () {
+    return <h2>GameBoard PAGE</h2>;
+}
+
+function Lobby () {
+    return <h2>Lobby PAGE</h2>;
+}
 
 ReactDOM.render(
     <App/>,
