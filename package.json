@@ -55,10 +55,14 @@
     "webpack-dev-server": "^3.9.0"
   },
   "dependencies": {
+    "@material-ui/core": "^4.7.0",
+    "@material-ui/icons": "^4.5.1",
     "@types/node-sass": "^4.11.0",
+    "@types/react-router-dom": "^5.1.2",
     "ejs": "^2.7.1",
     "express": "^4.17.1",
     "react": "^16.11.0",
-    "react-dom": "^16.11.0"
+    "react-dom": "^16.11.0",
+    "react-router-dom": "^5.1.2"
   }
 }

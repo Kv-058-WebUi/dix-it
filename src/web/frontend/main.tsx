@@ -1,21 +1,16 @@
-import React, {useState} from "react";
-import ReactDOM from "react-dom";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import { ThemeProvider } from '@material-ui/core/styles';
+import theme from './theme';
 
-// import "./sass/style.scss";
-import "./css/main.css";
-
-const App = () => {
-    const [counter, setCounter] = useState(0);
-
-    return (
-        <div className="App">
-            <h1>{counter}</h1>
-            <button className="play-button" onClick={() => setCounter(counter + 1)}>Press me</button>
-        </div>
-    )
-};
 
 ReactDOM.render(
-    <App/>,
-    document.getElementById("root"),
+  <ThemeProvider theme={theme}>
+    {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+    <CssBaseline />
+    <App />
+  </ThemeProvider>,
+  document.querySelector('#root'),
 );

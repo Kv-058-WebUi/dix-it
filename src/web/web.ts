@@ -28,7 +28,7 @@ app.get("/*", (req, res) => {
 
 export const start = (port: number): Promise<void> => {
   return new Promise<void>((resolve, reject) => {
-    const server = app.listen(process.env.PORT || 5000, function() {
+    const server = app.listen(process.env.PORT || 5001, function() {
       console.log(`Listening on port ${process.env.PORT} 8000`);
     });
   });
