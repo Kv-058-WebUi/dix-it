@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
-import '../styles/components/menu.scss';
+import '../sass/components/menu.scss';
 
 export default class Menu extends Component {
     render() {

@@ -1,12 +1,13 @@
 import React, {useState} from "react";
 import ReactDOM from "react-dom";
 import MainPage from './components/MainPage';
-import "./styles/main.scss";
 import {
     BrowserRouter as Router,
     Switch,
     Route,
 } from "react-router-dom";
+import "./sass/main.scss";
+// import "./css/main.css";
 
 
 const App = () => {

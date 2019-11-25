@@ -4,3 +4,7 @@ node_modules
 idea/
 dist/*
 !dist/.gitkeep
+!dist/web/.gitkeep
+!dist/web/frontend/.gitkeep
+!dist/web/frontend/fonts/.gitkeep
+!dist/web/frontend/css/.gitkeep

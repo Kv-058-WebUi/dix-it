@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import Rules from "./Rules";
-import '../styles/components/header.scss';
+import '../sass/components/header.scss';
 
 type HeaderProps = {
     onlineCount: Number

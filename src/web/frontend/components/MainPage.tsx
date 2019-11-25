@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Menu from "./Menu";
 import Header from './Header';
 import Footer from "./Footer";
-import '../styles/components/mainpage.scss';
+import '../sass/components/mainpage.scss';
 
 export default class MainPage extends Component {
     render() {

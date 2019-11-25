@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import '../styles/components/rules.scss';
+import '../sass/components/rules.scss';
 
 export default class Rules extends Component {
     render() {

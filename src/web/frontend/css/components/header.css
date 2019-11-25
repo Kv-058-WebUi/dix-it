@@ -1,0 +1,23 @@
+.header {
+  height: 80px;
+  background: rgba(2, 1, 6, 0.5);
+  width: 100%;
+  color: white;
+  font-family: Montserrat Alternates;
+  display: flex;
+  align-items: center;
+  padding: 18px 50px; }
+  .header .online {
+    padding: 0 25px;
+    font-size: 20px; }
+  .header .nav {
+    font-size: 20px;
+    margin-left: auto;
+    line-height: 80px; }
+    .header .nav a {
+      padding: 0 25px; }
+      .header .nav a .help {
+        height: 30px;
+        vertical-align: middle; }
+  .header .logo {
+    float: left; }
