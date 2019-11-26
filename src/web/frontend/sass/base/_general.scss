@@ -1,15 +1,9 @@
 @import "buttons";
 @import "fonts";
 
-// * {
-//   outline: 1px solid white;
-// }
-
-
-
 body {
   overflow-x: hidden;
-  background-image: url('../images/start_frame_bg.png');
+  background: #111519 url('../images/start_frame_bg.png');
 }
 
 body.overlay {
@@ -26,4 +20,12 @@ body.overlay {
     background-color: rgba(0, 0, 0, .6);
     z-index: 20;
   }
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
 }

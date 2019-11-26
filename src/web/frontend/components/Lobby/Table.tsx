@@ -172,9 +172,8 @@ export default class Table extends React.Component<any, myState> {
                 </div>
                 <div className={'lobby__filter'}>
                     <div className={'lobby__filter-text'}>
-                        <TextField id="outlined-basic" label="Outlined" variant="outlined" />
-                        {/*<input className={'lobby__filter-input'} onChange={this.filterRooms} type="text"*/}
-                        {/*       placeholder={'Search...'}/>*/}
+                        <input className={'lobby__filter-input'} onChange={this.filterRooms} type="text"
+                               placeholder={'Search...'}/>
                     </div>
                 </div>
             </div>

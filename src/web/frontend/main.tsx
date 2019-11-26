@@ -1,16 +1,32 @@
 import React, {useState} from "react";
 import ReactDOM from "react-dom";
+import Header from './components/header'
+import Footer from './components/footer'
 
-// import "./sass/style.scss";
-import "./css/main.css";
+import "./sass/main.scss";
+import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
+import Home from './components/Home'
+import Lobby from './components/Lobby/lobby'
 
 const App = () => {
-    const [counter, setCounter] = useState(0);
 
     return (
         <div className="App">
-            <h1>{counter}</h1>
-            <button className="play-button" onClick={() => setCounter(counter + 1)}>Press me</button>
+
+            <Router>
+
+                <Header/>
+
+                <Switch>
+                    <Route path="/lobby" component={Lobby}/>
+                    <Route exact path="/" component={Home}/>
+                </Switch>
+
+                <Footer/>
+
+            </Router>
+
+
         </div>
     )
 };
