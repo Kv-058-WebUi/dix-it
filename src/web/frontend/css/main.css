@@ -57,7 +57,7 @@ button {
   font-style: normal;
   font-weight: 700;
   font-size: 30px;
-  position: absolute;
+  position: fixed;
   width: 340px;
   height: 100px;
   left: 275px;
@@ -91,8 +91,7 @@ button {
   /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */ }
 
 body {
-  overflow-x: hidden;
-  background-image: url("../images/start_frame_bg.png"); }
+  overflow-x: hidden; }
 
 body.overlay {
   position: fixed;

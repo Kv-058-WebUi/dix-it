@@ -28,7 +28,14 @@ const useStyles = makeStyles({
     TextTransform: "uppercase",
     Transition: "border, box-shadow .3s",
   },
-
+  fab: {
+    position: 'fixed',
+    top: '35vh',
+    left: '35vw',
+    width: 330,
+    height: 100,
+    borderRadius: 50,
+  },
 });
 
 export default function ImgMediaCard() {
@@ -45,22 +52,13 @@ export default function ImgMediaCard() {
         <CardMedia
           component="img"
           alt="Dixit Game image"
-          height="100%"
+          height='100vh'
+          width='auto'
           image={require ("../images/Frame 1.png")}
         />
-		  <Box
-        position="absolute"
-        top={356}
-        left={275}
-        zIndex="modal"
-      >
-        <div>
+		  <Box >
 
-        </div>
-
-        <Fab 
-        variant="extended"
-        size="large"
+        <Fab className="play-button"
         
         >
           PLAY

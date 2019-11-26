@@ -14,11 +14,12 @@ import { history } from "./configureStore";
 import { withStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 
-// import "./css/main.css";
+import "./css/main.css";
 
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import GamePage from './pages/GamePage';
+import {Helmet} from "react-helmet";
 
 
 function Routes() {
@@ -35,36 +36,32 @@ function Routes() {
 
 
 const App = () => {
-    const [counter, setCounter] = useState(0);
-
+  const [counter, setCounter] = useState(0);
     return (
-        <div className="App">
- 
+      <div className="App">
+        <Helmet>
+            <meta charSet="utf-8" />
+            <title>Dixit Game</title>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        </Helmet>
         <Router history={history}>
-			<Box
-        bgcolor="background.paper"
-        color="text.primary"
-        p={2}
-        position="absolute"
-        top={100}
-        left="10%"
-        zIndex="modal"
-		  >
-			<NavTabs />
-		</Box>
-				
-			<div>
-				<Routes />
-			</div>
-		</Router>
-		
-		</div>
-	
-	
-
+          <Box
+            bgcolor="background.paper"
+            color="text.primary"
+            p={1}
+            position="absolute"
+            top={100}
+            left="10%"
+            zIndex="modal"
+          >
+			      <NavTabs />
+		      </Box>
+          <div>
+            <Routes />
+          </div>
+		    </Router>
+	    </div>
 	);
-
-
 };
 
 
@@ -86,7 +83,5 @@ const useStyles = makeStyles((theme: Theme) => ({
 		},
 	},
 }));
-
-
 
 export default App;
