@@ -1,14 +1,14 @@
 import React from "react"
 import {Row, roomParams} from './Row'
 
-interface myState {
+interface tableState {
     list: roomParams[];
     instantList: roomParams[];
 }
 
-export default class Table extends React.Component<any, myState> {
+export default class Table extends React.Component<any, tableState> {
 
-    public state: myState = {
+    public state: tableState = {
         list: [
             {
                 id: 1,
