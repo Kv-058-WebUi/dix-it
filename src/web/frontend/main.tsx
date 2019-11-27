@@ -8,8 +8,6 @@ import {
 } from "react-router-dom";
 import GameBoard from './components/GameBoard/GameBoard';
 import "./sass/main.scss";
-// import "./css/main.css";
-
 
 const App = () => {
     return (
