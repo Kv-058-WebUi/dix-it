@@ -1,15 +1,15 @@
 import React from "react"
-import {Row, roomArr} from './Row'
+import {Row, roomParams} from './Row'
 
 interface myState {
-    array: roomArr[];
-    instantList: roomArr[];
+    list: roomParams[];
+    instantList: roomParams[];
 }
 
 export default class Table extends React.Component<any, myState> {
 
     public state: myState = {
-        array: [
+        list: [
             {
                 id: 1,
                 creator: 'Peter',
@@ -103,7 +103,7 @@ export default class Table extends React.Component<any, myState> {
     };
 
     componentWillMount = () => {
-        this.setState({instantList: this.state.array})
+        this.setState({instantList: this.state.list})
     };
 
     compareBy(key: any) {
@@ -115,19 +115,19 @@ export default class Table extends React.Component<any, myState> {
     }
 
     sortBy(key: any) {
-        let arrayCopy = [...this.state.array];
+        let arrayCopy = [...this.state.list];
         arrayCopy.sort(this.compareBy(key));
-        this.setState({array: arrayCopy});
+        this.setState({list: arrayCopy});
     }
 
     sortByPlaces(key:any, key2:any) {
-        let arrayCopy = [...this.state.array];
+        let arrayCopy = [...this.state.list];
         arrayCopy.sort((a:any, b:any) => {
             if(a[key] - a[key2] < b[key] - b[key2]) return -1;
             if(a[key] - a[key2] > b[key] - b[key2]) return 1;
             return 0;
         });
-        this.setState({array: arrayCopy});
+        this.setState({list: arrayCopy});
     }
 
     filterRooms = (event: any) => {
@@ -136,7 +136,7 @@ export default class Table extends React.Component<any, myState> {
             return room.name.toLowerCase().search(
                 event.target.value.toLowerCase()) !== -1;
         });
-        this.setState({array: updatedList});
+        this.setState({list: updatedList});
     };
 
     render() {
@@ -161,10 +161,9 @@ export default class Table extends React.Component<any, myState> {
                         <div className={'lobby__table-cell btn'}/>
                     </div>
                     {
-                        this.state.array.map((room: roomArr, i: number) => {
+                        this.state.list.map((room: roomParams, i: number) => {
                                 return (
-                                    <Row id={room.id} creator={room.creator} name={room.name} locked={room.locked}
-                                         playersCur={room.playersCur} playersMax={room.playersMax} key={i}/>
+                                    <Row {...room} key={i}/>
                                 )
                             }
                         )

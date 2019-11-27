@@ -1,6 +1,6 @@
 import React from "react"
 
-export interface roomArr {
+export interface roomParams {
     id: any;
     creator: string;
     name: string;
@@ -9,9 +9,9 @@ export interface roomArr {
     playersMax: number
 }
 
-export class Row extends React.Component<roomArr> {
+export class Row extends React.Component<roomParams> {
 
-    constructor(props: roomArr) {
+    constructor(props: roomParams) {
         super(props);
     }
 
