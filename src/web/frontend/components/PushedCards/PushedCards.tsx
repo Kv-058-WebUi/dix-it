@@ -1,12 +1,18 @@
 import React, { Component } from 'react';
-import PushedCard from './PushedCard'
+import PushedCard from './Card';
 import './pushedcards.scss';
 
-export default class PushedCards extends Component {
-    render(){
-        const users = ['user1', 'user2', 'user3', 'user4', 'user5', 'user4', 'user5'];
+type PushedCardsProps = {
+    users: string[]
+}
 
-        return users.map((item, index) => {
+export default class PushedCards extends Component <PushedCardsProps> {
+    static defaultProps = {
+        users: ['user1', 'user2', 'user3', 'user4', 'user5', 'user4', 'user5']
+    };
+
+    render() {
+        return this.props.users.map((item:string, index:number) => {
             return < PushedCard key={index} />
         })
     }
