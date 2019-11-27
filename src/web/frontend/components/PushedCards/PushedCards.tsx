@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import PushedCard from './Card';
-import './pushedcards.scss';
+import Card from '../Card/Card';
 
 type PushedCardsProps = {
     users: string[]
@@ -13,7 +12,7 @@ export default class PushedCards extends Component <PushedCardsProps> {
 
     render() {
         return this.props.users.map((item:string, index:number) => {
-            return < PushedCard key={index} />
-        })
+            return <Card key={index} />
+        });
     }
 }

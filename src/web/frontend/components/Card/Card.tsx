@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import './pushedcards.scss';
+import './card.scss';
 
 export default class PushedCards extends Component {
     render() {
         return (
-            <div className='pushed-card'>
+            <div className='card'>
             </div>
-        )
+        );
     }
 }

@@ -12,6 +12,6 @@ export default class GameBoard extends Component {
                     < PushedCards/>
                 </div>
             </div>
-        )
+        );
     }
 }
