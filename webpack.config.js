@@ -23,7 +23,8 @@ module.exports = {
         contentBase: path.join(__dirname, 'dist/web/frontend'),
         compress: true,
         port: 3000,
-        hot: true
+        hot: true,
+		historyApiFallback: true
     },
 
     resolve: {

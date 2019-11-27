@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import '../sass/components/rules.scss';
+import './rules.scss';
 
 export default class Rules extends Component {
     render() {
-        return (
+            return (
             <div className='blur'>
                 <div className='rules'>
                     <h1 className='title'>rules</h1>

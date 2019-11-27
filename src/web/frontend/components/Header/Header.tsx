@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
-import Rules from "./Rules";
-import '../sass/components/header.scss';
+import Rules from '../Rules/Rules';
+// import Form from "./Form";
+import './header.scss';
 
 type HeaderProps = {
-    onlineCount: Number
+    onlineCount: number
 };
 type HeaderState = {
-    showRules: Boolean,
-    showSignin: Boolean
+    showRules: boolean,
+    showAuthForm: boolean
 };
 
 export default class Header extends Component<HeaderProps, HeaderState> {
@@ -17,7 +18,7 @@ export default class Header extends Component<HeaderProps, HeaderState> {
 
         this.state = {
             showRules: false,
-            showSignin: false
+            showAuthForm: false
         };
     }
 
@@ -39,8 +40,13 @@ export default class Header extends Component<HeaderProps, HeaderState> {
     // };
 
     handleHelpClick = () => this.setState({ showRules: true });
+    handleAuthFormClick = () => this.setState({ showAuthForm: true });
 
-    handleSigninClick = () => this.setState({ showSignin: true });
+    // handleFormClick = (e: any) => {
+    //     if (!e.target.closest('.form')) {
+    //         this.setState({ showAuthForm: false });
+    //     }
+    // };
 
     handleRulesClick = (e: any) => {
         if (!e.target.closest('.rules')) {
@@ -51,19 +57,23 @@ export default class Header extends Component<HeaderProps, HeaderState> {
     render() {
         return (
             <nav className='header'>
-                <Link to='/'><img className='logo' src={require('../images/LOGO.png')} alt='logo'/></Link>
+                <Link to='/'><img className='logo' src={require('./LOGO.png')} alt='logo'/></Link>
                 <p className='online'>Online: {this.props.onlineCount}</p>
                 <div className='nav'>
-                    <a href='#' onClick={this.handleSigninClick}>Sign In</a>
+                    <a href='#' onClick={this.handleAuthFormClick}>Sign In</a>
                     <a href='mailto:name@email.com'>Contact Us</a>
-                    <a href='#' onClick={this.handleHelpClick}><img className='help' src={require('../images/help.png')} alt='rules'/></a>
+                    <a href='#' onClick={this.handleHelpClick}><img className='help' src={require('./help.png')} alt='rules'/></a>
                 </div>
                 { this.state.showRules ? (
                     <div onClick={this.handleRulesClick}>
                         <Rules />
                     </div>
                 ) : '' }
-                {/*{ this.state.showSignin ? <Component /> : '' }*/}
+                {/*{ this.state.showAuthForm ? (*/}
+                    {/*<div onClick={this.handleFormClick}>*/}
+                        {/*<Form />*/}
+                    {/*</div>*/}
+                {/*) : '' }*/}
             </nav>
         );
     }
