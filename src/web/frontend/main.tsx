@@ -6,7 +6,6 @@ import {
     Switch,
     Route,
 } from "react-router-dom";
-import GameBoard from './components/GameBoard/GameBoard';
 import "./sass/main.scss";
 
 const App = () => {
@@ -27,7 +26,9 @@ const App = () => {
     );
 };
 
-
+function GameBoard () {
+    return <h2>GameBoard PAGE</h2>;
+}
 function Lobby () {
     return <h2>Lobby PAGE</h2>;
 }
