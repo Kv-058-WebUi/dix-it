@@ -7,7 +7,7 @@ type PushedCardsProps = {
 
 export default class PushedCards extends Component <PushedCardsProps> {
     static defaultProps = {
-        users: ['user1', 'user2', 'user3', 'user4', 'user5', 'user4', 'user5']
+        users: ['user1', 'user2', 'user3', 'user4', 'user5',]
     };
 
     render() {
