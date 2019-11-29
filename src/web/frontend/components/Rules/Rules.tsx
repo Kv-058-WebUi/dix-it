@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import './rules.scss';
 import ModalWindow from "../ModalWindow/ModalWindow";
 
