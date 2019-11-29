@@ -1,14 +1,14 @@
-.container {
+.main-page-container {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   height: 100vh;
-}
 
-.unicorn {
-  position: absolute;
-  right: 0;
-  max-height: 100vh;
-  width: 40vw;
-  z-index: -1;
+  .unicorn {
+    position: absolute;
+    right: 0;
+    max-height: 100vh;
+    width: 40vw;
+    z-index: -1;
+  }
 }
