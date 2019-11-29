@@ -1,35 +1,37 @@
 import React, {useState} from "react";
 import ReactDOM from "react-dom";
-import Header from './components/header'
-import Footer from './components/footer'
-
+import MainPage from './components/MainPage/MainPage';
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+} from "react-router-dom";
 import "./sass/main.scss";
-import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
-import Home from './components/Home'
-import Lobby from './components/Lobby/lobby'
 
 const App = () => {
-
     return (
-        <div className="App">
-
-            <Router>
-
-                <Header/>
-
-                <Switch>
-                    <Route path="/lobby" component={Lobby}/>
-                    <Route exact path="/" component={Home}/>
-                </Switch>
-
-                <Footer/>
-
-            </Router>
-
-
-        </div>
-    )
+        <Router>
+            <Switch>
+                <Route path="/game">
+                    <GameBoard />
+                </Route>
+                <Route path="/lobby">
+                    <Lobby />
+                </Route>
+                <Route path="/">
+                    <MainPage />
+                </Route>
+            </Switch>
+        </Router>
+    );
 };
+
+function GameBoard () {
+    return <h2>GameBoard PAGE</h2>;
+}
+function Lobby () {
+    return <h2>Lobby PAGE</h2>;
+}
 
 ReactDOM.render(
     <App/>,

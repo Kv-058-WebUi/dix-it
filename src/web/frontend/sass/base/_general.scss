@@ -2,8 +2,10 @@
 @import "fonts";
 
 body {
-  overflow-x: hidden;
-  background: #111519 url('../images/start_frame_bg.png');
+  overflow: hidden;
+  background-color: $dixitBackground;
+  background-image: url('../images/start_frame_bg.png');
+  background-size: cover;
 }
 
 body.overlay {

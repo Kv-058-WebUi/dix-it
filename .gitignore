@@ -1,7 +1,8 @@
 node_modules
-
+.DS_Store
 .idea
 idea/
+src/web/frontend/css
 dist/*
 !dist/.gitkeep
 !dist/web/.gitkeep
