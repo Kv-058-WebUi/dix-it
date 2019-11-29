@@ -1,14 +1,28 @@
-.card {
+.card-container {
+  position: relative;
   width: 100px;
   height: 160px;
-  left: 300px;
-  top: 191px;
+  margin: 10px;
+}
+
+.card {
+  position: absolute;
+  width: 100px;
+  height: 160px;
+  left: 0;
+  top: 0;
   margin: 10px;
   background: url('cardshirt.png');
   border-radius: 15px;
+  background-size: cover;
+  opacity: .3;
 
-  &:hover {
-    width: 180px;
-    height: 240px;
-  }
+  //&:hover {
+  //  width: 160px;
+  //  height: 220px;
+  //  transform: scale(1, 1);
+  //  transform-origin: center;
+  //  transition: .3s;
+  //  z-index: 1;
+  //}
 }
