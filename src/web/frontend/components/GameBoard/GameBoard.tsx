@@ -8,9 +8,7 @@ export default class GameBoard extends Component {
         return (
             <div>
                 <Link to='/'><img className='game-logo' src={require('./LOGO.png')} alt='logo'/></Link>
-                <div className='field-box'>
-                    < PushedCards/>
-                </div>
+                <PushedCards />
             </div>
         );
     }

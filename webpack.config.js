@@ -13,7 +13,7 @@ module.exports = {
         filename: "[name].bundle.js",
         chunkFilename: '[name].chunk.js',
         path: __dirname + "/dist/web/frontend",
-        publicPath: "/assets/"
+        publicPath: "/"
     },
 
     // Enable sourcemaps for debugging webpack's output.
@@ -23,6 +23,7 @@ module.exports = {
         contentBase: path.join(__dirname, 'dist/web/frontend'),
         compress: true,
         port: 3000,
+        publicPath: '/',
         hot: true,
         historyApiFallback: true
     },
@@ -56,9 +57,10 @@ module.exports = {
                 test: /\.(jpe?g|gif|png|svg)$/i,
                 use: [
                     {
-                        loader: 'url-loader',
+                        loader: 'file-loader',
                         options: {
-                            limit: 10000
+                            name: '[name].[ext]',
+                            outputPath: 'images/'
                         }
                     }
             ]

@@ -1,12 +1,12 @@
 import React, {useState} from "react";
 import ReactDOM from "react-dom";
 import MainPage from './components/MainPage/MainPage';
+import GameBoard from './components/GameBoard/GameBoard';
 import {
     BrowserRouter as Router,
     Switch,
     Route,
 } from "react-router-dom";
-import GameBoard from './components/GameBoard/GameBoard';
 import "./sass/main.scss";
 
 const App = () => {
@@ -26,7 +26,6 @@ const App = () => {
         </Router>
     );
 };
-
 
 function Lobby () {
     return <h2>Lobby PAGE</h2>;
