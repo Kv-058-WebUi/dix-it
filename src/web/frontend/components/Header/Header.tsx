@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import Rules from '../Rules/Rules';
-// import Form from "./Form";
+// import ModalWindow from "./ModalWindow";
 import './header.scss';
 
 type HeaderProps = {
@@ -71,7 +71,7 @@ export default class Header extends Component<HeaderProps, HeaderState> {
                 ) : '' }
                 {/*{ this.state.showAuthForm ? (*/}
                     {/*<div onClick={this.handleFormClick}>*/}
-                        {/*<Form />*/}
+                        {/*<ModalWindow />*/}
                     {/*</div>*/}
                 {/*) : '' }*/}
             </nav>
