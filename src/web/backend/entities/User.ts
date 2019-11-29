@@ -1,10 +1,10 @@
-import {Column, Entity, PrimaryGeneratedColumn, OneToOne} from 'typeorm';
-import {Player} from './Player'
+import {Column, Entity, PrimaryGeneratedColumn} from 'typeorm';
+
 
 @Entity()
-export class User {
+export class DixitUser {
     @PrimaryGeneratedColumn()
-    user_id!:number;
+    user_id!: number;
 
     @Column()
     nickname!: string;
