@@ -7,33 +7,19 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import {InputAdornment, TextField, Theme} from "@material-ui/core";
-import {ThemeProvider, withStyles} from "@material-ui/styles";
-import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
+import {withStyles} from "@material-ui/styles";
 
-
-const inputBoxTheme: Theme = createMuiTheme({
-    palette: {
-        primary: {
-            main: '#A154F2'
-        },
-        text: {
-            primary: '#E5E5E5',
-            secondary: '#E5E5E5'
-        },
-        background: {
-            default: '#24272E'
-        }
-    },
-    typography: {
-        fontFamily: "Roboto"
-    }
-});
 
 const styles = () => ({
     root: {
         borderRadius: 25,
-        borderColor: 'white',
-        height: 58
+        backgroundColor: '#fff',
+        maxWidth: 270,
+        minWidth: 270,
+        boxShadow: '0px 0px 15px #EC7760'
+    },
+    input: {
+        color: '#000',
     },
     eye: {
         cursor: 'pointer'
@@ -87,7 +73,7 @@ class InputField extends React.Component<InputFieldProps, InputFieldState> {
 
     getAttributesForUsernameField(InputProps: any) {
         return {
-            label: "Username",
+            placeholder: "Username",
             type: "text",
             errorHelperText: "Username should have more than 1 character",
             isInputValid: InputValidator.isUsernameValid,
@@ -96,14 +82,15 @@ class InputField extends React.Component<InputFieldProps, InputFieldState> {
                     <InputAdornment position="start">
                         <AccountCircleIcon className="Icon"/>
                     </InputAdornment>
-                ), ...InputProps
+                ),
+                ...InputProps
             }
         };
     }
 
     getAttributesForEmailField(InputProps: any) {
         return {
-            label: "Email",
+            placeholder: "Email",
             type: "text",
             errorHelperText: "Not an email",
             isInputValid: InputValidator.isEmailValid,
@@ -112,14 +99,15 @@ class InputField extends React.Component<InputFieldProps, InputFieldState> {
                     <InputAdornment position="start">
                         <MailOutlineIcon className="Icon"/>
                     </InputAdornment>
-                ), ...InputProps
+                ),
+                ...InputProps
             }
         };
     }
 
     getAttributesForPasswordField(InputProps: any, isPasswordVisible: any, classes: any) {
         return {
-            label: "Password",
+            placeholder : "Password",
             type: isPasswordVisible ? 'text' : 'password',
             errorHelperText: "Should contain minimum 8 characters, including 1 letter and 1 digit",
             isInputValid: InputValidator.isPasswordValid,
@@ -132,7 +120,8 @@ class InputField extends React.Component<InputFieldProps, InputFieldState> {
                             onMouseUp={this.hidePassword.bind(this)}
                         />
                     </InputAdornment>
-                ), ...InputProps
+                ),
+                ...InputProps
             }
         }
     }
@@ -141,12 +130,7 @@ class InputField extends React.Component<InputFieldProps, InputFieldState> {
         const {classes}: InputFieldProps = this.props;
         const {isPasswordVisible} = this.state;
 
-        const InputProps = {
-            classes: {
-                notchedOutline: classes.root
-            },
-            className: classes.input
-        };
+        const InputProps = {classes};
 
         if (fieldType === FieldType.Username)
             return this.getAttributesForUsernameField(InputProps);
@@ -157,29 +141,24 @@ class InputField extends React.Component<InputFieldProps, InputFieldState> {
     }
 
     render() {
-        const {fieldType, classes}: any = this.props;
+        const {fieldType}: any = this.props;
         const {
-            label, InputProps, type,
+            placeholder, InputProps, type,
             errorHelperText, isInputValid
         } = this.getAttributesForCurrentFieldType(fieldType);
 
         return (
             <div className="InputField">
-                <ThemeProvider theme={inputBoxTheme}>
-                    <TextField
-                        label={label}
-                        required
-                        helperText={this.state.helperText}
-                        onBlur={this.validateInput.bind(this, isInputValid, errorHelperText)}
-                        error={this.state.error}
-                        variant="outlined"
-                        InputProps={InputProps}
-                        InputLabelProps={{
-                            className: classes.label
-                        }}
-                        type={type}
-                    />
-                </ThemeProvider>
+                <TextField
+                    placeholder={placeholder}
+                    required
+                    helperText={this.state.helperText}
+                    onBlur={this.validateInput.bind(this, isInputValid, errorHelperText)}
+                    error={this.state.error}
+                    variant="outlined"
+                    InputProps={InputProps}
+                    type={type}
+                />
             </div>
         );
     }
