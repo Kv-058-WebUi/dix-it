@@ -21,9 +21,6 @@ const styles = () => ({
     input: {
         color: '#000',
     },
-    eye: {
-        cursor: 'pointer'
-    }
 });
 
 interface InputFieldProps {
@@ -115,7 +112,7 @@ class InputField extends React.Component<InputFieldProps, InputFieldState> {
                 endAdornment: (
                     <InputAdornment position="end">
                         <VisibilityIcon
-                            className={classes.eye}
+                            className='InputField-Eye'
                             onMouseDown={this.showPassword.bind(this)}
                             onMouseUp={this.hidePassword.bind(this)}
                         />
@@ -130,7 +127,9 @@ class InputField extends React.Component<InputFieldProps, InputFieldState> {
         const {classes}: InputFieldProps = this.props;
         const {isPasswordVisible} = this.state;
 
-        const InputProps = {classes};
+        const InputProps = {
+            classes: classes
+        };
 
         if (fieldType === FieldType.Username)
             return this.getAttributesForUsernameField(InputProps);
