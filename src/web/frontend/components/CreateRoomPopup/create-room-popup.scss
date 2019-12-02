@@ -20,15 +20,18 @@
         }
     }
     &__label {
-        margin-bottom: 20px;
         color: #E5E5E5;
         font: 700 24px Montserrat, sans-serif;
+        margin-bottom: 20px;
     }
     &__line-wrapper {
         display: flex;
         justify-content: space-between;
         align-items: center;
         margin-bottom: 30px;
+        .create-room-popup__label {
+            margin-bottom: 0;
+        }
     }
     &__player-amount {
         &-wrapper {

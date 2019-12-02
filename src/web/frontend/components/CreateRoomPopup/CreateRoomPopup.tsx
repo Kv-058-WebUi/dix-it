@@ -2,6 +2,9 @@ import React from 'react';
 import Dialog, { DialogProps } from '@material-ui/core/Dialog';
 import { Link } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 import './create-room-popup.scss';
 
 class CreateRoomPopup extends React.Component {
@@ -35,7 +38,8 @@ class CreateRoomPopup extends React.Component {
   }
 }
 
-const useStyles = makeStyles({
+
+const useStyles = makeStyles(theme => ({
   paper: {
     background: "#24272E",
     borderRadius: 20,
@@ -43,10 +47,24 @@ const useStyles = makeStyles({
     padding: 30,
     minWidth: 430
   },
-});
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+  },
+  selectEmpty: {
+    marginTop: theme.spacing(2),
+  },
+}));
 
 export default function ModalDefault(props: DialogProps) {
   const classes = useStyles();
+
+  const [amount, setAmount] = React.useState('5');
+  const [labelWidth] = React.useState(0);
+
+  const handleChange = (event: any) => {
+    setAmount(event.target.value);
+  };
 
   return (
     <Dialog {...props} classes={{ ...classes }}>
@@ -57,16 +75,21 @@ export default function ModalDefault(props: DialogProps) {
         <div className='create-room-popup__line-wrapper'>
           <label htmlFor='player-amount'
             className='create-room-popup__label'>Amount of players:</label>
-          <div className='create-room-popup__player-amount-wrapper'>
-            <select name='amount-of-players' id='player-amount'
-              className='create-room-popup__player-amount-value'>
-              <option value='3'>3</option>
-              <option value='4'>4</option>
-              <option value='5'>5</option>
-              <option value='6'>6</option>
-              <option value='7'>7</option>
-            </select>
-          </div>
+          <FormControl variant="outlined" className={classes.formControl}>
+            <Select
+              labelId="player-amount"
+              id="demo-simple-select-outlined"
+              value={amount}
+              onChange={handleChange}
+              labelWidth={labelWidth}
+            >
+              <MenuItem value={3}>3</MenuItem>
+              <MenuItem value={4}>4</MenuItem>
+              <MenuItem value={5}>5</MenuItem>
+              <MenuItem value={6}>6</MenuItem>
+              <MenuItem value={7}>7</MenuItem>
+            </Select>
+          </FormControl>
         </div>
         <div className='create-room-popup__line-wrapper'>
           <label htmlFor='is-private' className='create-room-popup__label'>Private?</label>
