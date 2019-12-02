@@ -152,7 +152,7 @@ class InputField extends React.Component<InputFieldProps, InputFieldState> {
                     placeholder={placeholder}
                     required
                     helperText={this.state.helperText}
-                    onBlur={this.validateInput.bind(this, isInputValid, errorHelperText)}
+                    onChange={(event) => this.validateInput(isInputValid, errorHelperText, event)}
                     error={this.state.error}
                     variant="outlined"
                     InputProps={InputProps}
