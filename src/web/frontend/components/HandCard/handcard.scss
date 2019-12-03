@@ -1,0 +1,32 @@
+.handcard-container {
+  position: relative;
+  width: 100px;
+  height: 140px;
+  margin: 10px;
+  display: inline-block;
+
+  .hand-card {
+    position: absolute;
+    width: 100px;
+    height: 140px;
+    left: 0;
+    top: 0;
+    margin: 10px;
+    border-radius: 15px;
+    background-size: cover;
+
+    img {
+      position: relative;
+      transform-origin: 50% 50%;
+      transition: .3s;
+
+      &:hover {
+        transform: scale(1.8);
+        z-index: 1;
+      }
+    }
+  }
+}
+
+
+
