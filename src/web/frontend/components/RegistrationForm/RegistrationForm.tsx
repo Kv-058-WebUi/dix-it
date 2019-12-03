@@ -20,7 +20,40 @@ const styles = () => ({
     },
 });
 
-class RegistrationForm extends React.Component {
+interface RegistrationFormProps {
+
+}
+
+interface RegistrationFormState {
+    username: string,
+    email: string,
+    password: string
+}
+
+class RegistrationForm extends React.Component<RegistrationFormProps, RegistrationFormState> {
+    constructor(props: RegistrationFormProps) {
+        super(props);
+        this.state = {username: "", email: "", password: ""};
+    }
+
+    onFormSubmit(event: any) {
+        event.preventDefault();
+        if (this.formHasAllFieldsFilled()) {
+            // send post request with values
+        }
+    }
+
+    formHasAllFieldsFilled() {
+        Object.entries(this.state).forEach(
+            ([stateName, stateValue]) => {
+                if (stateValue === "") {
+                    console.log(`${stateName} is not valid`);
+                    return false;
+                }
+            }
+        );
+        return true;
+    }
 
     render() {
         const {classes}: any = this.props;
@@ -32,18 +65,28 @@ class RegistrationForm extends React.Component {
                 windowHeight={formHeight}
                 windowWidth={formWidth}
                 isContentCentered={true}>
-                <div className='RegistrationForm-ControlButtons'>Sign Up Sign In</div>
-                <div className="RegistrationForm-InputFields">
-                    <InputField fieldType='username'/>
-                    <InputField fieldType='email'/>
-                    <InputField fieldType='password'/>
-                </div>
-                <div className="RegistrationForm-ButtonContainer">
-                    <Button className={classes.button}>
-                        Create account
-                    </Button>
-                </div>
-                <SocialLoginBar/>
+                <form onSubmit={(e) => {
+                    this.onFormSubmit(e)
+                }}>
+                    <div className='RegistrationForm-ControlButtons'>Sign Up Sign In</div>
+                    <div className="RegistrationForm-InputFields">
+                        <InputField fieldType='username' onValueUpdate={(username) => {
+                            this.setState({username: username})
+                        }}/>
+                        <InputField fieldType='email' onValueUpdate={(email) => {
+                            this.setState({email: email})
+                        }}/>
+                        <InputField fieldType='password' onValueUpdate={(password) => {
+                            this.setState({password: password})
+                        }}/>
+                    </div>
+                    <div className="RegistrationForm-ButtonContainer">
+                        <Button className={classes.button} type='submit'>
+                            Create account
+                        </Button>
+                    </div>
+                    <SocialLoginBar/>
+                </form>
             </ModalWindow>
         );
     };

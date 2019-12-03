@@ -1,6 +1,9 @@
+const passwordLengthMin: number = 2;
+const passwordLengthMax: number = 30;
 export default class InputValidator {
+
     static isUsernameValid(username: string): boolean {
-        return username.length > 1 && username.length < 30;
+        return username.length >= passwordLengthMin && username.length <= passwordLengthMax;
     }
 
     static isEmailValid(email: string): boolean {

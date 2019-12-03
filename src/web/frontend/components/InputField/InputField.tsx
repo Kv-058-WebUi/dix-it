@@ -6,7 +6,7 @@ import InputValidator from "./InputValidator"
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import VisibilityIcon from '@material-ui/icons/Visibility';
-import {InputAdornment, TextField, Theme} from "@material-ui/core";
+import {InputAdornment, TextField} from "@material-ui/core";
 import {withStyles} from "@material-ui/styles";
 
 
@@ -25,11 +25,13 @@ const styles = () => ({
 
 interface InputFieldProps {
     fieldType: string
+    onValueUpdate: (value: string) => void;
     classes: any
 }
 
 interface InputFieldState {
-    error: boolean,
+    inputValue: string,
+    isValueInvalid: boolean,
     helperText: string
     password?: string
     isPasswordVisible?: boolean
@@ -46,7 +48,7 @@ class InputField extends React.Component<InputFieldProps, InputFieldState> {
     };
 
     static defaultState = {
-        error: false, helperText: "", showPassword: false
+        isValueInvalid: false, helperText: "", showPassword: false, inputValue: ""
     };
 
     showPassword(): void {
@@ -57,22 +59,29 @@ class InputField extends React.Component<InputFieldProps, InputFieldState> {
         this.setState({isPasswordVisible: false});
     }
 
-    //rerenders the component and shows helper text if input is invalid
-    validateInput(isInputValid: (inputValue: string) => boolean, errorHelperText: string, event?: any) {
-        const inputValue: string = event.target.value;
-
-        if (!isInputValid(inputValue)) {
-            this.setState({error: true, helperText: errorHelperText});
+    validateInput(isInputValid: (inputValue: string) => boolean, errorHelperText: string, event?: any): void {
+        const inputText = event.target.value;
+        if (!isInputValid(inputText)) {
+            this.setState({isValueInvalid: true, helperText: errorHelperText});
             return;
         }
-        this.setState(InputField.defaultState);
+        this.setState({isValueInvalid: false, helperText: ""});
     }
 
-    getAttributesForUsernameField(InputProps: any) {
+    //don't send value to parent if it's invalid
+    sendInputValueToParent(event: any): void {
+        let fieldValue = event.target.value;
+        if (this.state.isValueInvalid) {
+            fieldValue = "";
+        }
+        this.props.onValueUpdate(fieldValue);
+        this.setState({inputValue: fieldValue});
+    }
+
+    getAttributesForUsernameField(InputProps: any): any {
         return {
-            placeholder: "Username",
             type: "text",
-            errorHelperText: "Username should have more than 1 character",
+            errorHelperText: "Username length should be between 2 and 30",
             isInputValid: InputValidator.isUsernameValid,
             InputProps: {
                 startAdornment: (
@@ -87,7 +96,6 @@ class InputField extends React.Component<InputFieldProps, InputFieldState> {
 
     getAttributesForEmailField(InputProps: any) {
         return {
-            placeholder: "Email",
             type: "text",
             errorHelperText: "Not an email",
             isInputValid: InputValidator.isEmailValid,
@@ -102,9 +110,8 @@ class InputField extends React.Component<InputFieldProps, InputFieldState> {
         };
     }
 
-    getAttributesForPasswordField(InputProps: any, isPasswordVisible: any, classes: any) {
+    getAttributesForPasswordField(InputProps: any, isPasswordVisible: any): any {
         return {
-            placeholder : "Password",
             type: isPasswordVisible ? 'text' : 'password',
             errorHelperText: "Should contain minimum 8 characters, including 1 letter and 1 digit",
             isInputValid: InputValidator.isPasswordValid,
@@ -136,24 +143,29 @@ class InputField extends React.Component<InputFieldProps, InputFieldState> {
         if (fieldType === FieldType.Email)
             return this.getAttributesForEmailField(InputProps);
         if (fieldType === FieldType.Password)
-            return this.getAttributesForPasswordField(InputProps, isPasswordVisible, classes);
+            return this.getAttributesForPasswordField(InputProps, isPasswordVisible);
+    }
+
+    capitalizeFirstChar(s: string) {
+        return s.charAt(0).toUpperCase() + s.slice(1);
     }
 
     render() {
         const {fieldType}: any = this.props;
         const {
-            placeholder, InputProps, type,
+            InputProps, type,
             errorHelperText, isInputValid
         } = this.getAttributesForCurrentFieldType(fieldType);
 
         return (
             <div className="InputField">
                 <TextField
-                    placeholder={placeholder}
+                    placeholder={this.capitalizeFirstChar(fieldType)}
                     required
                     helperText={this.state.helperText}
                     onChange={(event) => this.validateInput(isInputValid, errorHelperText, event)}
-                    error={this.state.error}
+                    onBlur={(event) => this.sendInputValueToParent(event)}
+                    error={this.state.isValueInvalid}
                     variant="outlined"
                     InputProps={InputProps}
                     type={type}
