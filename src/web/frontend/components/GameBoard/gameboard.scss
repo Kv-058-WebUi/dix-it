@@ -1,0 +1,24 @@
+.game-settings {
+  position: fixed;
+  left: 40px;
+  bottom: 40px;
+}
+
+.game-settings__btn {
+  display: inline-block;
+  background-color: transparent;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.game-settings__list {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.game-settings__item {
+  display: inline-block;
+}

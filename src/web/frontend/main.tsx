@@ -1,6 +1,8 @@
 import React, {useState} from "react";
 import ReactDOM from "react-dom";
 import MainPage from './components/MainPage/MainPage';
+import Lobby from './components/Lobby/lobby';
+import GameBoard from "./components/GameBoard/GameBoard";
 import {
     BrowserRouter as Router,
     Switch,
@@ -26,12 +28,13 @@ const App = () => {
     );
 };
 
-function GameBoard () {
-    return <h2>GameBoard PAGE</h2>;
-}
-function Lobby () {
-    return <h2>Lobby PAGE</h2>;
-}
+// function GameBoard () {
+//     return <h2>GameBoard PAGE</h2>;
+// }
+
+// function Lobby () {
+//     return <h2>Lobby PAGE</h2>;
+// }
 
 ReactDOM.render(
     <App/>,

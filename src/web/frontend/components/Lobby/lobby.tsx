@@ -1,13 +1,21 @@
 import React from "react"
 import Table from "./Table"
+import Header from '../Header/Header';
+import Footer from '../Footer/Footer';
 import './lobby.scss'
 
 export default class Lobby extends React.Component {
 
     render() {
         return (
-            <div className={'lobby-wrapper'}>
-                <Table/>
+            <div className={'main'}>
+                <Header/>
+
+                <div className={'lobby-wrapper'}>
+                    <Table/>
+                </div>
+
+                <Footer />
             </div>
         )
     }

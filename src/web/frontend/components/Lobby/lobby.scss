@@ -1,3 +1,9 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
 .lobby-wrapper {
   display: block;
   width: calc(100% - 100px);
@@ -5,10 +11,13 @@
   padding: 20px;
   background-color: rgba(2, 1, 6, 0.5);
   margin: 20px auto;
+  flex-grow: 1;
 }
 
 .lobby__table {
   padding-right: 165px;
+  max-height: calc(100vh - 350px);
+  overflow: auto;
 }
 
 .lobby__table-row {
@@ -17,6 +26,7 @@
   margin-bottom: 4px;
   &.head {
     padding-bottom: 12px;
+    padding-right: 165px;
     .lobby__table-cell {
       background-color: transparent;
     }

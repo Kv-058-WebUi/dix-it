@@ -97,6 +97,46 @@ export default class Table extends React.Component<any, tableState> {
                 locked: true,
                 playersCur: 3,
                 playersMax: 7
+            },
+            {
+                id: 12,
+                creator: 'Peteasdr',
+                name: 'Awesome Room',
+                locked: true,
+                playersCur: 3,
+                playersMax: 7
+            },
+            {
+                id: 13,
+                creator: 'Peteasdr',
+                name: 'Awesome Room',
+                locked: true,
+                playersCur: 3,
+                playersMax: 7
+            },
+            {
+                id: 14,
+                creator: 'Peteasdr',
+                name: 'Awesome Room',
+                locked: true,
+                playersCur: 3,
+                playersMax: 7
+            },
+            {
+                id: 15,
+                creator: 'Peteasdr',
+                name: 'Awesome Room',
+                locked: true,
+                playersCur: 3,
+                playersMax: 7
+            },
+            {
+                id: 16,
+                creator: 'Peteasdr',
+                name: 'Awesome Room',
+                locked: true,
+                playersCur: 3,
+                playersMax: 7
             }
         ],
         instantList: []
@@ -142,24 +182,24 @@ export default class Table extends React.Component<any, tableState> {
     render() {
         return (
             <div className={'lobby__table-wrapper'}>
-                <div className={'lobby__table'}>
-                    <div className={'lobby__table-row head'}>
-                        <div className={'lobby__table-cell creator'}>
-                            <p className={'lobby__table-text'} onClick={() => this.sortBy('creator')}>Creator</p>
-                        </div>
-                        <div className={'lobby__table-cell room-name'}>
-                            <p className={'lobby__table-text'} onClick={() => this.sortBy('name')}>Room name</p>
-                        </div>
-                        <div className={'lobby__table-cell access'}>
-                            <p className={'lobby__table-text'} onClick={() => this.sortBy('locked')}>
-                                public
-                            </p>
-                        </div>
-                        <div className={'lobby__table-cell players'}>
-                            <p className={'lobby__table-text'} onClick={() => this.sortByPlaces('playersCur', 'playersMax')}>Players</p>
-                        </div>
-                        <div className={'lobby__table-cell btn'}/>
+                <div className={'lobby__table-row head'}>
+                    <div className={'lobby__table-cell creator'}>
+                        <p className={'lobby__table-text'} onClick={() => this.sortBy('creator')}>Creator</p>
                     </div>
+                    <div className={'lobby__table-cell room-name'}>
+                        <p className={'lobby__table-text'} onClick={() => this.sortBy('name')}>Room name</p>
+                    </div>
+                    <div className={'lobby__table-cell access'}>
+                        <p className={'lobby__table-text'} onClick={() => this.sortBy('locked')}>
+                            public
+                        </p>
+                    </div>
+                    <div className={'lobby__table-cell players'}>
+                        <p className={'lobby__table-text'} onClick={() => this.sortByPlaces('playersCur', 'playersMax')}>Players</p>
+                    </div>
+                    <div className={'lobby__table-cell btn'}/>
+                </div>
+                <div className={'lobby__table'}>
                     {
                         this.state.list.map((room: roomParams, i: number) => {
                                 return (
