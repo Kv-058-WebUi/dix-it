@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import ReactDOM from "react-dom";
 import MainPage from './components/MainPage/MainPage';
-import Lobby from './components/Lobby/lobby';
+import Lobby from './components/Lobby/Lobby';
 import GameBoard from "./components/GameBoard/GameBoard";
 import {
     BrowserRouter as Router,
