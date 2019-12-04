@@ -1,21 +1,51 @@
 import express from "express";
 import http from "http";
 import path from "path";
+import RoomController from "./backend/controllers/room.controller";
+import Controller from './backend/interfaces/controller.interface';
+import AuthenticationController from "./backend/authentication/authentication.controller";
+import bodyParser from "body-parser";
+import { UserController } from "./backend/controllers/user.controller";
 
-// Express app initialization
-const app = express();
+class App {
+  public app: express.Application;
+  // Express app initialization
+  constructor() {
+    this.app = express();
+    this.initializeMiddlewares();
+    this.initializeApp(); 
+  }
+  public initializeApp() {
+    // Template configuration
+    this.app.set("view engine", "ejs");
+    this.app.set("views", "public");
 
-// Template configuration
-app.set("view engine", "ejs");
-app.set("views", "public");
 
-// Static files configuration
-app.use("/assets", express.static(path.join(__dirname, "frontend")));
+    // Static files configuration
+    this.app.use("/assets", express.static(path.join(__dirname, "frontend")));
 
-// Controllers
-app.get("/*", (req, res) => {
-    res.render("index");
-});
+    // Controllers
+    this.app.use('/', new RoomController().router)
+    this.app.use('/', new AuthenticationController().router)
+    this.app.use('/', new UserController().router)
+    this.app.get("/*", (req, res) => {
+      res.render("index");
+    });
+  }
+  public listen() {
+    this.app.listen(process.env.PORT, () => {
+      console.log(`App listening on the port ${process.env.PORT}`);
+    });
+  }
+
+  public getServer() {
+    return this.app;
+  }
+
+  private initializeMiddlewares() {
+    this.app.use(bodyParser.json());
+  }
+}
 
 // Start function
 // export const start = (port: number): Promise<void> => {
@@ -26,9 +56,11 @@ app.get("/*", (req, res) => {
 //     });
 // };
 
+
+
 export const start = (port: number): Promise<void> => {
   return new Promise<void>((resolve, reject) => {
-    const server = app.listen(process.env.PORT || 5000, function() {
+    const server = new App().app.listen(process.env.PORT || 5000, function () {
       console.log(`Listening on port ${process.env.PORT} 3000`);
     });
   });

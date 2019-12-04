@@ -3,24 +3,48 @@ import {Column, Entity, PrimaryGeneratedColumn} from 'typeorm';
 
 @Entity()
 export class DixitUser {
-    @PrimaryGeneratedColumn()
+    @PrimaryGeneratedColumn({
+        type: 'integer'
+    })
     user_id!: number;
 
-    @Column()
+    @Column({
+        type: 'text',
+        nullable: false,
+        unique: true
+    })
     nickname!: string;
 
-    @Column()
+    @Column({
+        type: 'text',
+        nullable: false,
+        unique: true
+    })
     email!: string;
 
-    @Column()
+    @Column({
+        type: 'text',
+        nullable: false
+    })
     password!: string;
 
-    @Column()
+    @Column({
+        type: 'text',
+        default: 'path to picture'
+    })
     profile_picture!: string;
 
-    @Column({nullable: false})
+    @Column({
+        nullable: false,
+        type: 'date',
+        default: new Date()
+    })
     created_at!: Date;
 
-    @Column({nullable: false})
+    @Column({
+        nullable: false,
+        type: 'date',
+        default: new Date()
+    })
     lastonline!: Date;
 }

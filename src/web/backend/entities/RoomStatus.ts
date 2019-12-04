@@ -2,9 +2,14 @@ import {Column, Entity, PrimaryColumn} from 'typeorm';
 
 @Entity()
 export class RoomStatus {
-    @PrimaryColumn()
+    @PrimaryColumn({
+        type: 'integer'
+    })
     code!: number;
 
-    @Column({unique: true})
-    status!: string;
+    @Column({
+        nullable: false,
+        type: 'text'
+    })
+    status?: string;
 }

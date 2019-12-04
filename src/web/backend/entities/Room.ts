@@ -2,35 +2,60 @@ import {Column, Entity, PrimaryGeneratedColumn, OneToOne, JoinColumn, ManyToOne}
 import {Player} from './Player';
 import {RoomStatus} from './RoomStatus';
 
-@Entity({name:"rooms"
-}) 
+@Entity() 
 export class Room {
-    @PrimaryGeneratedColumn()
+    @PrimaryGeneratedColumn({
+        type: "integer"
+    })
     room_id!: number;
 
-    @ManyToOne(() => Player, (creator_id: Player) => creator_id.player_id, {cascade: true}) 
-    @JoinColumn()
-    creator_id!: Player
+    @ManyToOne(() => Player, (creator_id: Player) => creator_id.player_id, {cascade: true, eager: true}) 
+    @JoinColumn({
+        name: 'creator_id'
+    })
+    creator_id!: Player;
 
-    @Column()
+    @Column({
+        type: 'smallint',
+        nullable: false
+    })
     max_players!: number
 
-    @Column()
+    @Column({
+        type: 'boolean',
+        nullable: false
+    })
     is_private!: boolean
 
-    @Column()
-    password!: string
+    @Column({
+        type: 'text',
+        nullable: true
+    })
+    password?: string
 
-    @Column()
+    @Column({
+        type: 'text',
+        unique: true,
+        default: Math.floor(Math.random()*90000) + 10000
+    })
     room_code!: string
 
-    @OneToOne(() => RoomStatus, (status: RoomStatus) => status.code, {cascade: true})
-    @JoinColumn()
+    @ManyToOne(() => RoomStatus, (status: RoomStatus) => status.code, {cascade: true, eager: true})
+    @JoinColumn({
+        name: 'status',
+    })
     status!: RoomStatus
 
-    @Column()
+    @Column({
+        type: 'text',
+        nullable: false
+    })
     name!: string
 
-    @Column()
+    @Column({
+        type: 'date',
+        nullable: false,
+        default: new Date()
+    })
     timestamp!: Date;
 }

@@ -1,17 +1,24 @@
-import {Entity, PrimaryGeneratedColumn, OneToOne, JoinColumn} from 'typeorm';
+import {Entity, PrimaryGeneratedColumn, OneToOne, JoinColumn, Column} from 'typeorm';
 import { DixitUser } from './User';
 
 
 @Entity()
 export class Player {
-    @PrimaryGeneratedColumn()
+    @PrimaryGeneratedColumn({
+        type: 'integer'
+    })
     player_id!: number;
 
     @OneToOne(() => DixitUser, (user_id: DixitUser) => user_id.user_id, {cascade: true})
-    @JoinColumn()
-    user_id!: DixitUser;
+    @JoinColumn({
+        name: 'user_id',
+    })
+    user_id?: DixitUser;
 
-    @OneToOne(() => DixitUser, (nickname: DixitUser) => nickname.nickname, {cascade: true})
-    @JoinColumn()
-    nickname!: DixitUser;
+    @Column({
+        nullable:false,
+        type: 'text',
+        unique: true
+    })
+    nickname!: string;
 }

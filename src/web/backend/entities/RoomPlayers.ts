@@ -3,7 +3,10 @@ import { Player } from './Player';
 import { Room } from './Room';
 @Entity()
 export class RoomPlayer {
-    @Column()
+    @Column({
+        type: 'integer',
+        nullable: false
+    })
     points!: number;
 
     @ManyToOne(() => Player, (player_id: Player) => player_id.player_id, {primary: true})

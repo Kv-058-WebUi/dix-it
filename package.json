@@ -44,7 +44,9 @@
     "webpack-dev-server": "^3.9.0"
   },
   "dependencies": {
+    "@types/bcrypt": "^3.0.0",
     "@types/geojson": "^7946.0.7",
+    "bcrypt": "^3.0.7",
     "ejs": "^2.7.1",
     "express": "^4.17.1",
     "pg": "^7.14.0",
