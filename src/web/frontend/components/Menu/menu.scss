@@ -1,0 +1,40 @@
+.menu {
+  position: absolute;
+  top: 50%;
+  left: 20%;
+  transform: translate(0, -50%);
+
+  .button {
+    font-family: Montserrat Alternates;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 44px;
+    color: white;
+    width: 330px;
+    height: 100px;
+    background: linear-gradient(90deg, #F27A54 0%, #A154F2 100%);
+    border-radius: 50px;
+    text-transform: uppercase;
+    transition: border, box-shadow .3s;
+
+    &:hover {
+      box-shadow: 0px 0px 30px #EC7760;
+    }
+  }
+
+  .links {
+    margin: 20px;
+    color: white;
+    font-size: 30px;
+    font-family: Montserrat Alternates;
+    text-transform: uppercase;
+    width: 300px;
+    text-align: center;
+
+    li {
+      padding: 20px 0;
+    }
+  }
+}
+
+
