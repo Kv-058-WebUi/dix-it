@@ -60,8 +60,9 @@ class App {
 
 export const start = (port: number): Promise<void> => {
   return new Promise<void>((resolve, reject) => {
-    const server = new App().app.listen(process.env.PORT || 5000, function () {
-      console.log(`Listening on port ${process.env.PORT} 3000`);
+    port = Number(process.env.PORT) || 5000;
+    const server = new App().app.listen(port, function () {
+      console.log(`Listening on port ${port}`);
     });
   });
 };
