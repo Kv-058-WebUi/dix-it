@@ -13,7 +13,6 @@ export class UserController implements Controller {
     }
     
     private initializeRoutes() {
-    this.router.get(`${this.path}/:id`, this.deleteUser)
     this.router.get(this.path, this.getAllUsers);
     }
 
