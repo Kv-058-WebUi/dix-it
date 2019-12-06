@@ -74,7 +74,5 @@ export default class Dixit {
         });
     }
 }
-//
-// const firstGame = new Dixit(players);
-// const game = firstGame.serveCards();
+
 
