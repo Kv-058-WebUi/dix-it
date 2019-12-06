@@ -4,16 +4,23 @@ import './hand.scss';
 
 
 type HandProps = {
-    cards: object[]
+    cards: object[],
+    pushCard: void
 }
 
 export default class Hand extends Component <HandProps> {
     render() {
+        const { pushCard, cards } = this.props;
+
         return (
             <div className='field-hand'>
-                {this.props.cards.map((card:object, index:number) => {
+                {cards.map((card:object, index:number) => {
                     return (
-                        <HandCard imageUrl={card.imgURL} key={index} />
+                        <HandCard
+                            key={index}
+                            card={card}
+                            pushCard={pushCard}
+                        />
                     );
                 })}
             </div>

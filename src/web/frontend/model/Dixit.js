@@ -55,18 +55,20 @@ export default class Dixit {
             throw new Error('Wrong quantity of players');
         }
         this.players = players;
-        this.cardDeck = cardDeck;
-        this.cardsPerPlayer = 3;
+        this.fullCardDeck = cardDeck;
+        this.cardsPerPlayer = 7;
     }
 
     serveCards() {
+        const cardDeck = [...this.fullCardDeck];
         return this.players.map(player => {
+            player.cards = [];
             for (let i = 0; i < this.cardsPerPlayer; i++) {
-                const cardQuantity = this.cardDeck.length;
+                const cardQuantity = cardDeck.length;
                 const index = Math.floor(Math.random() * cardQuantity);
-                const currentCard = this.cardDeck[index];
+                const currentCard = cardDeck[index];
                 player.cards.push(currentCard);
-                cardDeck.splice(currentCard, 1);
+                cardDeck.splice(index, 1);
             }
             return player;
         });

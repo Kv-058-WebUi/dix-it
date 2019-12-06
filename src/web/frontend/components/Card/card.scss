@@ -12,10 +12,13 @@
   left: 0;
   top: 0;
   margin: 10px;
-  background: url('cardshirt.png');
   border-radius: 15px;
   background-size: cover;
-  opacity: .3;
+  opacity: 0.3;
+
+  &.active-card {
+    opacity: 1;
+  }
 
   //&:hover {
   //  width: 160px;

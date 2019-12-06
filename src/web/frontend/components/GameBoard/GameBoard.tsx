@@ -19,46 +19,75 @@ import '../../images/cards/card_11.png';
 import '../../images/cards/card_12.png';
 
 
-const users = [
-    {
-        id: 1,
-        name: 'Johnny Depp',
-        cards: []
-    },
-    {
-        id: 2,
-        name: 'Brad Pitt',
-        cards: []
-    },
-    {
-        id: 3,
-        name: 'Elon Musk',
-        cards: []
-    }
-];
+
+// todo:
+// show pushed cards instead of free slots
+// this.state.users -> this.state.users.length in PushedCards ?
 
 type GameBoardState = {
-    users: object[]
+    users: object[],
+    pushedCards: object[]
 };
 
 export default class GameBoard extends Component <{}, GameBoardState> {
+    static defaultProps = {
+        users: [
+            {
+                id: 1,
+                name: 'Johnny Depp',
+            },
+            {
+                id: 2,
+                name: 'Brad Pitt',
+            },
+            {
+                id: 3,
+                name: 'Elon Musk',
+            },
+            {
+                id: 3,
+                name: 'Elon Musk',
+            },
+            {
+                id: 3,
+                name: 'Elon Musk',
+            },
+            {
+                id: 3,
+                name: 'Elon Musk',
+            },
+            {
+                id: 3,
+                name: 'Elon Musk',
+            }
+        ]
+    };
+
     constructor(props: any) {
         super(props);
-        const game = new Dixit(users);
+        const game = new Dixit(props.users);
         const playersWithCards = game.serveCards();
         this.state = {
-            users: playersWithCards
+            users: playersWithCards,
+            pushedCards: []
         }
     }
 
+    pushCard = (card) => {
+        const { pushedCards } = this.state;
+        pushedCards.push(card);
+        this.setState({ pushedCards });
+    };
+
     render() {
+        const { pushedCards } = this.state;
         return (
             <div>
                 <Link to='/'>
                     <img className='game-logo' src={require('../Header/LOGO.png')} alt='logo'/>
                 </Link>
-                <PushedCards users={this.state.users}/>
-                <Hand cards={this.state.users[0].cards}/>
+                <PushedCards users={this.state.users} pushedCards={pushedCards} />
+                <Hand cards={this.state.users[0].cards} pushCard={this.pushCard} />
             </div>
         );
     }

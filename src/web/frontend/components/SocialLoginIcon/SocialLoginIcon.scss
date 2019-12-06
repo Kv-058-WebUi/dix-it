@@ -1,0 +1,20 @@
+.SocialLoginIcon {
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  top: 53%;
+  transform: translateY(-50%);
+}
+
+.SocialLoginIcon-Wrapper {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  border: 1px solid #E5E5E5;
+  border-radius: 25px;
+  margin: 0 20px 0 20px;
+}
+
+.SocialLoginIcon-Wrapper:hover {
+  box-shadow: 0 0 10px #BDC3D1;
+}
