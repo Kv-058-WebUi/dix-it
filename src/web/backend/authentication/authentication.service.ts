@@ -1,5 +1,5 @@
-import * as bcrypt from 'bcrypt';
 import { getRepository } from 'typeorm';
+import bcryptjs from 'bcryptjs'
 import CreateUserDto from '../dto/user.dto';
 import { DixitUser } from '../entities/User';
 import UserWithThatEmailAlreadyExistsException from '../exceptions/UserWithThatEmailAlredyExistException';
@@ -19,7 +19,8 @@ class AuthenticationService {
             ) {
             throw new UserWithThatNicknameAlreadyExistsException(userData.nickname)
         }
-        const hashedPassword = await bcrypt.hash(userData.password, 10);
+        const salt = bcryptjs.genSaltSync(10);
+        const hashedPassword = await bcryptjs.hashSync("B4c0/\/", salt);
         const user = this.userRepository.create({
             ...userData,
             password: hashedPassword,
