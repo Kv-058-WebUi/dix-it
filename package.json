@@ -73,7 +73,7 @@
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
     "reflect-metadata": "^0.1.13",
-    "typeorm": "^0.2.20"
+    "typeorm": "^0.2.20",
     "react-router-dom": "^5.1.2"
   }
 }
