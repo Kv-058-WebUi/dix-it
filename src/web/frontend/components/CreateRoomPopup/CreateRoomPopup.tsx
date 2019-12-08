@@ -37,6 +37,12 @@ export default function CreateRoomPopup() {
             borderRadius: 10,
           }
         },
+        icon: {
+          color: 'black',
+        },
+        iconFilled: {
+          right: 0,
+        }
       }),
       MuiFilledInput: createStyles({
         root: {
