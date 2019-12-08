@@ -3,11 +3,26 @@ import { Link } from "react-router-dom";
 import CreateRoomPopup from '../CreateRoomPopup/CreateRoomPopup';
 import './menu.scss';
 
-export default class Menu extends Component<{}, { showModal: boolean }> {
-    constructor() {
-        super({});
-        this.state = { showModal: false }
+type MenuState = {
+    showCreateRoomPopup: boolean
+};
+
+export default class Menu extends Component<any, MenuState> {
+    constructor(props: any) {
+        super(props);
+
+        this.state = {
+            showCreateRoomPopup: false
+        };
     }
+
+    handleCreateRoomClick = () => this.setState({ showCreateRoomPopup: true });
+
+    toggleCreateRoomPopup = (e: any) => {
+        if (!e.target.closest('.ModalWindow') && !e.target.closest('.MuiPopover-root')) {
+            this.setState({ showCreateRoomPopup: false });
+        }
+    };
 
     render() {
         return (
@@ -16,13 +31,14 @@ export default class Menu extends Component<{}, { showModal: boolean }> {
                     <button className='button'><Link to='/game'>Play</Link></button>
                     <ul className='links'>
                         <li><Link to='/lobby'>Join the game</Link></li>
-                        <li><a href='#' onClick={() => this.setState({ showModal: true })}>Create room</a></li>
+                        <li><a href='#' onClick={this.handleCreateRoomClick}>Create room</a></li>
                     </ul>
                 </div>
-                <CreateRoomPopup
-                    onClose={() => this.setState({ showModal: false })}
-                    open={this.state.showModal}
-                />
+                { this.state.showCreateRoomPopup ? (
+                    <div onClick={this.toggleCreateRoomPopup}>
+                        <CreateRoomPopup />
+                    </div>
+                ) : '' }
             </React.Fragment>
         );
     }

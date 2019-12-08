@@ -1,63 +1,73 @@
 import React from 'react';
-import Dialog, { DialogProps } from '@material-ui/core/Dialog';
 import { Link } from "react-router-dom";
-import { makeStyles } from '@material-ui/core/styles';
+import { MuiThemeProvider } from '@material-ui/core/styles';
+import { createMuiTheme, createStyles } from '@material-ui/core';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import ModalWindow from "../ModalWindow/ModalWindow";
 import './create-room-popup.scss';
 
-class CreateRoomPopup extends React.Component {
-  private root: HTMLElement | null;
+export default function CreateRoomPopup() {
 
-  constructor(props: {}) {
-    super(props);
-    this.root = document.getElementById("root");
-  }
+  const formHeight = 'auto';
+  const formWidth = '435px';
 
-  toggleModal() {
-    if (this.root !== null) {
-      this.root.classList.toggle('modal_active');
+  const myTheme = createMuiTheme({
+    overrides: {
+      MuiMenuItem: createStyles({
+        root: {
+          '&&:hover': {
+            backgroundColor: 'pink',
+            color: 'white'
+          }
+        },
+      }),
+      MuiSelect: createStyles({
+        root: {
+          backgroundColor: 'white',
+          fontWeight: 'bold',
+          '&&:focus': {
+            backgroundColor: 'white',
+          }
+        },
+        select: {
+          borderRadius: 10,
+          '&&:focus': {
+            borderRadius: 10,
+          }
+        },
+      }),
+      MuiFilledInput: createStyles({
+        root: {
+          backgroundColor: 'transparent',
+          '&&:hover': {
+            backgroundColor: 'transparent',
+          },
+          '&$focused': {
+            backgroundColor: 'transparent',
+          }
+        },
+        input: {
+          padding: '6px 9px'
+        },
+        underline: {
+          '&&:after': {
+            display: 'none'
+          },
+          '&&:before': {
+            display: 'none'
+          }
+        }
+      }),
+      MuiList: createStyles({
+        padding: {
+          paddingTop: 0,
+          paddingBottom: 0,
+        }
+      })
     }
-  }
-
-  componentWillMount() {
-    this.toggleModal()
-  }
-
-  componentWillUnmount() {
-    this.toggleModal();
-  }
-
-  render() {
-    return (
-      <React.Fragment>
-        {this.props.children}
-      </React.Fragment>
-    );
-  }
-}
-
-
-const useStyles = makeStyles(theme => ({
-  paper: {
-    background: "#24272E",
-    borderRadius: 20,
-    boxShadow: '0px 0px 20px #BDC3D1',
-    padding: 30,
-    minWidth: 430
-  },
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 120,
-  },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
-  },
-}));
-
-export default function ModalDefault(props: DialogProps) {
-  const classes = useStyles();
+  });
 
   const [amount, setAmount] = React.useState('5');
   const [labelWidth] = React.useState(0);
@@ -67,18 +77,20 @@ export default function ModalDefault(props: DialogProps) {
   };
 
   return (
-    <Dialog {...props} classes={{ ...classes }}>
-      <CreateRoomPopup>
-        {props.children}
-        <label className='create-room-popup__label' htmlFor='room-name'>Room name:</label>
-        <input type='text' className='create-room-popup__text-field' id='room-name' />
-        <div className='create-room-popup__line-wrapper'>
-          <label htmlFor='player-amount'
-            className='create-room-popup__label'>Amount of players:</label>
-          <FormControl variant="outlined" className={classes.formControl}>
+    <ModalWindow
+      modalWindowType='create-room'
+      windowHeight={formHeight}
+      windowWidth={formWidth}
+      isContentCentered={false}>
+      <label className='create-room-popup__label' htmlFor='room-name'>Room name:</label>
+      <input type='text' className='create-room-popup__text-field' id='room-name' />
+      <div className='create-room-popup__line-wrapper'>
+        <label htmlFor='player-amount'
+          className='create-room-popup__label'>Amount of players:</label>
+        <MuiThemeProvider theme={myTheme}>
+          <FormControl variant="filled">
             <Select
               labelId="player-amount"
-              id="demo-simple-select-outlined"
               value={amount}
               onChange={handleChange}
               labelWidth={labelWidth}
@@ -90,19 +102,21 @@ export default function ModalDefault(props: DialogProps) {
               <MenuItem value={7}>7</MenuItem>
             </Select>
           </FormControl>
+        </MuiThemeProvider>
+      </div>
+      <div className='create-room-popup__line-wrapper'>
+        <label htmlFor='is-private' className='create-room-popup__label'>Private?</label>
+        <div className='create-room-popup__is-private'>
+          <input type='checkbox' name='is-private' id='is-private' value='is-private'
+            className='create-room-popup__is-private-value' />
+          <span className='create-room-popup__is-private-mark'></span>
         </div>
-        <div className='create-room-popup__line-wrapper'>
-          <label htmlFor='is-private' className='create-room-popup__label'>Private?</label>
-          <div className='create-room-popup__is-private'>
-            <input type='checkbox' name='is-private' id='is-private' value='is-private'
-              className='create-room-popup__is-private-value' />
-            <span className='create-room-popup__is-private-mark'></span>
-          </div>
-        </div>
-        <label className='create-room-popup__label' htmlFor='room-password'>Password:</label>
-        <input type='password' className='create-room-popup__text-field' id='room-password' />
-        <Link to='/game' className='create-room-popup__btn'>Create Room</Link>
-      </CreateRoomPopup>
-    </Dialog>
+      </div>
+      <label className='create-room-popup__label' htmlFor='room-password'>Password:</label>
+      <input type='password' className='create-room-popup__text-field' id='room-password' />
+      <Link to='/game' className='create-room-popup__btn'>Create Room</Link>
+
+    </ModalWindow>
   );
-}
+};
+

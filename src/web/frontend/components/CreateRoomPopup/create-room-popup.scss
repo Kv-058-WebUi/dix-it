@@ -1,13 +1,8 @@
-#root {
-    transition: filter 0.2s ease-in-out;
-    &.modal_active {
-        filter: blur(2px);
-    }
-}
-
 .create-room-popup {
     &__text-field {
+        width: 100%;
         height: 50px;
+        min-height: 50px;
         margin-bottom: 30px;
         padding: 0 15px;
         background: #FFFFFF;
@@ -20,9 +15,10 @@
         }
     }
     &__label {
+        display: block;
+        margin-bottom: 20px;
         color: #E5E5E5;
         font: 700 24px Montserrat, sans-serif;
-        margin-bottom: 20px;
     }
     &__line-wrapper {
         display: flex;
@@ -107,9 +103,10 @@
         }
     }
     &__btn {
-        display: inline-block;
+        display: block;
         align-self: center;
-        margin: 20px 0;
+        margin: 20px auto;
+        max-width: 178px;
         padding: 10px 35px;
         background: linear-gradient(90deg, #F27A54 0%, #A154F2 100%);
         border-radius: 50px;
