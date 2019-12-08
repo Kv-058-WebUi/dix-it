@@ -81,7 +81,7 @@ class InputField extends React.Component<InputFieldProps, InputFieldState> {
     getAttributesForUsernameField(InputProps: any): any {
         return {
             type: "text",
-            errorHelperText: "Username length should be between 2 and 30",
+            errorHelperText: "Username should contain only numbers and letters with length between 2 and 30",
             isInputValid: InputValidator.isUsernameValid,
             InputProps: {
                 startAdornment: (
@@ -113,7 +113,7 @@ class InputField extends React.Component<InputFieldProps, InputFieldState> {
     getAttributesForPasswordField(InputProps: any, isPasswordVisible: any): any {
         return {
             type: isPasswordVisible ? 'text' : 'password',
-            errorHelperText: "Should contain minimum 8 characters, including 1 letter and 1 digit",
+            errorHelperText: "Should contain 8 to 50 characters, including 1 letter, 1 digit and 1 special character",
             isInputValid: InputValidator.isPasswordValid,
             InputProps: {
                 endAdornment: (

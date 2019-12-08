@@ -1,9 +1,7 @@
-const passwordLengthMin: number = 2;
-const passwordLengthMax: number = 30;
-export default class InputValidator {
+ export default class InputValidator {
 
     static isUsernameValid(username: string): boolean {
-        return username.length >= passwordLengthMin && username.length <= passwordLengthMax;
+          return /^[A-Za-z0-9]{2,30}$/.test(username);
     }
 
     static isEmailValid(email: string): boolean {
@@ -11,6 +9,7 @@ export default class InputValidator {
     }
 
     static isPasswordValid(password: string): boolean {
-        return /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(password);
+        return /^.*(?=.{8,50})(?=.*[a-zA-Z])(?=.*\d)(?=.*[!#$%&?_+@^()=\- "]).*$/.test(password);
+        // return /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(password);
     }
 }
