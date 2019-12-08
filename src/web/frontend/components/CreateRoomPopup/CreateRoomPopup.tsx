@@ -70,11 +70,18 @@ export default function CreateRoomPopup() {
   });
 
   const [amount, setAmount] = React.useState('5');
+  const [disabled, setDisabled] = React.useState(true);
+  const [disabledText, setDisabledText] = React.useState(true);
   const [labelWidth] = React.useState(0);
 
   const handleChange = (event: any) => {
     setAmount(event.target.value);
   };
+
+  const handleChecboxClick = () => {
+    setDisabled(!disabled);
+    setDisabledText(!disabledText);
+  }
 
   return (
     <ModalWindow
@@ -108,12 +115,12 @@ export default function CreateRoomPopup() {
         <label htmlFor='is-private' className='create-room-popup__label'>Private?</label>
         <div className='create-room-popup__is-private'>
           <input type='checkbox' name='is-private' id='is-private' value='is-private'
-            className='create-room-popup__is-private-value' />
+            className='create-room-popup__is-private-value' onClick={handleChecboxClick}/>
           <span className='create-room-popup__is-private-mark'></span>
         </div>
       </div>
-      <label className='create-room-popup__label' htmlFor='room-password'>Password:</label>
-      <input type='password' className='create-room-popup__text-field' id='room-password' />
+      <label className={`create-room-popup__label ${disabledText ? "disabled" : ""}`} htmlFor='room-password'>Password:</label>
+      <input type='password' className='create-room-popup__text-field' id='room-password' disabled={disabled}/>
       <Link to='/game' className='create-room-popup__btn'>Create Room</Link>
 
     </ModalWindow>

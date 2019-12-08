@@ -19,6 +19,9 @@
         margin-bottom: 20px;
         color: #E5E5E5;
         font: 700 24px Montserrat, sans-serif;
+        &.disabled {
+            color: #6A727C;
+        }
     }
     &__line-wrapper {
         display: flex;
@@ -119,4 +122,8 @@
             box-shadow: 0px 0px 30px #EC7760;
         }
     }
+}
+
+#room-password:disabled {
+    background-color: #6A727C;
 }
