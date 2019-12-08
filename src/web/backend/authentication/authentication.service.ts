@@ -26,6 +26,7 @@ class AuthenticationService {
             password: hashedPassword,
         });
         await this.userRepository.save(user);
+        return user;
     }
 }
 

@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import DoneOutlineIcon from '@material-ui/icons/DoneOutline';
+import React from 'react';
+import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import './RegistrationConfirmation.scss'
 
 
@@ -7,9 +7,11 @@ export default class RegistrationConfirmation extends React.Component {
     render() {
         return (
             <div className="RegistrationConfirmation">
-                <DoneOutlineIcon style={{ fontSize: "48px"}}/>
+                <h1>Registration successful</h1>
+                <CheckCircleOutlineIcon style={{ fontSize: "48px", margin: "30px 0"}}/>
                 <br/>
-                Thank you for the registration! Please check your email!
+                <p>Please check your email!</p>
+
             </div>
         );
     }

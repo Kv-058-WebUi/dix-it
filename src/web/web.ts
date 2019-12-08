@@ -20,8 +20,6 @@ class App {
     // Template configuration
     this.app.set("view engine", "ejs");
     this.app.set("views", "public");
-    // Unblocking CORS
-    this.app.use(cors());
 
     // Static files configuration
     this.app.use("/assets", express.static(path.join(__dirname, "frontend")));
@@ -46,6 +44,7 @@ class App {
 
   private initializeMiddlewares() {
     this.app.use(bodyParser.json());
+    this.app.use(cors());
   }
 }
 

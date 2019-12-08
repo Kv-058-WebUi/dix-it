@@ -82,7 +82,7 @@ class RegistrationForm extends React.Component<RegistrationFormProps, Registrati
     render() {
         const {classes}: any = this.props;
         const formHeight = '590px';
-        const formWidth = '350px';
+        const formWidth = '360px';
         return (
             <ModalWindow
                 modalWindowType='register'

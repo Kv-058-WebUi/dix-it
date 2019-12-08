@@ -1,6 +1,15 @@
 .RegistrationConfirmation {
-  font-family: Roboto;
+  font-family: Montserrat Alternates;
   font-size: 25px;
   color: #E5E5E5;
-  vertical-align:middle;
+  vertical-align: middle;
+  width: 320px;
+  height: 500px;
+  position: relative;
+  top: 29%;
+
+  p {
+    margin: 0 5px;
+  }
 }
+
