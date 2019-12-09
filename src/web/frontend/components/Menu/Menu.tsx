@@ -19,7 +19,7 @@ export default class Menu extends Component<any, MenuState> {
     handleCreateRoomClick = () => this.setState({ showCreateRoomPopup: true });
 
     toggleCreateRoomPopup = (e: any) => {
-        if (!e.target.closest('.ModalWindow') && !e.target.closest('.MuiPopover-root')) {
+        if (e.target.click && !e.target.closest('.ModalWindow') && !e.target.closest('.MuiPopover-root')) {
             this.setState({ showCreateRoomPopup: false });
         }
     };
