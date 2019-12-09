@@ -4,3 +4,6 @@ export const DB_USER = parseInt(process.env.USER || 'dixit');
 export const DB_PASSWORD = parseInt(process.env.PASSWORD || 'dixit');
 export const DB_HOST = parseInt(process.env.HOST || '127.0.0.1');
 export const DB_NAME = parseInt(process.env.NAME || 'dixit');
+export const EMAIL_USERNAME = process.env.EMAIL_USERNAME || "username";
+export const EMAIL_PASSWORD = process.env.EMAIL_PASSWORD || "password";
+export const JWT_SECRET = process.env.JWT_SECRET || "jwt_secret";
