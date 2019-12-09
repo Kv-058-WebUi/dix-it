@@ -50,7 +50,7 @@ export default class Header extends Component<HeaderProps, HeaderState> {
     };
 
     handleRulesClick = (e: any) => {
-        if (!e.target.closest('.rules')) {
+        if (!e.target.closest('.ModalWindow')) {
             this.setState({ showRules: false });
         }
     };
