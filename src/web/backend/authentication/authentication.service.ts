@@ -15,7 +15,7 @@ class AuthenticationService {
             throw new UserWithThatEmailAlreadyExistsException(userData.email)
         }
         else if (
-            await this.userRepository.findOne({ email: userData.nickname})
+            await this.userRepository.findOne({ nickname: userData.nickname})
             ) {
             throw new UserWithThatNicknameAlreadyExistsException(userData.nickname)
         }
@@ -26,6 +26,7 @@ class AuthenticationService {
             password: hashedPassword,
         });
         await this.userRepository.save(user);
+        return user;
     }
 }
 

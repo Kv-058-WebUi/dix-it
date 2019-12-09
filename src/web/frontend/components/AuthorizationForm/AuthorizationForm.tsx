@@ -34,8 +34,10 @@ class AuthorizationForm extends React.Component {
                 windowHeight={formHeight}
                 isContentCentered={true}>
                 <div className="AuthorizationForm-InputFields">
-                    <InputField fieldType='email'/>
-                    <InputField fieldType='password'/>
+                    <InputField fieldType='email' onValueUpdate={() => {
+                    }}/>
+                    <InputField fieldType='password' onValueUpdate={() => {
+                    }}/>
                 </div>
                 <div className="AuthorizationForm-ButtonContainer">
                     <a href='#'>
