@@ -6,6 +6,7 @@ import Controller from './backend/interfaces/controller.interface';
 import AuthenticationController from "./backend/authentication/authentication.controller";
 import bodyParser from "body-parser";
 import { UserController } from "./backend/controllers/user.controller";
+import cors from "cors";
 
 class App {
   public app: express.Application;
@@ -19,7 +20,6 @@ class App {
     // Template configuration
     this.app.set("view engine", "ejs");
     this.app.set("views", "public");
-
 
     // Static files configuration
     this.app.use("/assets", express.static(path.join(__dirname, "frontend")));
@@ -44,6 +44,7 @@ class App {
 
   private initializeMiddlewares() {
     this.app.use(bodyParser.json());
+    this.app.use(cors());
   }
 }
 
