@@ -157,9 +157,9 @@ export default class Table extends React.Component<any, tableState> {
         axios.get(`/api/rooms`)
             .then(res =>
                 res.data ?
-                this.setState({
-                    rooms: res.data
-                }) : this.setState({
+                    this.setState({
+                        rooms: res.data
+                    }) : this.setState({
                         rooms: this.state.list
                     })
             );
