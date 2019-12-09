@@ -1,11 +1,13 @@
 import React from "react"
 import {Row, roomParams} from './Row'
 import Preloader from "./Preloader";
+import axios from 'axios';
 
 interface tableState {
     list: roomParams[];
     instantList: roomParams[];
-    done: boolean
+    done: boolean,
+    rooms: any
 }
 
 export default class Table extends React.Component<any, tableState> {
@@ -142,7 +144,8 @@ export default class Table extends React.Component<any, tableState> {
             }
         ],
         instantList: [],
-        done: false
+        done: false,
+        rooms: []
     };
 
     componentWillMount = () => {
@@ -150,6 +153,17 @@ export default class Table extends React.Component<any, tableState> {
     };
 
     componentDidMount() {
+
+        axios.get(`/api/rooms`)
+            .then(res =>
+                res.data ?
+                this.setState({
+                    rooms: res.data
+                }) : this.setState({
+                        rooms: this.state.list
+                    })
+            );
+
         setTimeout(() => {
             this.setState({
                 done: true

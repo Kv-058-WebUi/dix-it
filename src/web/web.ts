@@ -13,7 +13,7 @@ class App {
   constructor() {
     this.app = express();
     this.initializeMiddlewares();
-    this.initializeApp(); 
+    this.initializeApp();
   }
   public initializeApp() {
     // Template configuration
@@ -25,9 +25,9 @@ class App {
     this.app.use("/assets", express.static(path.join(__dirname, "frontend")));
 
     // Controllers
-    this.app.use('/', new RoomController().router)
-    this.app.use('/', new AuthenticationController().router)
-    this.app.use('/', new UserController().router)
+    this.app.use('/api', new RoomController().router)
+    this.app.use('/api', new AuthenticationController().router)
+    this.app.use('/api', new UserController().router)
     this.app.get("/*", (req, res) => {
       res.render("index");
     });

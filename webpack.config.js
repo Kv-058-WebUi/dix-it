@@ -13,7 +13,7 @@ module.exports = {
         filename: "[name].bundle.js",
         chunkFilename: '[name].chunk.js',
         path: __dirname + "/dist/web/frontend",
-        publicPath: "/"
+        publicPath: "/",
     },
 
     // Enable sourcemaps for debugging webpack's output.
@@ -25,7 +25,10 @@ module.exports = {
         port: 3000,
         publicPath: '/',
         hot: true,
-        historyApiFallback: true
+        historyApiFallback: true,
+        proxy: {
+            '/api': 'http://localhost:5000'
+        }
     },
 
     resolve: {

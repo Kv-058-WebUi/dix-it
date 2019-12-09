@@ -29,9 +29,17 @@ const options: ConnectionOptions = {
     entities: [DixitUser, Player, Room, RoomStatus, RelationshipStatus, Relationship, RoomPlayer]
 };
 
-createConnection(options).then(async connection => { 
-
-    
+createConnection(options).then(async connection => {
+    // const user = new DixitUser();
+    // user.email = 'test@gmail.com';
+    // user.nickname = 'vanya';
+    // user.password = '123sad';
+    //
+    // const player = new Player();
+    // player.user_id = user;
+    // player.nickname = 'dunkey';
+    // await connection.manager.save(user);
+    // await connection.manager.save(player);
 
 }, error => console.log("Cannot connect: ", error)).then(() => {
     return main();
