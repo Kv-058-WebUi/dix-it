@@ -4,6 +4,10 @@ import PushedCards from '../PushedCards/PushedCards';
 import Hand from '../Hand/Hand';
 import Dixit from '../../model/Dixit';
 import './gameboard.scss';
+import SettingsIcon from '@material-ui/icons/Settings';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
+
 // todo: find better solution
 import '../../images/cards/card_1.png';
 import '../../images/cards/card_2.png';
@@ -26,7 +30,8 @@ import '../../images/cards/card_12.png';
 
 type GameBoardState = {
     users: object[],
-    pushedCards: object[]
+    pushedCards: object[],
+    showMenu: boolean;
 };
 
 export default class GameBoard extends Component <{}, GameBoardState> {
@@ -69,9 +74,36 @@ export default class GameBoard extends Component <{}, GameBoardState> {
         const playersWithCards = game.serveCards();
         this.state = {
             users: playersWithCards,
-            pushedCards: []
+            pushedCards: [],
+            showMenu: false
         }
     }
+
+    toggleMenu() {
+        this.setState({
+            showMenu: !this.state.showMenu
+        });
+    };
+
+    showMenu() {
+        const visible = this.state.showMenu;
+        if(visible) {
+            return (
+                <ul className={'game-settings__list'}>
+                    <li className={'game-settings__item'}>
+                        <button className={'game-settings__btn'} type={'button'}>
+                            <HelpOutlineIcon style={{ fill: '#fff' }}/>
+                        </button>
+                    </li>
+                    <li className={'game-settings__item'}>
+                        <button className={'game-settings__btn'} type={'button'}>
+                            <ExitToAppIcon style={{ fill: '#fff' }}/>
+                        </button>
+                    </li>
+                </ul>
+            );
+        }
+    };
 
     pushCard = (card) => {
         const { pushedCards } = this.state;
@@ -88,7 +120,14 @@ export default class GameBoard extends Component <{}, GameBoardState> {
                 </Link>
                 <PushedCards users={this.state.users} pushedCards={pushedCards} />
                 <Hand cards={this.state.users[0].cards} pushCard={this.pushCard} />
+                <div className={'game-settings'}>
+                    <button className={'game-settings__btn'} onClick={() => this.toggleMenu()} type={'button'}>
+                        <SettingsIcon style={{ fill: '#fff' }}/>
+                    </button>
+                    {this.showMenu()}
+                </div>
             </div>
         );
     }
 }
+

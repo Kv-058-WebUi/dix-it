@@ -1,4 +1,5 @@
 import React from "react"
+import { Link } from "react-router-dom";
 
 export interface roomParams {
     id: any;
@@ -33,7 +34,7 @@ export class Row extends React.Component<roomParams> {
                     <p className={'lobby__table-text'}>{this.props.playersCur} / {this.props.playersMax}</p>
                 </div>
                 <div className={'lobby__table-cell btn'}>
-                    <button className={'lobby__table-btn'} type={'button'}>Join ></button>
+                    <Link className={'lobby__table-btn'} to='/game'>Join ></Link>
                 </div>
             </div>
         )

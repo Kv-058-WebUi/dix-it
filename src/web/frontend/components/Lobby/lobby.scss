@@ -1,3 +1,9 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
 .lobby-wrapper {
   display: block;
   width: calc(100% - 100px);
@@ -5,21 +11,28 @@
   padding: 20px;
   background-color: rgba(2, 1, 6, 0.5);
   margin: 20px auto;
+  flex-grow: 1;
 }
 
 .lobby__table {
   padding-right: 165px;
+  max-height: calc(100vh - 350px);
+  overflow: auto;
 }
 
 .lobby__table-row {
   display: flex;
   justify-content: space-between;
   margin-bottom: 4px;
+
   &.head {
     padding-bottom: 12px;
+    padding-right: 165px;
+
     .lobby__table-cell {
       background-color: transparent;
     }
+
     .lobby__table-text {
       color: #fff;
       text-transform: uppercase;
@@ -35,24 +48,30 @@
   padding: 8px 0;
   margin-right: 3px;
   align-items: center;
+
   &.creator {
     width: calc(25% - 3px);
   }
+
   &.room-name {
     width: calc(25% - 3px);
   }
+
   &.access {
     width: calc(10% - 3px);
   }
+
   &.players {
     width: calc(20% - 3px);
   }
+
   &.btn {
     width: 20%;
     background-color: transparent;
     padding: 0;
     margin-right: 0;
   }
+
   &:first-child {
     border-radius: 12px 0 0 12px;
   }
@@ -75,6 +94,7 @@
   font-family: 'Roboto', sans-serif;
   font-weight: 700;
   padding: 6px 40px;
+
   &:hover {
     cursor: pointer;
   }
@@ -85,12 +105,13 @@
 }
 
 .lobby__filter-input {
-  padding:  0 15px 0 30px;
+  padding: 0 15px 0 30px;
   font-size: 24px;
   line-height: 36px;
   border-radius: 12px;
   font-family: 'Roboto', sans-serif;
   font-weight: 500;
+
   &::placeholder {
     color: #A0A1A3;
     font-family: 'Roboto', sans-serif;

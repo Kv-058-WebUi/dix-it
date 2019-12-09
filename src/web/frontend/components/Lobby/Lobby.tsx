@@ -8,13 +8,16 @@ export default class Lobby extends React.Component {
 
     render() {
         return (
-            <div className='main-page-container'>
-                <Header />
+            <div className={'main'}>
+                <Header/>
+
                 <div className={'lobby-wrapper'}>
                     <Table/>
                 </div>
+
                 <Footer />
             </div>
         )
     }
+
 };
