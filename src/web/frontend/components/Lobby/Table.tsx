@@ -6,146 +6,144 @@ import axios from 'axios';
 interface tableState {
     list: roomParams[];
     instantList: roomParams[];
-    done: boolean,
-    rooms: any
+    done: boolean
 }
 
 export default class Table extends React.Component<any, tableState> {
 
     public state: tableState = {
         list: [
-            {
-                id: 1,
-                creator: 'Peter',
-                name: 'Awesome Room',
-                locked: false,
-                playersCur: 3,
-                playersMax: 7
-            },
-            {
-                id: 2,
-                creator: 'Adam',
-                name: 'Pretty Room',
-                locked: false,
-                playersCur: 1,
-                playersMax: 7
-            },
-            {
-                id: 3,
-                creator: 'Henry',
-                name: 'Funny Room',
-                locked: true,
-                playersCur: 3,
-                playersMax: 7
-            },
-            {
-                id: 4,
-                creator: 'Chris',
-                name: 'Scary Room',
-                locked: false,
-                playersCur: 4,
-                playersMax: 7
-            },
-            {
-                id: 5,
-                creator: 'Patrik',
-                name: 'Wonderful Room',
-                locked: true,
-                playersCur: 5,
-                playersMax: 7
-            },
-            {
-                id: 6,
-                creator: 'John',
-                name: 'Secret Room',
-                locked: false,
-                playersCur: 3,
-                playersMax: 7
-            },
-            {
-                id: 7,
-                creator: 'Bob',
-                name: 'Big Room',
-                locked: false,
-                playersCur: 6,
-                playersMax: 7
-            },
-            {
-                id: 8,
-                creator: 'Smith',
-                name: 'Small Room',
-                locked: true,
-                playersCur: 1,
-                playersMax: 7
-            },
-            {
-                id: 9,
-                creator: 'Even',
-                name: 'Awesome Room',
-                locked: false,
-                playersCur: 2,
-                playersMax: 7
-            },
-            {
-                id: 10,
-                creator: 'asd',
-                name: 'Awesome Room',
-                locked: false,
-                playersCur: 4,
-                playersMax: 7
-            },
-            {
-                id: 11,
-                creator: 'Peteasdr',
-                name: 'Awesome Room',
-                locked: true,
-                playersCur: 3,
-                playersMax: 7
-            },
-            {
-                id: 12,
-                creator: 'Peteasdr',
-                name: 'Awesome Room',
-                locked: true,
-                playersCur: 3,
-                playersMax: 7
-            },
-            {
-                id: 13,
-                creator: 'Peteasdr',
-                name: 'Awesome Room',
-                locked: true,
-                playersCur: 3,
-                playersMax: 7
-            },
-            {
-                id: 14,
-                creator: 'Peteasdr',
-                name: 'Awesome Room',
-                locked: true,
-                playersCur: 3,
-                playersMax: 7
-            },
-            {
-                id: 15,
-                creator: 'Peteasdr',
-                name: 'Awesome Room',
-                locked: true,
-                playersCur: 3,
-                playersMax: 7
-            },
-            {
-                id: 16,
-                creator: 'Peteasdr',
-                name: 'Awesome Room',
-                locked: true,
-                playersCur: 3,
-                playersMax: 7
-            }
+            // {
+            //     room_id: 1,
+            //     creator_id: 'Peter',
+            //     name: 'Awesome Room',
+            //     is_private: false,
+            //     playersCur: 3,
+            //     max_players: 7
+            // },
+            // {
+            //     room_id: 2,
+            //     creator_id: 'Adam',
+            //     name: 'Pretty Room',
+            //     is_private: false,
+            //     playersCur: 1,
+            //     max_players: 7
+            // },
+            // {
+            //     room_id: 3,
+            //     creator_id: 'Henry',
+            //     name: 'Funny Room',
+            //     is_private: true,
+            //     playersCur: 3,
+            //     max_players: 7
+            // },
+            // {
+            //     room_id: 4,
+            //     creator_id: 'Chris',
+            //     name: 'Scary Room',
+            //     is_private: false,
+            //     playersCur: 4,
+            //     max_players: 7
+            // },
+            // {
+            //     room_id: 5,
+            //     creator_id: 'Patrik',
+            //     name: 'Wonderful Room',
+            //     is_private: true,
+            //     playersCur: 5,
+            //     max_players: 7
+            // },
+            // {
+            //     room_id: 6,
+            //     creator_id: 'John',
+            //     name: 'Secret Room',
+            //     is_private: false,
+            //     playersCur: 3,
+            //     max_players: 7
+            // },
+            // {
+            //     room_id: 7,
+            //     creator_id: 'Bob',
+            //     name: 'Big Room',
+            //     is_private: false,
+            //     playersCur: 6,
+            //     max_players: 7
+            // },
+            // {
+            //     room_id: 8,
+            //     creator_id: 'Smith',
+            //     name: 'Small Room',
+            //     is_private: true,
+            //     playersCur: 1,
+            //     max_players: 7
+            // },
+            // {
+            //     room_id: 9,
+            //     creator_id: 'Even',
+            //     name: 'Awesome Room',
+            //     is_private: false,
+            //     playersCur: 2,
+            //     max_players: 7
+            // },
+            // {
+            //     room_id: 10,
+            //     creator_id: 'asd',
+            //     name: 'Awesome Room',
+            //     is_private: false,
+            //     playersCur: 4,
+            //     max_players: 7
+            // },
+            // {
+            //     room_id: 11,
+            //     creator_id: 'Peteasdr',
+            //     name: 'Awesome Room',
+            //     is_private: true,
+            //     playersCur: 3,
+            //     max_players: 7
+            // },
+            // {
+            //     room_id: 12,
+            //     creator_id: 'Peteasdr',
+            //     name: 'Awesome Room',
+            //     is_private: true,
+            //     playersCur: 3,
+            //     max_players: 7
+            // },
+            // {
+            //     room_id: 13,
+            //     creator_id: 'Peteasdr',
+            //     name: 'Awesome Room',
+            //     is_private: true,
+            //     playersCur: 3,
+            //     max_players: 7
+            // },
+            // {
+            //     room_id: 14,
+            //     creator_id: 'Peteasdr',
+            //     name: 'Awesome Room',
+            //     is_private: true,
+            //     playersCur: 3,
+            //     max_players: 7
+            // },
+            // {
+            //     room_id: 15,
+            //     creator_id: 'Peteasdr',
+            //     name: 'Awesome Room',
+            //     is_private: true,
+            //     playersCur: 3,
+            //     max_players: 7
+            // },
+            // {
+            //     room_id: 16,
+            //     creator_id: 'Peteasdr',
+            //     name: 'Awesome Room',
+            //     is_private: true,
+            //     playersCur: 3,
+            //     max_players: 7
+            // }
         ],
         instantList: [],
-        done: false,
-        rooms: []
+        done: false
     };
 
     componentWillMount = () => {
@@ -154,21 +152,19 @@ export default class Table extends React.Component<any, tableState> {
 
     componentDidMount() {
 
-        axios.get(`/api/rooms`)
-            .then(res =>
-                res.data ?
-                    this.setState({
-                        rooms: res.data
-                    }) : this.setState({
-                        rooms: this.state.list
-                    })
-            );
+        let self = this;
 
-        setTimeout(() => {
-            this.setState({
-                done: true
-            })
-        }, 2000)
+        axios.get(`/api/rooms`)
+            .then(
+                function (res) {
+                    self.setState({
+                        list: res.data,
+                        instantList: res.data,
+                        done: true
+                    });
+                    console.log(res.data);
+                }
+            );
     };
 
 
@@ -186,11 +182,11 @@ export default class Table extends React.Component<any, tableState> {
         this.setState({list: arrayCopy});
     }
 
-    sortByPlaces(key:any, key2:any) {
+    sortByPlaces(key: any, key2: any) {
         let arrayCopy = [...this.state.list];
-        arrayCopy.sort((a:any, b:any) => {
-            if(a[key] - a[key2] < b[key] - b[key2]) return -1;
-            if(a[key] - a[key2] > b[key] - b[key2]) return 1;
+        arrayCopy.sort((a: any, b: any) => {
+            if (a[key] - a[key2] < b[key] - b[key2]) return -1;
+            if (a[key] - a[key2] > b[key] - b[key2]) return 1;
             return 0;
         });
         this.setState({list: arrayCopy});
@@ -216,18 +212,20 @@ export default class Table extends React.Component<any, tableState> {
                         <div>
                             <div className={'lobby__table-row head'}>
                                 <div className={'lobby__table-cell creator'}>
-                                    <p className={'lobby__table-text'} onClick={() => this.sortBy('creator')}>Creator</p>
+                                    <p className={'lobby__table-text'}
+                                       onClick={() => this.sortBy('creator_id')}>Creator</p>
                                 </div>
                                 <div className={'lobby__table-cell room-name'}>
                                     <p className={'lobby__table-text'} onClick={() => this.sortBy('name')}>Room name</p>
                                 </div>
                                 <div className={'lobby__table-cell access'}>
-                                    <p className={'lobby__table-text'} onClick={() => this.sortBy('locked')}>
+                                    <p className={'lobby__table-text'} onClick={() => this.sortBy('is_private')}>
                                         public
                                     </p>
                                 </div>
                                 <div className={'lobby__table-cell players'}>
-                                    <p className={'lobby__table-text'} onClick={() => this.sortByPlaces('playersCur', 'playersMax')}>Players</p>
+                                    <p className={'lobby__table-text'}
+                                       onClick={() => this.sortByPlaces('playersCur', 'max_players')}>Players</p>
                                 </div>
                                 <div className={'lobby__table-cell btn'}/>
                             </div>
@@ -249,7 +247,6 @@ export default class Table extends React.Component<any, tableState> {
                             </div>
                         </div>
                     )}
-
 
 
             </div>
