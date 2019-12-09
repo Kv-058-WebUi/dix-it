@@ -1,0 +1,23 @@
+.card-container {
+  position: relative;
+  width: 100px;
+  height: 160px;
+  margin: 10px;
+}
+
+.card {
+  position: absolute;
+  width: 100px;
+  height: 160px;
+  left: 0;
+  top: 0;
+  margin: 10px;
+  border-radius: 15px;
+  background-size: cover;
+  opacity: 0.3;
+
+  &.active-card {
+    opacity: 1;
+  }
+}
+

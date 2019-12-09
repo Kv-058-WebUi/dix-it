@@ -24,21 +24,8 @@ export default class Header extends Component<HeaderProps, HeaderState> {
     }
 
     static defaultProps = {
-        onlineCount: 0
+        onlineCount: 333
     };
-
-    // event delegation:
-    // handleHeaderClick = (e: any) => {
-    //     const clickedOnRulesChild = e.target.closest('.rules');
-    //     if (e.target.className === 'help' || clickedOnRulesChild) {
-    //         this.setState({ showRules: true });
-    //     } else {
-    //         this.setState({ showRules: false });
-    //     }
-    //     if (e.target.className === 'signin') {
-    //         this.setState({ showSignin: true });
-    //     }
-    // };
 
     handleHelpClick = () => this.setState({ showRules: true });
     handleAuthFormClick = () => this.setState({ showAuthForm: true });
