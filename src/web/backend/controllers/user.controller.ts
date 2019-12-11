@@ -11,7 +11,7 @@ export class UserController implements Controller {
     constructor() {
         this.initializeRoutes();
     }
-    
+
     private initializeRoutes() {
     this.router.get(this.path, this.getAllUsers);
     }

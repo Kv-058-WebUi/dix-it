@@ -11,6 +11,7 @@ import { Relationship } from "./web/backend/entities/Relationship";
 import { RoomPlayer } from "./web/backend/entities/RoomPlayers";
 import {UserIndices1576322993380 as UserIndeces} from './migrations/1576322993380-UserIndices';
 
+import {Card} from "./web/backend/entities/Card";
 
 
 async function main() {
@@ -32,7 +33,7 @@ const options: ConnectionOptions = {
     cli: {
         migrationsDir: "migrations"
     },
-    entities: [DixitUser, Player, Room, RoomStatus, RelationshipStatus, Relationship, RoomPlayer]
+    entities: [DixitUser, Player, Card, Room, RoomStatus, RelationshipStatus, Relationship, RoomPlayer]
 };
 
 createConnection(options)
