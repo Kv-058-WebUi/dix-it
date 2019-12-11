@@ -1,5 +1,6 @@
 import React from 'react';
 import './chat.scss';
+import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
 
 interface InputProps {
     onSubmit: any,
@@ -20,7 +21,7 @@ export default class ChatInput extends React.Component<InputProps> {
                            value={this.props.value} onChange={this.props.onChange}
                     />
                     <button type='submit'>
-                        SEND  >
+                        SEND<KeyboardArrowRightIcon id='arrowIcon'/>
                     </button>
                 </form>
             </div>
