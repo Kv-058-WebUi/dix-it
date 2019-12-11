@@ -77,7 +77,7 @@ export default class Chat extends React.Component<any, chatState> {
         return messages[index - 1].creator !== messages[index].creator;
     }
 
-    handleSubmit(event: SyntheticEvent) {
+    handleSubmit(event: SyntheticEvent): void {
         event.preventDefault();
         console.log('handle submit called');
 
@@ -92,7 +92,7 @@ export default class Chat extends React.Component<any, chatState> {
 
     }
 
-    handleChange(event: React.ChangeEvent<HTMLInputElement>) {
+    handleChange(event: React.ChangeEvent<HTMLInputElement>): void {
         console.log('handle change called');
         this.setState({value: event.target.value});
     }

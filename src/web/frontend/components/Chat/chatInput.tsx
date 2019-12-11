@@ -1,11 +1,14 @@
-import React from 'react';
+import React, {SyntheticEvent} from 'react';
 import './chat.scss';
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
 
+type submitFunction = (e: SyntheticEvent) => void;
+type changeFunction = (e: React.ChangeEvent<HTMLInputElement>) => void;
+
 interface InputProps {
-    onSubmit: any,
+    onSubmit: submitFunction,
     value: string,
-    onChange: any,
+    onChange: changeFunction,
 }
 
 export default class ChatInput extends React.Component<InputProps> {
