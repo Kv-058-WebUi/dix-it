@@ -9,7 +9,7 @@ import { Room } from "./web/backend/entities/Room";
 import { RelationshipStatus } from "./web/backend/entities/RelationshipStatus";
 import { Relationship } from "./web/backend/entities/Relationship";
 import { RoomPlayer } from "./web/backend/entities/RoomPlayers";
-
+import {Card} from "./web/backend/entities/Card";
 
 
 async function main() {
@@ -26,7 +26,7 @@ const options: ConnectionOptions = {
     password: "dixit",
     database: "dixit",
     synchronize: true,
-    entities: [DixitUser, Player, Room, RoomStatus, RelationshipStatus, Relationship, RoomPlayer]
+    entities: [DixitUser, Card, Player, Room, RoomStatus, RelationshipStatus, Relationship, RoomPlayer]
 };
 
 createConnection(options).then(async connection => {
