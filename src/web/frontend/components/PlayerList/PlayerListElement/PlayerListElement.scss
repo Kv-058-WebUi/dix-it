@@ -1,0 +1,41 @@
+.PlayerListElement {
+    background: rgba(26, 38, 54, 0.7);
+    border: 1px solid #23131D;
+    font-weight: 800;
+    border-radius: 20px;
+    color: #E5E5E5;
+    height: 48;
+    padding: 0 30px;
+    margin: 5px;
+    padding-left:17px;
+    width: 394.64px;
+    height: 49.89px;
+        
+}
+
+.PlayerAvatar {
+    box-shadow: 0px 0px 20px #FFFFFF;
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    float:left;
+    margin-top: 4px;
+
+}
+
+.PlayerScore{
+    float: right;
+    font-size: 24px;
+    margin-top: 11px;
+    color: #E5E5E5;
+    color: rgba(229,229,229,0.65);
+}
+
+.PlayerName{
+    float:left;
+    margin-left: 15px;
+    font-size: 24px;
+    margin-top: 11px;
+    color: rgba(229,229,229,0.65);
+}
+
