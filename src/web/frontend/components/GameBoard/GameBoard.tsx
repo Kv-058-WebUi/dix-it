@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PushedCards from '../PushedCards/PushedCards';
 import Hand from '../Hand/Hand';
 import Dixit from '../../model/Dixit';
-import '../GamePage/gamesettings.scss';
 
 
 // todo: find better solution
@@ -28,7 +27,6 @@ import '../../images/cards/card_12.png';
 type GameBoardState = {
     users: object[],
     pushedCards: object[],
-    showMenu: boolean;
 };
 
 export default class GameBoard extends Component <{}, GameBoardState> {
@@ -72,7 +70,6 @@ export default class GameBoard extends Component <{}, GameBoardState> {
         this.state = {
             users: playersWithCards,
             pushedCards: [],
-            showMenu: false
         }
     }
 
@@ -85,11 +82,9 @@ export default class GameBoard extends Component <{}, GameBoardState> {
     render() {
         const { pushedCards } = this.state;
         return (
-            <div>
-                <div className={'game-board'}>
-                    <PushedCards users={this.state.users} pushedCards={pushedCards} />
-                    <Hand cards={this.state.users[0].cards} pushCard={this.pushCard} />
-                </div>
+            <div className={'game-board'}>
+                <PushedCards users={this.state.users} pushedCards={pushedCards} />
+                <Hand cards={this.state.users[0].cards} pushCard={this.pushCard} />
             </div>
         );
     }
