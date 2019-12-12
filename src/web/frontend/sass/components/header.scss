@@ -1,0 +1,53 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 50px;
+  background: rgba(2, 1, 6, 0.5);
+}
+
+.left-side {
+  display: inline-flex;
+  align-items: center;
+}
+
+.header__logo {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+.header__online-players {
+  color: #fff;
+  font-size: 20px;
+  font-weight: 700;
+  font-family: 'Montserrat Alternates', sans-serif;
+}
+
+.header__nav {
+  display: inline-flex;
+}
+
+.header__nav-list {
+  display: inline-flex;
+  list-style-type: none;
+}
+
+.header__nav-item {
+  display: inline-block;
+  align-self: center;
+  margin-left: 50px;
+  a {
+    color: #fff;
+    font-weight: 700;
+    font-family: 'Montserrat Alternates', sans-serif;
+  }
+}
+
+.header__info-btn {
+  display: inline-block;
+  background-color: transparent;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  color: #fff;
+  font-weight: 500;
+  font-family: 'Roboto', sans-serif;
+}

@@ -1,12 +1,6 @@
 @import "buttons";
 @import "fonts";
 
-// * {
-//   outline: 1px solid white;
-// }
-
-
-
 body {
   overflow: hidden;
   background-color: $dixitBackground;
@@ -29,4 +23,12 @@ body.overlay {
     background-color: rgba(0, 0, 0, .6);
     z-index: 20;
   }
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
 }

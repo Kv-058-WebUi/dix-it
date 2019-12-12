@@ -1,14 +1,29 @@
-.field-box {
-    display: flex inline;
-    flex-flow: row wrap;
-    justify-content: center;
-    align-items: center;
-    height: 40vh;
-    width: 40vw;
-    margin: auto;
-}
 
 .game-logo {
   padding: 18px 50px;
   display: block;
+}
+.game-settings {
+  position: fixed;
+  left: 40px;
+  bottom: 40px;
+}
+
+.game-settings__btn {
+  display: inline-block;
+  background-color: transparent;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.game-settings__list {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.game-settings__item {
+  display: inline-block;
 }

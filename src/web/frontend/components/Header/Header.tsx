@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import Rules from '../Rules/Rules';
-// import Form from "./Form";
+// import ModalWindow from "./ModalWindow";
 import './header.scss';
+import RegistrationForm from "../RegistrationForm/RegistrationForm";
 
 type HeaderProps = {
     onlineCount: number
@@ -23,33 +24,20 @@ export default class Header extends Component<HeaderProps, HeaderState> {
     }
 
     static defaultProps = {
-        onlineCount: 0
+        onlineCount: 333
     };
-
-    // event delegation:
-    // handleHeaderClick = (e: any) => {
-    //     const clickedOnRulesChild = e.target.closest('.rules');
-    //     if (e.target.className === 'help' || clickedOnRulesChild) {
-    //         this.setState({ showRules: true });
-    //     } else {
-    //         this.setState({ showRules: false });
-    //     }
-    //     if (e.target.className === 'signin') {
-    //         this.setState({ showSignin: true });
-    //     }
-    // };
 
     handleHelpClick = () => this.setState({ showRules: true });
     handleAuthFormClick = () => this.setState({ showAuthForm: true });
 
-    // handleFormClick = (e: any) => {
-    //     if (!e.target.closest('.form')) {
-    //         this.setState({ showAuthForm: false });
-    //     }
-    // };
+    handleFormClick = (e: any) => {
+        if (!e.target.closest('.ModalWindow')) {
+            this.setState({ showAuthForm: false });
+        }
+    };
 
     handleRulesClick = (e: any) => {
-        if (!e.target.closest('.rules')) {
+        if (!e.target.closest('.ModalWindow')) {
             this.setState({ showRules: false });
         }
     };
@@ -69,11 +57,11 @@ export default class Header extends Component<HeaderProps, HeaderState> {
                         <Rules />
                     </div>
                 ) : '' }
-                {/*{ this.state.showAuthForm ? (*/}
-                    {/*<div onClick={this.handleFormClick}>*/}
-                        {/*<Form />*/}
-                    {/*</div>*/}
-                {/*) : '' }*/}
+                { this.state.showAuthForm ? (
+                    <div onClick={this.handleFormClick}>
+                        <RegistrationForm />
+                    </div>
+                ) : '' }
             </nav>
         );
     }
