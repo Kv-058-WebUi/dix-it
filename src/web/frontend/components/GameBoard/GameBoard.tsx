@@ -4,6 +4,9 @@ import PushedCards from '../PushedCards/PushedCards';
 import Hand from '../Hand/Hand';
 import Dixit from '../../model/Dixit';
 import './gameboard.scss';
+
+import PlayerList from "../PlayerList/PlayerList";
+import UpBar from "../UpBar/UpBar"
 import SettingsIcon from '@material-ui/icons/Settings';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
@@ -109,15 +112,18 @@ export default class GameBoard extends Component <{}, GameBoardState> {
         const { pushedCards } = this.state;
         pushedCards.push(card);
         this.setState({ pushedCards });
-    };
+
 
     render() {
         const { pushedCards } = this.state;
         return (
             <div>
+
                 <Link to='/'>
                     <img className='game-logo' src={require('../Header/LOGO.png')} alt='logo'/>
                 </Link>
+                <UpBar/>
+                <PlayerList/>
                 <PushedCards users={this.state.users} pushedCards={pushedCards} />
                 <Hand cards={this.state.users[0].cards} pushCard={this.pushCard} />
                 <div className={'game-settings'}>
@@ -125,6 +131,7 @@ export default class GameBoard extends Component <{}, GameBoardState> {
                         <SettingsIcon style={{ fill: '#fff' }}/>
                     </button>
                     {this.showMenu()}
+
                 </div>
             </div>
         );
