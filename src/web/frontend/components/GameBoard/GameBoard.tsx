@@ -8,6 +8,7 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 
+
 // todo: find better solution
 import '../../images/cards/card_1.png';
 import '../../images/cards/card_2.png';
@@ -26,7 +27,7 @@ type GameBoardState = {
     users: Users[],
     pushedCards: Card[],
     showMenu: boolean
-};
+}
 
 export interface Users {
     id: number;
@@ -87,7 +88,6 @@ export default class GameBoard extends Component <{}, GameBoardState> {
         this.state = {
             users: playersWithCards,
             pushedCards: [],
-            showMenu: false
         }
     }
 

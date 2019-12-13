@@ -3,3 +3,28 @@
   display: block;
 }
 
+.game-root {
+  display: grid;
+  grid-template-columns: 75% 25%;
+  grid-template-rows: 10% 60% 25%;
+  grid-template-areas: "header sidepanel"
+                        "desc sidepanel"
+                        "hand sidepanel";
+}
+
+.game-side-panel {
+  grid-area: sidepanel;
+  margin-top: 30px;
+}
+
+header {
+  grid-area: header;
+}
+
+.field-hand {
+  grid-area: hand;
+}
+
+.field-box {
+  grid-area: desc;
+}

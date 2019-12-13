@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import SettingsIcon from '@material-ui/icons/Settings';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import '../GamePage/gamesettings.scss';
 
 export default function GameSettings() {
 
