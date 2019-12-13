@@ -1,3 +1,5 @@
+import { Users } from '../components/GameBoard/GameBoard'
+
 const cardDeck = [
     {
         id: 1,
@@ -49,20 +51,23 @@ const cardDeck = [
     }
 ];
 
+
 export default class Dixit {
-    constructor(players) {
+    players: Users[];
+    fullCardDeck: { id: number; imgURL: string; }[];
+    cardsPerPlayer: number;
+    constructor(players: Users[]) {
         if (players.length < 3 || players.length > 7) {
             throw new Error('Wrong quantity of players');
         }
         this.players = players;
         this.fullCardDeck = cardDeck;
-        this.cardsPerPlayer = 7;
+		this.cardsPerPlayer = 7;
     }
 
     serveCards() {
         const cardDeck = [...this.fullCardDeck];
         return this.players.map(player => {
-            player.cards = [];
             for (let i = 0; i < this.cardsPerPlayer; i++) {
                 const cardQuantity = cardDeck.length;
                 const index = Math.floor(Math.random() * cardQuantity);
