@@ -4,6 +4,7 @@ import PushedCards from '../PushedCards/PushedCards';
 import Hand from '../Hand/Hand';
 import Dixit from '../../model/Dixit';
 import './gameboard.scss';
+
 import SettingsIcon from '@material-ui/icons/Settings';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
@@ -21,6 +22,7 @@ import '../../images/cards/card_9.png';
 import '../../images/cards/card_10.png';
 import '../../images/cards/card_11.png';
 import '../../images/cards/card_12.png';
+import { GameOverForm } from '../GameOverForm/GameOverForm';
 
 
 
@@ -118,6 +120,7 @@ export default class GameBoard extends Component <{}, GameBoardState> {
                 <Link to='/'>
                     <img className='game-logo' src={require('../Header/LOGO.png')} alt='logo'/>
                 </Link>
+                {/* <GameOverForm/> */}
                 <PushedCards users={this.state.users} pushedCards={pushedCards} />
                 <Hand cards={this.state.users[0].cards} pushCard={this.pushCard} />
                 <div className={'game-settings'}>

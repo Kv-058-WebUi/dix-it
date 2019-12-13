@@ -1,6 +1,7 @@
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackRootPlugin = require('html-webpack-root-plugin');
 let path = require('path');
+const SRC = path.resolve(__dirname, 'node_modules');
 
 module.exports = {
     mode: "development",
@@ -55,6 +56,18 @@ module.exports = {
                         options: {
                             name: '[name].[ext]',
                             outputPath: 'fonts/'
+                        }
+                    }
+                ]
+            },
+            {
+                test: /\.mp3$/,
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            name: '[name].[ext]',
+                            outputPath: 'sounds/'
                         }
                     }
                 ]
