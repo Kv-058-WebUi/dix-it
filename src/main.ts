@@ -9,6 +9,7 @@ import { Room } from "./web/backend/entities/Room";
 import { RelationshipStatus } from "./web/backend/entities/RelationshipStatus";
 import { Relationship } from "./web/backend/entities/Relationship";
 import { RoomPlayer } from "./web/backend/entities/RoomPlayers";
+import {UserIndices1576322993380 as UserIndeces} from './migrations/1576322993380-UserIndices';
 
 
 
@@ -26,7 +27,8 @@ const options: ConnectionOptions = {
     password: DB_PASSWORD,
     database: DB_NAME,
     synchronize: true,
-    migrations: ["migrations/*.ts"],
+    migrationsRun: true,
+    migrations: [UserIndeces],
     cli: {
         migrationsDir: "migrations"
     },

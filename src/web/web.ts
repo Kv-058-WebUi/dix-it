@@ -5,13 +5,10 @@ import AuthenticationController from "./backend/authentication/authentication.co
 import bodyParser from "body-parser";
 import { UserController } from "./backend/controllers/user.controller";
 import cors from "cors";
-<<<<<<< HEAD
 import io from "socket.io"
 import SocketIO from "socket.io";
 import SocketController from "./backend/controllers/socket.controller";
-=======
 import passport from './backend/authentication/passport/passport';
->>>>>>> b82f35a... added passport and controller action
 
 class App {
   public app: express.Application;

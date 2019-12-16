@@ -26,7 +26,7 @@ class AuthenticationController implements Controller {
     private initializeRoutes() {
         this.router.post(`${this.path}/register`, this.registration);
         this.router.post(`${this.path}/login`, this.login);
-        this.router.get(`${this.path}/isAuthenticated`, this.isAuthenticated);
+        this.router.post(`${this.path}/isAuthenticated`, this.isAuthenticated);
     }
 
     private createToken(user: DixitUser) {
@@ -61,7 +61,6 @@ class AuthenticationController implements Controller {
 
     private login = async (request: express.Request, response: express.Response, next: express.NextFunction) => {
         const userData: LoginUserData = request.body;
-        console.log(userData);
         try {
             const user = await this.authenticationService.login(userData);
             const token = this.createToken(user);
@@ -80,6 +79,7 @@ class AuthenticationController implements Controller {
 
     private isAuthenticated = async (request: express.Request, response: express.Response, next: express.NextFunction) => {
         passport.authenticate('jwt', { session: false }, (err, user, info) => {
+            console.log(err,info)
             let authenticated = false;
             if (!err && !info) {
                 authenticated = true;

@@ -23,7 +23,7 @@ class AuthenticationService {
             throw new UserWithThatNicknameAlreadyExistsException(userData.nickname)
         }
         const salt = bcryptjs.genSaltSync(10);
-        const hashedPassword = await bcryptjs.hashSync("B4c0/\/", salt);
+        const hashedPassword = await bcryptjs.hash(userData.password, salt);
         const user = this.userRepository.create({
             ...userData,
             password: hashedPassword,

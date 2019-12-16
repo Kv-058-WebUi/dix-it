@@ -3,11 +3,7 @@ import React, { useState, useEffect } from "react";
 import {Link, Redirect} from "react-router-dom";
 import GameSettings from "./gamesettings";
 import GameSidePanel from "./gameSidePanel";
-<<<<<<< HEAD
 import { GameOverForm } from "../GameOverForm/GameOverForm";
-=======
-import {useEffect} from "react";
->>>>>>> 1dff5e8... removed comments
 
 export interface SocketProps {
     socket: SocketIOClient.Socket;
@@ -42,13 +38,10 @@ export default function GamePage(props: SocketProps) {
         return arrayCopy;
     }
 
-<<<<<<< HEAD
     const [isModalShown, setModalShown]:any = useState(false);
     sortedplayers = sortBy('score');    
     const [playerlist] = useState(sortedplayers)
     const winnerList = [...playerlist]
-=======
->>>>>>> 1dff5e8... removed comments
     useEffect(() => {
         props.socket.emit('game page open')
     });
