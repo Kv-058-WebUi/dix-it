@@ -110,6 +110,22 @@ class InputField extends React.Component<InputFieldProps, InputFieldState> {
         };
     }
 
+    getAttributesForLoginField(InputProps: any) {
+        return {
+            type: "text",
+            errorHelperText: "Not an email or username",
+            isInputValid: InputValidator.isLoginValid,
+            InputProps: {
+                startAdornment: (
+                    <InputAdornment position="start">
+                        <MailOutlineIcon className="Icon"/>
+                    </InputAdornment>
+                ),
+                ...InputProps
+            }
+        };
+    }
+
     getAttributesForPasswordField(InputProps: any, isPasswordVisible: any): any {
         return {
             type: isPasswordVisible ? 'text' : 'password',
@@ -144,10 +160,20 @@ class InputField extends React.Component<InputFieldProps, InputFieldState> {
             return this.getAttributesForEmailField(InputProps);
         if (fieldType === FieldType.Password)
             return this.getAttributesForPasswordField(InputProps, isPasswordVisible);
+        if (fieldType === FieldType.Login)
+            return this.getAttributesForLoginField(InputProps);
     }
 
     capitalizeFirstChar(s: string) {
         return s.charAt(0).toUpperCase() + s.slice(1);
+    }
+
+    getPlaceholder(fieldType: FieldType): string {
+        if (fieldType === FieldType.Login) {
+            return 'Nickname or email';
+        }
+        
+        return this.capitalizeFirstChar(fieldType);
     }
 
     render() {
@@ -160,7 +186,7 @@ class InputField extends React.Component<InputFieldProps, InputFieldState> {
         return (
             <div className="InputField">
                 <TextField
-                    placeholder={this.capitalizeFirstChar(fieldType)}
+                    placeholder={this.getPlaceholder(fieldType)}
                     required
                     helperText={this.state.helperText}
                     onChange={(event) => this.validateInput(isInputValid, errorHelperText, event)}

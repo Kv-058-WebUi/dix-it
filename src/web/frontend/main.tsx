@@ -9,26 +9,29 @@ import {
 } from "react-router-dom";
 import "./sass/main.scss";
 import GamePage from "./components/GamePage/gamepage";
+import UserProvider from './components/UserProvider/UserProvider';
 
 const App = () => {
     return (
-        <Router>
-            <Switch>
-                <Route path="/game">
-                    <GamePage />
-                </Route>
-                <Route path="/lobby">
-                    <Lobby />
-                </Route>
-                <Route path="/">
-                    <MainPage />
-                </Route>
-            </Switch>
-        </Router>
+        <UserProvider>
+            <Router>
+                <Switch>
+                    <Route path="/game">
+                        <GamePage />
+                    </Route>
+                    <Route path="/lobby">
+                        <Lobby />
+                    </Route>
+                    <Route path="/">
+                        <MainPage />
+                    </Route>
+                </Switch>
+            </Router>
+        </UserProvider>
     );
 };
 
 ReactDOM.render(
-    <App/>,
+    <App />,
     document.getElementById("root"),
 );
