@@ -8,14 +8,15 @@
     "build:backend": "tsc",
     "build:css": "node-sass src/web/frontend/sass/ -o src/web/frontend/css/",
     "build:react": "webpack --config webpack.config.js",
+    "build:react.prod": "webpack --config webpack.config.prod.js",
     "build:UI": "npm run build:css && npm run build:react",
-    "start": "node ./dist/main.js",
+    "start": "node ./dist/main.prod.js",
     "dev-css": "npm run build:css && node-sass src/web/frontend/sass/ -o src/web/frontend/css/ --watch --recursive",
     "dev-UI": "concurrently --kill-others \"npm run dev-css\" \"webpack-dev-server --open\"",
     "dev-backend": "ts-node-dev --respawn ./src/main.ts",
     "dev-fullstack": "concurrently --kill-others \"npm run dev-backend\" \"npm run dev-UI\"",
     "heroku-prebuild": "echo This runs before Heroku installs your dependencies.",
-    "heroku-postbuild": "npm run build:backend && npm run build:css && webpack",
+    "heroku-postbuild": "npm run build:backend && npm run build:css && npm run build:react.prod",
     "publishheroku": "git push dixit master"
   },
   "savedScripts": {
