@@ -6,6 +6,7 @@ body {
   background-color: $dixitBackground;
   background-image: url('../images/start_frame_bg.png');
   background-size: cover;
+  background-repeat: no-repeat;
 }
 
 body.overlay {

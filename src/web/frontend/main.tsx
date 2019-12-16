@@ -1,7 +1,6 @@
-import React, {useState} from "react";
+import React from "react";
 import ReactDOM from "react-dom";
 import MainPage from './components/MainPage/MainPage';
-import GameBoard from './components/GameBoard/GameBoard';
 import Lobby from './components/Lobby/Lobby';
 import {
     BrowserRouter as Router,
@@ -9,13 +8,14 @@ import {
     Route,
 } from "react-router-dom";
 import "./sass/main.scss";
+import GamePage from "./components/GamePage/gamepage";
 
 const App = () => {
     return (
         <Router>
             <Switch>
                 <Route path="/game">
-                    <GameBoard />
+                    <GamePage />
                 </Route>
                 <Route path="/lobby">
                     <Lobby />

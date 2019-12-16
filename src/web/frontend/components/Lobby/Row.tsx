@@ -2,12 +2,12 @@ import React from "react"
 import { Link } from "react-router-dom";
 
 export interface roomParams {
-    id: any;
-    creator: string;
+    room_id: any;
+    creator_id: {player_id:number};
     name: string;
-    locked: boolean;
+    is_private: boolean;
     playersCur: number,
-    playersMax: number
+    max_players: number
 }
 
 export class Row extends React.Component<roomParams> {
@@ -20,18 +20,18 @@ export class Row extends React.Component<roomParams> {
         return (
             <div className={'lobby__table-row'}>
                 <div className={'lobby__table-cell creator'}>
-                    <p className={'lobby__table-text'}>{this.props.creator}</p>
+                    <p className={'lobby__table-text'}>{this.props.creator_id.player_id}</p>
                 </div>
                 <div className={'lobby__table-cell room-name'}>
                     <p className={'lobby__table-text'}>{this.props.name}</p>
                 </div>
                 <div className={'lobby__table-cell access'}>
                     <p className={'lobby__table-text'}>
-                        {(this.props.locked ? 'Locked' : '')}
+                        {(this.props.is_private ? 'Locked' : '')}
                     </p>
                 </div>
                 <div className={'lobby__table-cell players'}>
-                    <p className={'lobby__table-text'}>{this.props.playersCur} / {this.props.playersMax}</p>
+                    <p className={'lobby__table-text'}>{this.props.playersCur} / {this.props.max_players}</p>
                 </div>
                 <div className={'lobby__table-cell btn'}>
                     <Link className={'lobby__table-btn'} to='/game'>Join ></Link>
