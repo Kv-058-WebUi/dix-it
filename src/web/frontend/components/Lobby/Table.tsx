@@ -41,7 +41,7 @@ export default class Table extends React.Component<any, tableState> {
             //     room_id: 4,
             //     creator_id: 'Chris',
             //     name: 'Scary Room',
-            //     is_private: false,`
+            //     is_private: false,
             //     playersCur: 4,
             //     max_players: 7
             // },
