@@ -89,14 +89,20 @@ export default function CreateRoomPopup() {
     setDisabledText(!disabledText);
   }
 
+  const handleSubmit = (event: any) => {
+    alert('1');
+    event.preventDefault();
+  }
+
   return (
     <ModalWindow
       modalWindowType='create-room'
       windowHeight={formHeight}
       windowWidth={formWidth}
       isContentCentered={false}>
+        <form action="/game" onSubmit={handleSubmit}>
       <label className='create-room-popup__label' htmlFor='room-name'>Room name:</label>
-      <input type='text' className='create-room-popup__text-field' id='room-name' />
+      <input type='text' className='create-room-popup__text-field' id='room-name' required/>
       <div className='create-room-popup__line-wrapper'>
         <label htmlFor='player-amount'
           className='create-room-popup__label'>Amount of players:</label>
@@ -126,9 +132,9 @@ export default function CreateRoomPopup() {
         </div>
       </div>
       <label className={`create-room-popup__label ${disabledText ? "disabled" : ""}`} htmlFor='room-password'>Password:</label>
-      <input type='password' className='create-room-popup__text-field' id='room-password' disabled={disabled}/>
-      <Link to='/game' className='create-room-popup__btn'>Create Room</Link>
-
+      <input required type='password' className='create-room-popup__text-field' id='room-password' disabled={disabled}/>
+      <input type="submit" name="#roomhash" id="Submit" value="Create Room" className='create-room-popup__btn'/>
+      </form>
     </ModalWindow>
   );
 };
