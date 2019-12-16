@@ -30,8 +30,8 @@ const options: ConnectionOptions = {
 };
 
 createConnection(options).then(async connection => {
-    // const user = new DixitUser();
-    // user.email = 'test@gmail.com';
+    // const card = new Card();
+    // card.card_path = 'test@gmail.com';
     // user.nickname = 'vanya';
     // user.password = '123sad';
     //
