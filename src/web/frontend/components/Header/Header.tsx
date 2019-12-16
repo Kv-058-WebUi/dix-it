@@ -49,7 +49,6 @@ export default class Header extends Component<HeaderProps, HeaderState> {
     }
 
     render() {
-        // const userData = useContext(UserProvider.context);
         return (
             <nav className='header'>
                 <Link to='/'><img className='logo' src={require('./LOGO.png')} alt='logo' /></Link>
