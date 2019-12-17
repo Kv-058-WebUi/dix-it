@@ -13,12 +13,18 @@ class AuthenticationService {
 
     public async register(userData: CreateUserDto) {
         if (
-            await this.userRepository.findOne({ email: userData.email })
+            await this.userRepository
+            .createQueryBuilder("user")
+            .where("LOWER(user.email) = LOWER(:email)", { email: userData.email })
+            .getOne()
         ) {
             throw new UserWithThatEmailAlreadyExistsException(userData.email)
         }
         else if (
-            await this.userRepository.findOne({ nickname: userData.nickname })
+            await this.userRepository
+            .createQueryBuilder("user")
+            .where("LOWER(user.nickname) = LOWER(:nickname)", { nickname: userData.nickname })
+            .getOne()
         ) {
             throw new UserWithThatNicknameAlreadyExistsException(userData.nickname)
         }
