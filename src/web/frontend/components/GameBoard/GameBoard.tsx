@@ -2,26 +2,31 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PushedCards from '../PushedCards/PushedCards';
 import Hand from '../Hand/Hand';
-import Dixit from '../../model/Dixit';
+// import Dixit from '../../model/Dixit';
 // import './gameboard.scss';
 import SettingsIcon from '@material-ui/icons/Settings';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
+import axios from 'axios';
 
 
 // todo: find better solution
-import '../../images/cards/card_1.png';
-import '../../images/cards/card_2.png';
-import '../../images/cards/card_3.png';
-import '../../images/cards/card_4.png';
-import '../../images/cards/card_5.png';
-import '../../images/cards/card_6.png';
-import '../../images/cards/card_7.png';
-import '../../images/cards/card_8.png';
-import '../../images/cards/card_9.png';
-import '../../images/cards/card_10.png';
-import '../../images/cards/card_11.png';
-import '../../images/cards/card_12.png';
+// import '../../images/cards/card_1.png';
+// import '../../images/cards/card_2.png';
+// import '../../images/cards/card_3.png';
+// import '../../images/cards/card_4.png';
+// import '../../images/cards/card_5.png';
+// import '../../images/cards/card_6.png';
+// import '../../images/cards/card_7.png';
+// import '../../images/cards/card_8.png';
+// import '../../images/cards/card_9.png';
+// import '../../images/cards/card_10.png';
+// import '../../images/cards/card_11.png';
+// import '../../images/cards/card_12.png';
+
+type GameBoardProps = {
+    users: Users[]
+}
 
 type GameBoardState = {
     users: Users[],
@@ -32,64 +37,37 @@ type GameBoardState = {
 export interface Users {
     id: number;
     name: string;
-    cards: object[];
+    cards: Card[];
 }
 
-interface Card {
+export interface Card {
     id: number;
     imgURL: string;
 }
 
-export default class GameBoard extends Component <{}, GameBoardState> {
-    static defaultProps = {
-        users: [
-            {
-                id: 1,
-                name: 'Johnny Depp',
-                cards: []
-            },
-            {
-                id: 2,
-                name: 'Brad Pitt',
-                cards: []
-            },
-            {
-                id: 3,
-                name: 'Elon Musk',
-                cards: []
-            },
-            {
-                id: 3,
-                name: 'Elon Musk',
-                cards: []
-            },
-            {
-                id: 3,
-                name: 'Elon Musk',
-                cards: []
-            },
-            {
-                id: 3,
-                name: 'Elon Musk',
-                cards: []
-            },
-            {
-                id: 3,
-                name: 'Elon Musk',
-                cards: []
-            }
-        ]
-    };
+export default class GameBoard extends Component <GameBoardProps, GameBoardState> {
+    // get players from db
 
-    constructor(props) { //change any
+    constructor(props: GameBoardProps) {
         super(props);
-        const game = new Dixit(props.users);
-        const playersWithCards = game.serveCards();
         this.state = {
-            users: playersWithCards,
+            users: [],
             pushedCards: [],
+            showMenu: false
         }
     }
+    
+    componentWillMount() {
+        let self = this;
+        axios.get(`/api/game/serve`)
+            .then(
+                function (res) {
+                    self.setState({
+                        users: res.data,
+                    });
+                }
+            );
+    };
 
     toggleMenu() {
         this.setState({
@@ -99,7 +77,7 @@ export default class GameBoard extends Component <{}, GameBoardState> {
 
     showMenu() {
         const visible = this.state.showMenu;
-        if(visible) {
+        if (visible) {
             return (
                 <ul className={'game-settings__list'}>
                     <li className={'game-settings__item'}>
@@ -124,14 +102,15 @@ export default class GameBoard extends Component <{}, GameBoardState> {
     };
 
     render() {
-        const { pushedCards } = this.state;
+        const { pushedCards, users } = this.state;
+        const playerCards = users[0] && users[0].cards;
         return (
             <div>
-                <Link to='/'>
-                    <img className='game-logo' src={require('../Header/LOGO.png')} alt='logo'/>
-                </Link>
                 <PushedCards users={this.state.users} pushedCards={pushedCards} />
-                <Hand cards={this.state.users[0].cards} pushCard={this.pushCard} />
+                 {users.length ? 
+                    <Hand cards={playerCards} pushCard={this.pushCard} /> 
+                : ''}
+        
                 <div className={'game-settings'}>
                     <button className={'game-settings__btn'} onClick={() => this.toggleMenu()} type={'button'}>
                         <SettingsIcon style={{ fill: '#fff' }}/>

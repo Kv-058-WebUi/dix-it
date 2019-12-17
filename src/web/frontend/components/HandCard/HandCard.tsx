@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Submit from '../Submit/Submit';
 import classNames from 'classnames';
+import {Card} from '../GameBoard/GameBoard';
 import './handcard.scss';
 
 type HandCardState = {
@@ -8,8 +9,13 @@ type HandCardState = {
     showCard: boolean
 };
 
-export default class HandCard extends Component <any, HandCardState> {
-    constructor(props: any) {
+type HandProps = {
+    card: Card, 
+    pushCard: Card
+}
+
+export default class HandCard extends Component <HandProps, HandCardState> {
+    constructor(props: HandProps) {
         super(props);
 
         this.state = {
@@ -18,16 +24,16 @@ export default class HandCard extends Component <any, HandCardState> {
         };
     }
 
-    handleCardClick = () => this.setState({ showSubmitButton: true });
+    handleCardClick = (): void  => this.setState({ showSubmitButton: true });
 
-    handleLeave = (e: any) => {
+    handleLeave = (e: any): void  => {
         e.preventDefault();
         if (this.state.showSubmitButton) {
             this.setState({ showSubmitButton: false });
         }
     };
 
-    hideCard = () => this.setState({ showCard: false });
+    hideCard = (): void => this.setState({ showCard: false });
 
     render() {
         const { pushCard, card = {} } = this.props;

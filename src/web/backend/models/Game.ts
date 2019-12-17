@@ -1,6 +1,15 @@
-import { Users } from '../components/GameBoard/GameBoard'
+interface Card {
+    id: number;
+    imgURL: string;
+}
 
-const cardDeck = [
+interface Users {
+    id: number;
+    name: string;
+    cards: Card[];
+}
+
+const cardDeck = [ //get from db
     {
         id: 1,
         imgURL: 'card_1.png',

@@ -16,8 +16,8 @@ export default class RoomController implements Controller{
     }
     
     private initializeRoutes() {
-    this.router.get(this.path, this.getAllRooms);
-    this.router.post(this.path, this.createRoom);
+        this.router.get(this.path, this.getAllRooms);
+        this.router.post(this.path, this.createRoom);
     }
 
     private createRoom = async (request: express.Request, response: express.Response) => {
@@ -30,12 +30,12 @@ export default class RoomController implements Controller{
 
     private getAllRooms = async (request: express.Request, response: express.Response) => {
         const rooms = await this.roomRepository
-        .find({where: {status: 2}})
+            .find({where: {status: 2}});
         const beatyRooms: CreateRoomDto[] = rooms.map(room => {
             const {creator_id, name, max_players, is_private, status} = room;
             return Object.assign({}, {creator_id: {player_id: creator_id.player_id}, name, max_players, is_private, status: {code: status.code}})
-        })  
-        response.send(beatyRooms)
+        });
+        response.send(beatyRooms);
     }
 
     private modifyRoom = async (request: express.Request, response: express.Response) => {

@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
 import Card from '../Card/Card';
+import {Users} from '../GameBoard/GameBoard';
 import './pushedcards.scss';
 
 type PushedCardsProps = {
-    users: object[],
-    pushedCards: object[]
+    users: Users[],
+    pushedCards: Card[]
 }
 
 export default class PushedCards extends Component <PushedCardsProps> {
@@ -20,7 +21,7 @@ export default class PushedCards extends Component <PushedCardsProps> {
 
         return (
             <div className={containerClass}>
-                {users.map((item:object, index:number) => {
+                {users.map((item:Users, index:number) => {
                     const pushed = pushedCards[index];
                     if (pushed) {
                         return <Card key={index} item={`../../images/${pushed.imgURL}`}/>;
@@ -31,4 +32,3 @@ export default class PushedCards extends Component <PushedCardsProps> {
         );
     }
 }
-

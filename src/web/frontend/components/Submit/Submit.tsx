@@ -1,7 +1,14 @@
 import React, { Component } from 'react';
+import {Card} from '../GameBoard/GameBoard';
 import './submit.scss';
 
-export default class Submit extends Component {
+type SubmitProps = {
+    card: Card[], 
+    pushCard: Card,
+    hideCard: boolean
+}
+
+export default class Submit extends Component <SubmitProps> {
 
     render() {
         const { pushCard, card, hideCard } = this.props;
