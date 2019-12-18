@@ -30,9 +30,9 @@ class AuthenticationService {
             fileType: 'png'
         }
         const url = generateURL(params);
-        const defaultImagePath = path.join('images/avatars/anonymous_user.png');
-        const imagePath = path.join('images/avatars', `${name}.png`);
-        const filePath = path.resolve('dist/web/frontend/images/avatars', `${name}.png`);
+        const defaultImage = 'anonymous_user.png';
+        const image = `${name}.png`;
+        const filePath = path.resolve(`public/images/avatars/${name}.png`);
         const writer = fs.createWriteStream(filePath);
 
         return new Promise((resolve, reject) => {
@@ -43,11 +43,11 @@ class AuthenticationService {
             }).then((response) => {
                 response.data.pipe(writer);
             }).catch((e) => {
-                resolve(defaultImagePath);
+                resolve(defaultImage);
             });
 
-            writer.on('finish', () => { resolve(imagePath) });
-            writer.on('error', () => { resolve(defaultImagePath) });
+            writer.on('finish', () => { resolve(image) });
+            writer.on('error', () => { resolve(defaultImage) });
         });
     }
 
