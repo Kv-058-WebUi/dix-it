@@ -49,10 +49,10 @@ class App {
       client.on('disconnect', () => {
         console.log('user disconnected');
       });
-      client.on('chat msg', (msg: any) => {
+      client.on('send chat msg', (msg: any) => {
         console.log('chat msg received');
         console.log(msg);
-        client.broadcast.to('some room').emit('my message', msg);
+        client.broadcast.to('some room').emit('new chat msg', msg);
       })
     });
   }
