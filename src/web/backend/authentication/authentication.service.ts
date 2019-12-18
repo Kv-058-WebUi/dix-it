@@ -7,9 +7,49 @@ import UserWithThatNicknameAlreadyExistsException from '../exceptions/UserWithTh
 import UserNotFoundException from '../exceptions/UserNotFoundException';
 import UserInvalidPasswordException from '../exceptions/UserInvalidPasswordException';
 import { LoginUserData } from './helpers';
+import { generateURL } from 'react-robohash';
+import axios from 'axios';
+import fs from 'fs';
+import path from 'path';
+import crypto from 'crypto';
 
 class AuthenticationService {
     private userRepository = getRepository(DixitUser);
+
+    private async createProfilePicture(userData: CreateUserDto): Promise<string> {
+        const nicknameLength = userData.nickname.length;
+        const background = nicknameLength % 2 + 1;//1 or 2
+        const name = crypto.createHash('md5')
+            .update(userData.email + userData.nickname)
+            .digest('hex');
+        const params = {
+            name,
+            background,
+            size: 200,
+            type: 'robot',
+            fileType: 'png'
+        }
+        const url = generateURL(params);
+        const defaultImagePath = path.join('images/avatars/anonymous_user.png');
+        const imagePath = path.join('images/avatars', `${name}.png`);
+        const filePath = path.resolve('dist/web/frontend/images/avatars', `${name}.png`);
+        const writer = fs.createWriteStream(filePath);
+
+        return new Promise((resolve, reject) => {
+            axios({
+                url,
+                method: "get",
+                responseType: "stream"
+            }).then((response) => {
+                response.data.pipe(writer);
+            }).catch((e) => {
+                resolve(defaultImagePath);
+            });
+
+            writer.on('finish', () => { resolve(imagePath) });
+            writer.on('error', () => { resolve(defaultImagePath) });
+        });
+    }
 
     public async register(userData: CreateUserDto) {
         if (
@@ -28,11 +68,14 @@ class AuthenticationService {
         ) {
             throw new UserWithThatNicknameAlreadyExistsException(userData.nickname)
         }
-        const salt = bcryptjs.genSaltSync(10);
+        const salt = await bcryptjs.genSalt(10);
         const hashedPassword = await bcryptjs.hash(userData.password, salt);
+        const profile_picture = await this.createProfilePicture(userData);
+
         const user = this.userRepository.create({
             ...userData,
             password: hashedPassword,
+            profile_picture
         });
         await this.userRepository.save(user);
         return user;

@@ -4,6 +4,7 @@ import Rules from '../Rules/Rules';
 // import ModalWindow from "./ModalWindow";
 import './header.scss';
 import AuthWindow from '../AuthWindow/AuthWindow';
+import UserNav from './UserNav/UserNav';
 import UserProvider from '../UserProvider/UserProvider';
 
 type HeaderProps = {
@@ -43,25 +44,18 @@ export default class Header extends Component<HeaderProps, HeaderState> {
         }
     };
 
-    handleLogOut = () => {
-        localStorage.removeItem('jwt_token');
-        location.href = '/';
-    }
-
     render() {
         return (
             <nav className='header'>
                 <Link to='/'><img className='logo' src={require('./LOGO.png')} alt='logo' /></Link>
                 <p className='online'>Online: {this.props.onlineCount}</p>
                 <div className='nav'>
+                    <UserNav></UserNav>
                     <UserProvider.context.Consumer>{context => (
                         <React.Fragment>
-                            {context.user && context.user.authenticated
-                                ? (<React.Fragment>
-                                    <a href='#'>{context.user.nickname}</a>
-                                    <a href='#' onClick={this.handleLogOut}>Log out</a>
-                                </React.Fragment>)
-                                : (<a href='#' onClick={this.handleAuthFormClick}>Sign In</a>)}
+                            {!context.user || !context.user.authenticated
+                                ? (<a href='#' onClick={this.handleAuthFormClick}>Sign In</a>)
+                                : ''}
                         </React.Fragment>
                     )}</UserProvider.context.Consumer>
                     <a href='mailto:name@email.com'>Contact Us</a>

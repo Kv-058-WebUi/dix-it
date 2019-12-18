@@ -12,6 +12,7 @@ import { DixitUser } from '../entities/User';
 import EmailSender from "./EmailSender";
 import passport from 'passport';
 import { LoginUserData, JwtPayload } from './helpers';
+import path from 'path';
 
 
 class AuthenticationController implements Controller {
@@ -79,7 +80,6 @@ class AuthenticationController implements Controller {
 
     private isAuthenticated = async (request: express.Request, response: express.Response, next: express.NextFunction) => {
         passport.authenticate('jwt', { session: false }, (err, user, info) => {
-            console.log(err,info)
             let authenticated = false;
             if (!err && !info) {
                 authenticated = true;

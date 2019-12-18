@@ -69,9 +69,9 @@ class InputField extends React.Component<InputFieldProps, InputFieldState> {
     }
 
     //don't send value to parent if it's invalid
-    sendInputValueToParent(event: any): void {
+    sendInputValueToParent(isInputValid: (inputValue: string) => boolean, event: any): void {
         let fieldValue = event.target.value;
-        if (this.state.isValueInvalid) {
+        if (!isInputValid(fieldValue)) {
             fieldValue = "";
         }
         this.props.onValueUpdate(fieldValue);
@@ -96,7 +96,7 @@ class InputField extends React.Component<InputFieldProps, InputFieldState> {
 
     getAttributesForEmailField(InputProps: any) {
         return {
-            type: "text",
+            type: "email",
             errorHelperText: "Not an email",
             isInputValid: InputValidator.isEmailValid,
             InputProps: {
@@ -189,8 +189,8 @@ class InputField extends React.Component<InputFieldProps, InputFieldState> {
                     placeholder={this.getPlaceholder(fieldType)}
                     required
                     helperText={this.state.helperText}
-                    onChange={(event) => this.validateInput(isInputValid, errorHelperText, event)}
-                    onBlur={(event) => this.sendInputValueToParent(event)}
+                    onBlur={(event) => this.validateInput(isInputValid, errorHelperText, event)}
+                    onChange={(event) => this.sendInputValueToParent(isInputValid, event)}
                     error={this.state.isValueInvalid}
                     variant="outlined"
                     InputProps={InputProps}
