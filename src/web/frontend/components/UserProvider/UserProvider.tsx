@@ -7,7 +7,8 @@ import axios from "axios";
 type UserData = {
   authenticated: boolean,
   nickname: null | DixitUser['nickname'],
-  user_id: null | DixitUser['user_id']
+  user_id: null | DixitUser['user_id'],
+  profile_picture: null | DixitUser['profile_picture']
 }
 
 type ContextData = {
@@ -24,7 +25,8 @@ const UserProvider = ({ children }: any) => {
   const [user, setUser] = useState<UserData>({
       authenticated: false,
       nickname: null,
-      user_id: null
+      user_id: null,
+      profile_picture: null
   });
 
   useEffect(() => {
@@ -40,7 +42,8 @@ const UserProvider = ({ children }: any) => {
             setUser({
               authenticated: true,
               nickname: decoded.nickname,
-              user_id: decoded.user_id
+              user_id: decoded.user_id,
+              profile_picture: decoded.profile_picture 
             });
           }
         } else {
