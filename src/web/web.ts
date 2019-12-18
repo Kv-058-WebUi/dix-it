@@ -44,18 +44,15 @@ class App {
       client.join('some room');
 
       client.on('game page open', () => {
-    //    client.join('game room');
         console.log('Game page open!! BE');
       });
-      client.on('disconnect', function(){
+      client.on('disconnect', () => {
         console.log('user disconnected');
       });
       client.on('chat msg', (msg: any) => {
-        console.log('chat msg BE');
+        console.log('chat msg received');
         console.log(msg);
-     //   this.socket.emit('chat')
         client.broadcast.to('some room').emit('my message', msg);
-   //     this.socket.
       })
     });
   }
