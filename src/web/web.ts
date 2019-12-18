@@ -1,5 +1,5 @@
 import express from "express";
-import http from "http";
+import http, {Server} from "http";
 import path from "path";
 import RoomController from "./backend/controllers/room.controller";
 import Controller from './backend/interfaces/controller.interface';
@@ -7,12 +7,19 @@ import AuthenticationController from "./backend/authentication/authentication.co
 import bodyParser from "body-parser";
 import { UserController } from "./backend/controllers/user.controller";
 import cors from "cors";
+import io from "socket.io"
+import SocketIO from "socket.io";
 
 class App {
   public app: express.Application;
+  private server: Server;
+  private socket: SocketIO.Server;
   // Express app initialization
   constructor() {
     this.app = express();
+    this.server = http.createServer(this.app);
+    this.server.listen(3001);
+    this.socket = io(this.server);
     this.initializeMiddlewares();
     this.initializeApp();
   }
@@ -25,11 +32,31 @@ class App {
     this.app.use("/assets", express.static(path.join(__dirname, "frontend")));
 
     // Controllers
-    this.app.use('/api', new RoomController().router)
-    this.app.use('/api', new AuthenticationController().router)
-    this.app.use('/api', new UserController().router)
+    this.app.use('/api', new RoomController().router);
+    this.app.use('/api', new AuthenticationController().router);
+    this.app.use('/api', new UserController().router);
     this.app.get("/*", (req, res) => {
       res.render("index");
+    });
+
+    this.socket.on('connection', (client: SocketIO.Socket) => {
+      console.log('a user connected');
+      client.join('some room');
+
+      client.on('game page open', () => {
+    //    client.join('game room');
+        console.log('Game page open!! BE');
+      });
+      client.on('disconnect', function(){
+        console.log('user disconnected');
+      });
+      client.on('chat msg', (msg: any) => {
+        console.log('chat msg BE');
+        console.log(msg);
+     //   this.socket.emit('chat')
+        client.broadcast.to('some room').emit('my message', msg);
+   //     this.socket.
+      })
     });
   }
   public listen() {
@@ -64,8 +91,6 @@ export const start = (port: number): Promise<void> => {
     port = Number(process.env.PORT) || 5000;
     const server = new App().app.listen(port, function () {
       console.log(`Listening on port ${port}`);
-
-
     });
   });
 };

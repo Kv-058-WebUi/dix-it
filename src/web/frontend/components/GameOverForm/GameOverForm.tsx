@@ -4,25 +4,29 @@ import './GameOverForm.scss'
 import { Fireworks } from './Fireworks/Fireworks';
 import Winner from './Winner/Winner';
 import { Redirect } from 'react-router-dom';
+import {player} from '../GamePage/gamepage';
 
-export const GameOverForm = (props: any) => {
+interface GameOverFormInterface {
+    players: player[]
+}
+
+export const GameOverForm = (props: GameOverFormInterface) => {
     const gameOverHeight = 'auto';
     const gameOverWidth = '600px'; 
-    const [isRedirect, setRedirect]:any = useState(false) 
+    const [isRedirect, setRedirect]:any = useState(false);
     const redirect = () => {
         setRedirect(!isRedirect)
-    }
+    };
     const renderRedirect = () => {
         if(isRedirect) {
             console.log('redirect');
             return <Redirect to='/lobby'/>
         }
-    }
+    };
     useEffect(() => {
        document.addEventListener('click', redirect)
-    })
+    });
     const winner = props.players.shift();
-    console.log('winner',winner);
     
     return (
         <div>
