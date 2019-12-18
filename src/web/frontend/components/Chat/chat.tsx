@@ -100,12 +100,13 @@ export default class Chat extends React.Component<SocketProps, chatState> {
             timestamp: new Date(Date.now()),
         };
 
-        this.state.messages.push(message);
+        this.setState({
+            messages: [...this.state.messages, message],
+            value: '',
+        });
 
         this.props.socket.emit('chat msg', message);
         console.log('chat msg emitted');
-
-        this.setState({value: ''});
     }
 
 
