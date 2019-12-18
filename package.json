@@ -57,7 +57,6 @@
     "webpack-dev-server": "^3.9.0"
   },
   "dependencies": {
-
     "@material-ui/core": "^4.7.1",
     "@material-ui/icons": "^4.5.1",
     "@material-ui/styles": "^4.6.0",
@@ -66,8 +65,10 @@
     "@types/cors": "^2.8.6",
     "@types/jsonwebtoken": "^8.3.5",
     "@types/node-sass": "^4.11.0",
-    "axios": "^0.19.0",
     "@types/nodemailer": "^6.2.2",
+    "@types/socket.io": "^2.1.4",
+    "@types/socket.io-client": "^1.4.32",
+    "axios": "^0.19.0",
     "bcryptjs": "^2.4.3",
     "classnames": "^2.2.6",
     "cors": "^2.8.5",
@@ -83,6 +84,7 @@
     "react-dom": "^16.11.0",
     "react-router-dom": "^5.1.2",
     "reflect-metadata": "^0.1.13",
+    "socket.io": "^2.3.0",
     "typeorm": "^0.2.20"
   }
 }

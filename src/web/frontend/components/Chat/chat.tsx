@@ -2,16 +2,16 @@ import React, {SyntheticEvent} from 'react';
 import './chat.scss';
 import Message, {messageParams} from "./message";
 import ChatInput from "./chatInput";
+import {SocketProps} from "../GamePage/gamepage";
 
 interface chatState {
     value: string,
     messages: messageParams[],
 }
 
-export default class Chat extends React.Component<any, chatState> {
-    constructor(props: any) {
+export default class Chat extends React.Component<SocketProps, chatState> {
+    constructor(props: SocketProps) {
         super(props);
-
         this.state = {
             value: '',
             messages: [
@@ -51,6 +51,19 @@ export default class Chat extends React.Component<any, chatState> {
         messageContainer.scrollTop = messageContainer.scrollHeight;
     }
 
+    componentDidMount() {
+        console.log('component did mount');
+        this.props.socket.on('my message', this.handleData);
+    }
+
+    handleData(data: messageParams) {
+        //handle data
+       // this.state.messages.push(data);
+        let newState = {...this.state };
+        newState.messages.push(data);
+        this.setState(newState);
+    }
+
     renderMessages() {
         return (
             this.state.messages.map((message: messageParams, i) => {
@@ -81,16 +94,21 @@ export default class Chat extends React.Component<any, chatState> {
         event.preventDefault();
         console.log('handle submit called');
 
-        this.state.messages.push({
+        const message = {
             id: this.state.messages.length + 1,
             creator: 'Not me',
             content: this.state.value,
             timestamp: new Date(Date.now()),
-        });
+        };
+
+        this.state.messages.push(message);
+
+        this.props.socket.emit('chat msg', message);
+        console.log('chat msg emitted');
 
         this.setState({value: ''});
-
     }
+
 
     handleChange(event: React.ChangeEvent<HTMLInputElement>): void {
         console.log('handle change called');
