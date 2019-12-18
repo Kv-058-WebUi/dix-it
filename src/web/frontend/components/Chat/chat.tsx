@@ -57,18 +57,16 @@ export default class Chat extends React.Component<SocketProps, chatState> {
             (data: messageParams) => {
             let newState = [...this.state.messages];
             console.log(newState);
-            newState.push(data);
+            let newMessage = {
+                id: data.id,
+                creator: data.creator,
+                content: data.content,
+                timestamp: new Date(data.timestamp),
+            };
+            newState.push(newMessage);
             this.setState({messages: newState});
         });
-        //    this.handleData);
     }
-
-    // handleData(data: messageParams) {
-    //     let newState = [...this.state.messages];
-    //     console.log(newState);
-    //     newState.push(data);
-    //     this.setState({messages: newState});
-    // }
 
     renderMessages() {
         return (
