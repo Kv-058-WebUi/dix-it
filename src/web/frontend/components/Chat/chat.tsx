@@ -53,16 +53,22 @@ export default class Chat extends React.Component<SocketProps, chatState> {
 
     componentDidMount() {
         console.log('component did mount');
-        this.props.socket.on('my message', this.handleData);
+        this.props.socket.on('my message',
+            (data: messageParams) => {
+            let newState = [...this.state.messages];
+            console.log(newState);
+            newState.push(data);
+            this.setState({messages: newState});
+        });
+        //    this.handleData);
     }
 
-    handleData(data: messageParams) {
-        //handle data
-       // this.state.messages.push(data);
-        let newState = {...this.state };
-        newState.messages.push(data);
-        this.setState(newState);
-    }
+    // handleData(data: messageParams) {
+    //     let newState = [...this.state.messages];
+    //     console.log(newState);
+    //     newState.push(data);
+    //     this.setState({messages: newState});
+    // }
 
     renderMessages() {
         return (
