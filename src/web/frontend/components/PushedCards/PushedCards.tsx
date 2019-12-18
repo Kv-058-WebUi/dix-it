@@ -24,7 +24,7 @@ export default class PushedCards extends Component <PushedCardsProps> {
                 {users.map((item:Users, index:number) => {
                     const pushed = pushedCards[index];
                     if (pushed) {
-                        return <Card key={index} item={`../../images/${pushed.imgURL}`}/>;
+                        return <Card key={index} item={`../../images/cards/${pushed.imgURL}`}/>;
                     }
                     return <Card key={index} />;
                 })}

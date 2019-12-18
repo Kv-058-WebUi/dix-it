@@ -77,16 +77,22 @@ export default class Dixit {
     serveCards() {
         const cardDeck = [...this.fullCardDeck];
         return this.players.map(player => {
-            for (let i = 0; i < this.cardsPerPlayer; i++) {
-                const cardQuantity = cardDeck.length;
-                const index = Math.floor(Math.random() * cardQuantity);
-                const currentCard = cardDeck[index];
-                player.cards.push(currentCard);
-                cardDeck.splice(index, 1);
+            if (!player.cards.length) {
+                for (let i = 0; i < this.cardsPerPlayer; i++) {
+                    const cardQuantity = cardDeck.length;
+                    const index = Math.floor(Math.random() * cardQuantity);
+                    const currentCard = cardDeck[index];
+                    player.cards.push(currentCard);
+                    cardDeck.splice(index, 1);
+                }
+            } else {
+                    const cardQuantity = cardDeck.length;
+                    const index = Math.floor(Math.random() * cardQuantity);
+                    const currentCard = cardDeck[index];
+                    player.cards.push(currentCard);
+                    cardDeck.splice(index, 1);
             }
             return player;
         });
     }
 }
-
-

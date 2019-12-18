@@ -1,6 +1,7 @@
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackRootPlugin = require('html-webpack-root-plugin');
 let path = require('path');
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
     mode: "development",
@@ -87,5 +88,12 @@ module.exports = {
         },
         usedExports: true
     },
-    plugins: [new HtmlWebpackPlugin(), new HtmlWebpackRootPlugin()]
+    plugins: [
+        new HtmlWebpackPlugin(),
+        new HtmlWebpackRootPlugin(),
+        new CopyPlugin([{ 
+            from: path.join(__dirname, 'src/web/frontend/images'),
+            to: path.join(__dirname, 'dist/web/frontend/images') 
+        }])
+    ]
 };

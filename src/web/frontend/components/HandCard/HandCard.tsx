@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Submit from '../Submit/Submit';
+import Submit, { PushCardFn } from '../Submit/Submit';
 import classNames from 'classnames';
 import {Card} from '../GameBoard/GameBoard';
 import './handcard.scss';
@@ -11,7 +11,7 @@ type HandCardState = {
 
 type HandProps = {
     card: Card, 
-    pushCard: Card
+    pushCard: PushCardFn
 }
 
 export default class HandCard extends Component <HandProps, HandCardState> {
@@ -33,10 +33,10 @@ export default class HandCard extends Component <HandProps, HandCardState> {
         }
     };
 
-    hideCard = (): void => this.setState({ showCard: false });
+    hideCard = () => this.setState({ showCard: false });
 
     render() {
-        const { pushCard, card = {} } = this.props;
+        const { pushCard, card} = this.props;
 
         const blurClass = classNames({
             'border-blur': this.state.showSubmitButton
@@ -49,7 +49,7 @@ export default class HandCard extends Component <HandProps, HandCardState> {
                         <div className='hand-card'>
                             <img className={blurClass}
                                  onClick={this.handleCardClick}
-                                 src={`images/${card.imgURL}`}
+                                 src={`images/cards/${card.imgURL}`}
                             />
                         </div>
                         {this.state.showSubmitButton ?

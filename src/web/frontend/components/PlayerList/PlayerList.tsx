@@ -47,7 +47,7 @@ export default class PlayerList extends React.Component<any, playerlistState> {
               
           return (
             <PlayerListElement
-              //key={index}
+              key={index}
               img={sortedplayer.img}
               name={sortedplayer.name}
               score={sortedplayer.score}

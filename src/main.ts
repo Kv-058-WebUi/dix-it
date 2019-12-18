@@ -11,7 +11,6 @@ import { Relationship } from "./web/backend/entities/Relationship";
 import { RoomPlayer } from "./web/backend/entities/RoomPlayers";
 
 
-
 async function main() {
     await web.start(SERVER_PORT);
     console.log(`Server started at http://localhost:${SERVER_PORT}`);
@@ -30,6 +29,9 @@ const options: ConnectionOptions = {
 };
 
 createConnection(options).then(async connection => {
+    // const card = new Card();
+    // card.card_path = 'card_1.png';
+
     // const user = new DixitUser();
     // user.email = 'test@gmail.com';
     // user.nickname = 'vanya';

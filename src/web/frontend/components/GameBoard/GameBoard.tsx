@@ -95,7 +95,7 @@ export default class GameBoard extends Component <GameBoardProps, GameBoardState
         }
     };
 
-    pushCard = (card: Card) => {
+    pushCardFn = (card: Card) => {
         const { pushedCards } = this.state;
         pushedCards.push(card);
         this.setState({ pushedCards });
@@ -108,7 +108,7 @@ export default class GameBoard extends Component <GameBoardProps, GameBoardState
             <div>
                 <PushedCards users={this.state.users} pushedCards={pushedCards} />
                  {users.length ? 
-                    <Hand cards={playerCards} pushCard={this.pushCard} /> 
+                    <Hand cards={playerCards} pushCard={this.pushCardFn} /> 
                 : ''}
         
                 <div className={'game-settings'}>
