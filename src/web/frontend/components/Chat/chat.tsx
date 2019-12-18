@@ -19,31 +19,32 @@ export default class Chat extends React.Component<SocketProps, chatState> {
                     id: 1,
                     creator: 'Alexander',
                     content: 'Hey there',
-                    timestamp: new Date(Date.now()),
+                    timestamp: new Date(Date.now()).toISOString(),
                 },
                 {
                     id: 2,
                     creator: 'Me',
                     content: 'Hey there 2',
-                    timestamp: new Date(Date.now()),
+                    timestamp: new Date(Date.now()).toISOString(),
                 },
                 {
                     id: 3,
                     creator: 'Me',
                     content: 'Hey there 4',
-                    timestamp: new Date(Date.now()),
+                    timestamp: new Date(Date.now()).toISOString(),
                 },
                 {
                     id: 4,
                     creator: 'Me',
                     content: 'Hey there 5',
-                    timestamp: new Date(Date.now()),
+                    timestamp: new Date(Date.now()).toISOString(),
                 },
             ]
         };
 
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.handleNewMessage = this.handleNewMessage.bind(this);
     }
 
     componentDidUpdate() {
@@ -52,15 +53,11 @@ export default class Chat extends React.Component<SocketProps, chatState> {
     }
 
     componentDidMount() {
-        this.props.socket.on('my message', (data: messageParams) => {
-            let newMessage = {
-                id: data.id,
-                creator: data.creator,
-                content: data.content,
-                timestamp: new Date(data.timestamp),
-            };
-            this.setState({messages: [...this.state.messages, newMessage]});
-        });
+        this.props.socket.on('new chat msg', this.handleNewMessage);
+    }
+
+    handleNewMessage(newMessage: messageParams) {
+        this.setState({messages: [...this.state.messages, newMessage]});
     }
 
     renderMessages() {
@@ -97,7 +94,7 @@ export default class Chat extends React.Component<SocketProps, chatState> {
             id: this.state.messages.length + 1,
             creator: 'Not me',
             content: this.state.value,
-            timestamp: new Date(Date.now()),
+            timestamp: new Date(Date.now()).toISOString(),
         };
 
         this.setState({
@@ -105,7 +102,7 @@ export default class Chat extends React.Component<SocketProps, chatState> {
             value: '',
         });
 
-        this.props.socket.emit('chat msg', message);
+        this.props.socket.emit('send chat msg', message);
         console.log('chat msg emitted');
     }
 
