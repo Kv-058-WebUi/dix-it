@@ -1,7 +1,7 @@
 export const SERVER_PORT = parseInt(process.env.PORT || "8000");
 export const DB_PORT = parseInt(process.env.DB_PORT || "5432");
-export const DB_USER = 'dixit';
-export const DB_PASSWORD = 'dixit';
+export const DB_USER = process.env.DB_USER || 'dixit';
+export const DB_PASSWORD = process.env.DB_PASSWORD || 'dixit';
 export const DB_HOST = process.env.HOST || '127.0.0.1';
 export const DB_NAME = String(process.env.NAME || 'dixit');
 export const EMAIL_USERNAME = process.env.EMAIL_USERNAME || "username";
