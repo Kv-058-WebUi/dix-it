@@ -1,7 +1,7 @@
-import React, { useRef, useEffect } from 'react';
-import ReactDom from 'react-dom';
+import React, { useEffect } from 'react';
 const FireworksCanvas = require('fireworks-canvas');
 import { options } from './config';
+import './fireworks.scss'
 
 export const Fireworks = () => {
     const fireworksHeight = '500px';

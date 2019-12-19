@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import PushedCards from '../PushedCards/PushedCards';
 import Hand from '../Hand/Hand';
 import Dixit from '../../model/Dixit';
-import './gameboard.scss';
 
 import SettingsIcon from '@material-ui/icons/Settings';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
@@ -33,7 +31,6 @@ import { GameOverForm } from '../GameOverForm/GameOverForm';
 type GameBoardState = {
     users: object[],
     pushedCards: object[],
-    showMenu: boolean;
 };
 
 export default class GameBoard extends Component <{}, GameBoardState> {
@@ -77,35 +74,8 @@ export default class GameBoard extends Component <{}, GameBoardState> {
         this.state = {
             users: playersWithCards,
             pushedCards: [],
-            showMenu: false
         }
     }
-
-    toggleMenu() {
-        this.setState({
-            showMenu: !this.state.showMenu
-        });
-    };
-
-    showMenu() {
-        const visible = this.state.showMenu;
-        if(visible) {
-            return (
-                <ul className={'game-settings__list'}>
-                    <li className={'game-settings__item'}>
-                        <button className={'game-settings__btn'} type={'button'}>
-                            <HelpOutlineIcon style={{ fill: '#fff' }}/>
-                        </button>
-                    </li>
-                    <li className={'game-settings__item'}>
-                        <button className={'game-settings__btn'} type={'button'}>
-                            <ExitToAppIcon style={{ fill: '#fff' }}/>
-                        </button>
-                    </li>
-                </ul>
-            );
-        }
-    };
 
     pushCard = (card) => {
         const { pushedCards } = this.state;
@@ -116,19 +86,9 @@ export default class GameBoard extends Component <{}, GameBoardState> {
     render() {
         const { pushedCards } = this.state;
         return (
-            <div>
-                <Link to='/'>
-                    <img className='game-logo' src={require('../Header/LOGO.png')} alt='logo'/>
-                </Link>
-                {/* <GameOverForm/> */}
+            <div className={'game-board'}>
                 <PushedCards users={this.state.users} pushedCards={pushedCards} />
                 <Hand cards={this.state.users[0].cards} pushCard={this.pushCard} />
-                <div className={'game-settings'}>
-                    <button className={'game-settings__btn'} onClick={() => this.toggleMenu()} type={'button'}>
-                        <SettingsIcon style={{ fill: '#fff' }}/>
-                    </button>
-                    {this.showMenu()}
-                </div>
             </div>
         );
     }

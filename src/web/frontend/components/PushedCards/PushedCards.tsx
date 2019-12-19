@@ -9,6 +9,7 @@ type PushedCardsProps = {
 }
 
 export default class PushedCards extends Component <PushedCardsProps> {
+
     render() {
         const { users, pushedCards } = this.props;
 
