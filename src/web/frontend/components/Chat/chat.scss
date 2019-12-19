@@ -12,7 +12,7 @@
 .chat__messages-area {
   display: flex;
   flex-direction: column;
-  overflow: scroll;
+  overflow-y: auto;
   height: 480px;
 }
 
