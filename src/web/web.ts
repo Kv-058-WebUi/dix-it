@@ -1,25 +1,20 @@
 import express from "express";
-import http, {Server} from "http";
 import path from "path";
 import RoomController from "./backend/controllers/room.controller";
-import Controller from './backend/interfaces/controller.interface';
 import AuthenticationController from "./backend/authentication/authentication.controller";
 import bodyParser from "body-parser";
 import { UserController } from "./backend/controllers/user.controller";
 import cors from "cors";
 import io from "socket.io"
 import SocketIO from "socket.io";
+import SocketController from "./backend/controllers/socket.controller";
 
 class App {
   public app: express.Application;
-  private server: Server;
-  private socket: SocketIO.Server;
+  public socket!: SocketIO.Server;
   // Express app initialization
   constructor() {
     this.app = express();
-    this.server = http.createServer(this.app);
-    this.server.listen(3001);
-    this.socket = io(this.server);
     this.initializeMiddlewares();
     this.initializeApp();
   }
@@ -38,31 +33,13 @@ class App {
     this.app.get("/*", (req, res) => {
       res.render("index");
     });
-
-    this.socket.on('connection', (client: SocketIO.Socket) => {
-      console.log('a user connected');
-      client.join('some room');
-
-      client.on('game page open', () => {
-        console.log('Game page open!! BE');
-      });
-      client.on('disconnect', () => {
-        console.log('user disconnected');
-      });
-      client.on('send chat msg', (msg: any) => {
-        console.log('chat msg received');
-        console.log(msg);
-        client.broadcast.to('some room').emit('new chat msg', msg);
-      })
-    });
-  }
-  public listen() {
-    this.app.listen(process.env.PORT, () => {
-      console.log(`App listening on the port ${process.env.PORT}`);
-    });
   }
 
-  public getServer() {
+    public initializeSocket() {
+        new SocketController().initializeSocket(this.socket);
+    }
+
+    public getServer() {
     return this.app;
   }
 
@@ -72,23 +49,15 @@ class App {
   }
 }
 
-// Start function
-// export const start = (port: number): Promise<void> => {
-//     const server = http.createServer(app);
-
-//     return new Promise<void>((resolve, reject) => {
-//         server.listen(port, resolve);
-//     });
-// };
-
-
-
 export const start = (port: number): Promise<void> => {
   return new Promise<void>((resolve, reject) => {
     port = Number(process.env.PORT) || 5000;
-    const server = new App().app.listen(port, function () {
+    const app = new App();
+    const server = app.app.listen(port, function () {
       console.log(`Listening on port ${port}`);
     });
+    app.socket = io(server);
+    app.initializeSocket();
   });
 };
 

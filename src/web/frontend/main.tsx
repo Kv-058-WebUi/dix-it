@@ -12,8 +12,7 @@ import "./sass/main.scss";
 import io from "socket.io-client"
 
 const App = () => {
-    const socket = io('http://localhost:3001/');
-   // socket.
+    const socket = io('http://localhost:5000');
     return (
         <Router>
             <Switch>
