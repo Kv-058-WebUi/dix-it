@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import MainPage from './components/MainPage/MainPage';
 import Lobby from './components/Lobby/Lobby';
 import GamePage from "./components/GamePage/gamepage";
+import UserProvider from './components/UserProvider/UserProvider';
 import {
     BrowserRouter as Router,
     Switch,
@@ -10,8 +11,6 @@ import {
 } from "react-router-dom";
 import "./sass/main.scss";
 import io from "socket.io-client"
-import UserProvider from './components/UserProvider/UserProvider';
-
 const App = () => {
     const socket = io('http://localhost:5000');
     return (
