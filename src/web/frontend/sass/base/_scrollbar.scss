@@ -1,0 +1,26 @@
+$scrollbarSize: 10px;
+
+::-webkit-scrollbar {
+  width: $scrollbarSize;
+  height: $scrollbarSize;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: $scrollbarSize;
+  background: #4d4d4d;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: $scrollbarSize;
+  background:  #a5a5a5;
+
+  &:hover {
+    background: #ccc;
+  }
+}
+
+::-webkit-scrollbar-corner {
+  background: none;
+  width: $scrollbarSize;
+  height: $scrollbarSize;
+}

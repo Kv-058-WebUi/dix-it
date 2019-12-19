@@ -1,9 +1,10 @@
 export const SERVER_PORT = parseInt(process.env.PORT || "8000");
 export const DB_PORT = parseInt(process.env.DB_PORT || "5432");
-export const DB_USER = parseInt(process.env.USER || 'dixit');
-export const DB_PASSWORD = parseInt(process.env.PASSWORD || 'dixit');
-export const DB_HOST = parseInt(process.env.HOST || '127.0.0.1');
-export const DB_NAME = parseInt(process.env.NAME || 'dixit');
+export const DB_USER = process.env.USER || 'dixit';
+export const DB_PASSWORD = process.env.PASSWORD || 'dixit';
+export const DB_HOST = process.env.HOST || '127.0.0.1';
+export const DB_NAME = process.env.NAME || 'dixit';
 export const EMAIL_USERNAME = process.env.EMAIL_USERNAME || "username";
 export const EMAIL_PASSWORD = process.env.EMAIL_PASSWORD || "password";
 export const JWT_SECRET = process.env.JWT_SECRET || "jwt_secret";
+export const JWT_EXPIRATION = process.env.JWT_EXPIRATION || '7d';

@@ -8,6 +8,10 @@ export default class InputValidator {
         return /\S+@\S+\.\S+/.test(email);
     }
 
+    static isLoginValid(login: string): boolean {
+        return InputValidator.isEmailValid(login) || InputValidator.isUsernameValid(login);
+    }
+
     static isPasswordValid(password: string): boolean {
         return /^.*(?=.{8,50})(?=.*[a-zA-Z])(?=.*\d)(?=.*[!#$%&?_+@^()=\- "]).*$/.test(password);
     }
