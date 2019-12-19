@@ -8,6 +8,7 @@ import cors from "cors";
 import io from "socket.io"
 import SocketIO from "socket.io";
 import SocketController from "./backend/controllers/socket.controller";
+import passport from './backend/authentication/passport/passport';
 
 class App {
   public app: express.Application;
@@ -45,7 +46,9 @@ class App {
 
   private initializeMiddlewares() {
     this.app.use(bodyParser.json());
+    this.app.use(bodyParser.urlencoded({ extended: false }));
     this.app.use(cors());
+    this.app.use(passport.initialize());
   }
 }
 

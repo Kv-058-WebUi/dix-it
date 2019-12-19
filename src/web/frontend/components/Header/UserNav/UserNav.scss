@@ -1,0 +1,52 @@
+.UserNav__profile_picture {
+  height: 80px;
+  width: 80px;
+  display: inline-block;
+  position: relative;
+  vertical-align: bottom;
+  margin-right: -20px;
+
+  img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+  }
+}
+// .header {
+//   height: 80px;
+//   background: rgba(2, 1, 6, 0.5);
+//   width: 100%;
+//   color: white;
+//   font-family: Montserrat Alternates;
+//   display: flex;
+//   align-items: center;
+//   padding: 18px 50px;
+
+//   .online {
+//     padding: 0 25px;
+//     font-size: 20px;
+//   }
+//   .nav {
+//     font-size: 20px;
+//     margin-left: auto;
+//     line-height: 80px;
+
+//     a {
+//       padding: 0 25px;
+
+//       .help {
+//         height: 30px;
+//         vertical-align: middle;
+//       }
+//     }
+//   }
+
+//   .logo {
+//     float: left;
+//   }
+// }
+

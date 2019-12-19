@@ -10,27 +10,31 @@ import {
 } from "react-router-dom";
 import "./sass/main.scss";
 import io from "socket.io-client"
+import GamePage from "./components/GamePage/gamepage";
+import UserProvider from './components/UserProvider/UserProvider';
 
 const App = () => {
     const socket = io('http://localhost:5000');
     return (
-        <Router>
-            <Switch>
-                <Route path="/game">
-                    <GamePage socket={ socket }/>
-                </Route>
-                <Route path="/lobby">
-                    <Lobby />
-                </Route>
-                <Route path="/">
-                    <MainPage />
-                </Route>
-            </Switch>
-        </Router>
+        <UserProvider>
+            <Router>
+                <Switch>
+                    <Route path="/game">
+                        <GamePage socket={ socket }/>
+                    </Route>
+                    <Route path="/lobby">
+                        <Lobby />
+                    </Route>
+                    <Route path="/">
+                        <MainPage />
+                    </Route>
+                </Switch>
+            </Router>
+        </UserProvider>
     );
 };
 
 ReactDOM.render(
-    <App/>,
+    <App />,
     document.getElementById("root"),
 );

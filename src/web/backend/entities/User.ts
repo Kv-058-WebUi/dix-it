@@ -1,7 +1,9 @@
-import {Column, Entity, PrimaryGeneratedColumn} from 'typeorm';
+import {Column, Entity, PrimaryGeneratedColumn, Index} from 'typeorm';
 
 
 @Entity()
+@Index("USER_NICKNAME_INDEX", { synchronize: false })
+@Index("USER_EMAIL_INDEX", { synchronize: false })
 export class DixitUser {
     @PrimaryGeneratedColumn({
         type: 'integer'
@@ -10,15 +12,13 @@ export class DixitUser {
 
     @Column({
         type: 'text',
-        nullable: false,
-        unique: true
+        nullable: false
     })
     nickname!: string;
 
     @Column({
         type: 'text',
-        nullable: false,
-        unique: true
+        nullable: false
     })
     email!: string;
 
@@ -47,4 +47,14 @@ export class DixitUser {
         default: new Date()
     })
     lastonline!: Date;
+
+    @Column({
+        nullable: true
+    })
+    password_reset_token!: string;
+
+    @Column({
+        default: false
+    })
+    email_confirmed!: boolean;
 }
