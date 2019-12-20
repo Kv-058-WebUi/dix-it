@@ -36,7 +36,7 @@ export class GameController implements Controller {
                 }
             ]
         );
-
-        response.send(game.serveCards());
+        const result = await game.serveCards();
+        response.send(result);
     }
 }

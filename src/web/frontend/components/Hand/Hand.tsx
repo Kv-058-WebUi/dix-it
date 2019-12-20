@@ -12,7 +12,7 @@ type HandProps = {
 export default class Hand extends Component <HandProps> {
     render() {
         const { pushCard, cards } = this.props;
-
+        console.log('cards: ', cards);
         return (
             <div className='field-hand'>
                 {cards.map((card:Card, index:number) => {
