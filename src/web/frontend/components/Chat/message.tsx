@@ -5,7 +5,7 @@ export interface messageParams {
     id: number,
     creator: string,
     content: string
-    timestamp: Date,
+    timestamp: string,
     displayCreator?: boolean,
     showArrow?: boolean,
 }
@@ -17,7 +17,7 @@ export default class Message extends React.Component<messageParams> {
     }
 
     getTime() {
-        let timestamp = this.props.timestamp;
+        let timestamp = new Date(this.props.timestamp);
         return timestamp.getHours() + ':' + timestamp.getMinutes();
     }
 

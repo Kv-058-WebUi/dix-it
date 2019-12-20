@@ -5,7 +5,10 @@ import GameSettings from "./gamesettings";
 import GameSidePanel from "./gameSidePanel";
 import { GameOverForm } from "../GameOverForm/GameOverForm";
 
-export default function GamePage() {
+export interface SocketProps {
+    socket: SocketIOClient.Socket;
+}
+export default function GamePage(props: SocketProps) {
     let sortedplayers: any = []
     const players = [
         { img: 'https://data.whicdn.com/images/326190807/original.jpg', name: 'Travis Scott', score: 28 },
@@ -33,6 +36,10 @@ export default function GamePage() {
     sortedplayers = sortBy('score');    
     const [playerlist] = useState(sortedplayers)
     const winnerList = [...playerlist]
+    useEffect(() => {
+        props.socket.emit('game page open')
+    });
+
     return (
         <div className={'game-root'}>
             <header>
@@ -45,7 +52,7 @@ export default function GamePage() {
             </header>
             {console.log('sortedplayers', sortedplayers)}
             <GameBoard/>
-            <GameSidePanel players = {playerlist}/>
+            <GameSidePanel players = {playerlist} socket={ props.socket }/>
             <footer>
                 <GameSettings/>
             </footer>
