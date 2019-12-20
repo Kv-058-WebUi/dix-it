@@ -1,5 +1,6 @@
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackRootPlugin = require('html-webpack-root-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 let path = require('path');
 
 module.exports = {
@@ -20,6 +21,7 @@ module.exports = {
     devtool: "source-map",
 
     devServer: {
+        writeToDisk: true,
         contentBase: path.join(__dirname, 'dist/web/frontend'),
         compress: true,
         port: 3000,
@@ -87,5 +89,12 @@ module.exports = {
         },
         usedExports: true
     },
-    plugins: [new HtmlWebpackPlugin(), new HtmlWebpackRootPlugin()]
+    plugins: [
+        new HtmlWebpackPlugin(),
+        new HtmlWebpackRootPlugin(),
+        new CopyPlugin([{ 
+            from: path.join(__dirname, 'src/web/frontend/images'),
+            to: path.join(__dirname, 'dist/web/frontend/images') 
+        }])
+    ]
 };
