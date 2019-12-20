@@ -13,7 +13,7 @@ interface GameOverFormInterface {
 export const GameOverForm = (props: GameOverFormInterface) => {
     const gameOverHeight = 'auto';
     const gameOverWidth = '600px'; 
-    const [isRedirect, setRedirect]:any = useState(false);
+    const [isRedirect, setRedirect] = useState(false) 
     const redirect = () => {
         setRedirect(!isRedirect)
     };
