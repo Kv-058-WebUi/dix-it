@@ -23,7 +23,7 @@ module.exports = {
 
     devServer: {
         writeToDisk: true,
-        contentBase: path.join(__dirname, 'dist/web/frontend'),
+        contentBase: path.resolve('public'),
         compress: true,
         port: 3000,
         publicPath: '/',
