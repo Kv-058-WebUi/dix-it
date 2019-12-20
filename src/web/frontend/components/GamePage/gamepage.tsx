@@ -38,7 +38,7 @@ export default function GamePage(props: SocketProps) {
         return arrayCopy;
     }
 
-    const [isModalShown, setModalShown]:any = useState(false);
+    const [isModalShown, setModalShown] = useState(false);
     sortedplayers = sortBy('score');    
     const [playerlist] = useState(sortedplayers)
     const winnerList = [...playerlist]
@@ -56,7 +56,6 @@ export default function GamePage(props: SocketProps) {
                     <GameOverForm players = {winnerList}/>
             ): <button onClick={() => setModalShown(true)}>Win the game</button>}  
             </header>
-            {console.log('sortedplayers', sortedplayers)}
             <GameBoard/>
             <GameSidePanel players = {playerlist} socket={ props.socket }/>
             <footer>
