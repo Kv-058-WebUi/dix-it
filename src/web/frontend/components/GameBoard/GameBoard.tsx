@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PushedCards from '../PushedCards/PushedCards';
 import Hand from '../Hand/Hand';
 import Dixit from '../../model/Dixit';
+import UpBar from "../UpBar/UpBar"
 
 
 // todo: find better solution
@@ -77,14 +78,16 @@ export default class GameBoard extends Component <{}, GameBoardState> {
         const { pushedCards } = this.state;
         pushedCards.push(card);
         this.setState({ pushedCards });
-    };
+        };
 
     render() {
         const { pushedCards } = this.state;
         return (
             <div className={'game-board'}>
+                <UpBar/>
                 <PushedCards users={this.state.users} pushedCards={pushedCards} />
                 <Hand cards={this.state.users[0].cards} pushCard={this.pushCard} />
+
             </div>
         );
     }
