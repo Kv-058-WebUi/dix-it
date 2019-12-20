@@ -78,12 +78,11 @@ export default class GameBoard extends Component <{}, GameBoardState> {
         const { pushedCards } = this.state;
         pushedCards.push(card);
         this.setState({ pushedCards });
-
+        };
 
     render() {
         const { pushedCards } = this.state;
         return (
-
             <div className={'game-board'}>
                 <UpBar/>
                 <PushedCards users={this.state.users} pushedCards={pushedCards} />
