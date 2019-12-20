@@ -41,8 +41,8 @@ export interface Users {
 }
 
 export interface Card {
-    id: number;
-    imgURL: string;
+    card_id: number;
+    card_path: string;
 }
 
 export default class GameBoard extends Component <GameBoardProps, GameBoardState> {

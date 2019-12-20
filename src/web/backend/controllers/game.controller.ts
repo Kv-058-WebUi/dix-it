@@ -7,6 +7,7 @@ export class GameController implements Controller {
     public path = '/game';
     public router = express.Router();
 
+
     constructor() {
         this.initializeRoutes();
     }

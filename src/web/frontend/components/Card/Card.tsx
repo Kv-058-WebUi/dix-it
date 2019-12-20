@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import './card.scss';
 
 type CardProps = {
-    item: string
+    item?: string
 }
 export default class Card extends Component <CardProps> {
     render() {

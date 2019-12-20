@@ -49,7 +49,7 @@ export default class HandCard extends Component <HandProps, HandCardState> {
                         <div className='hand-card'>
                             <img className={blurClass}
                                  onClick={this.handleCardClick}
-                                 src={`images/cards/${card.imgURL}`}
+                                 src={`images/cards/${card.card_path}`}
                             />
                         </div>
                         {this.state.showSubmitButton ?

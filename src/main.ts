@@ -9,7 +9,7 @@ import { Room } from "./web/backend/entities/Room";
 import { RelationshipStatus } from "./web/backend/entities/RelationshipStatus";
 import { Relationship } from "./web/backend/entities/Relationship";
 import { RoomPlayer } from "./web/backend/entities/RoomPlayers";
-
+import {Card} from "./web/backend/entities/Card";
 
 async function main() {
     await web.start(SERVER_PORT);
@@ -25,15 +25,18 @@ const options: ConnectionOptions = {
     password: "dixit",
     database: "dixit",
     synchronize: true,
-    entities: [DixitUser, Player, Room, RoomStatus, RelationshipStatus, Relationship, RoomPlayer]
+    entities: [DixitUser, Card, Player, Room, RoomStatus, RelationshipStatus, Relationship, RoomPlayer]
 };
 
 createConnection(options).then(async connection => {
     // const card = new Card();
-    // card.card_path = 'card_1.png';
+    // card.card_path = 'card_18.png';
+    // await connection.manager.save(card);
 
     // const user = new DixitUser();
     // user.email = 'test@gmail.com';
+
+    // card.card_path = 'test@gmail.com';
     // user.nickname = 'vanya';
     // user.password = '123sad';
     //
@@ -42,6 +45,7 @@ createConnection(options).then(async connection => {
     // player.nickname = 'dunkey';
     // await connection.manager.save(user);
     // await connection.manager.save(player);
+
 
 }, error => console.log("Cannot connect: ", error)).then(() => {
     return main();
