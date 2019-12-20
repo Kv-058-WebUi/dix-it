@@ -5,13 +5,15 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .chat__messages-area {
   display: flex;
   flex-direction: column;
-  overflow: scroll;
-  height: 560px;
+  overflow-y: auto;
+  height: 480px;
 }
 
 .message {

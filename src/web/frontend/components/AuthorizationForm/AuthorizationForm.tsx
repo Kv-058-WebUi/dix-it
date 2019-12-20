@@ -1,11 +1,10 @@
-import React from "react";
-import ModalWindow from "../ModalWindow/ModalWindow";
+import React, { FormEvent } from "react";
 import InputField from "../InputField/InputField";
 import {Button} from "@material-ui/core";
-import SocialLoginBar from "../SocialLoginBar/SocialLoginBar";
 import {withStyles} from "@material-ui/styles";
 import './AuthorizationForm.scss'
-
+import axios from "axios";
+import { withRouter, RouteComponentProps } from "react-router-dom";
 
 const styles = () => ({
     button: {
@@ -21,37 +20,73 @@ const styles = () => ({
     },
 });
 
-class AuthorizationForm extends React.Component {
+type AuthFormState = {
+    error: string,
+    login: string,
+    password: string
+};
+
+interface AuthFormProps extends RouteComponentProps {}
+
+class AuthorizationForm extends React.Component<AuthFormProps, AuthFormState> {
+    constructor(props: AuthFormProps) {
+        super(props);
+        this.state = {
+            login: "",
+            password: "",
+            error: ""
+        };
+    }
+
+    onFormSubmit(event: FormEvent): void {
+        event.preventDefault();
+
+        const userData = {
+            login: this.state.login,
+            password: this.state.password
+        };
+        
+        axios.post('/api/auth/login', userData)
+            .then(res => {
+                if (res.data.error) {
+                    this.setState({
+                        error: res.data.error
+                    })
+                } else if(res.data.jwt_token) {
+                    this.setState({ error: '' });
+                    localStorage.setItem('jwt_token', res.data.jwt_token);
+                    location.href = '/lobby';
+                    // this.props.history.push('/lobby');
+                }
+            })
+            .catch(() => {
+                this.setState({
+                    error: 'Oh noes! Something went wrong. Try to reboot your device.'
+                })
+            });
+    }
 
     render() {
-        const formHeight = '560px';
-        const formWidth = '350px';
         const {classes}: any = this.props;
+
         return (
-            <ModalWindow
-                modalWindowType='signin'
-                windowWidth={formWidth}
-                windowHeight={formHeight}
-                isContentCentered={true}>
+            <form onSubmit={(event) => { this.onFormSubmit(event) }}>
                 <div className="AuthorizationForm-InputFields">
-                    <InputField fieldType='email' onValueUpdate={() => {
-                    }}/>
-                    <InputField fieldType='password' onValueUpdate={() => {
-                    }}/>
+                    <InputField fieldType='login' onValueUpdate={(value) => {this.setState({login: value})}}/>
+                    <InputField fieldType='password' onValueUpdate={(value) => {this.setState({password: value})}}/>
                 </div>
+                <div className="AuthorizationForm-Error">{this.state.error}</div>
+                <a href='#'>
+                    <div className='AuthorizationForm-ForgotPassword'>Forgot password?</div>
+                </a>
                 <div className="AuthorizationForm-ButtonContainer">
-                    <a href='#'>
-                        <div className='AuthorizationForm-ForgotPassword'> Forgot password?</div>
-                    </a>
-                    <Button className={classes.button}>
+                    <Button className={classes.button} type='submit'>
                         Sign In
                     </Button>
                 </div>
-
-                <SocialLoginBar/>
-            </ModalWindow>
+            </form>
         );
     }
 }
 
-export default withStyles(styles)(AuthorizationForm);
+export default withStyles(styles)(withRouter(AuthorizationForm));

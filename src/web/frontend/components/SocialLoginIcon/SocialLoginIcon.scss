@@ -4,17 +4,22 @@
   position: relative;
   top: 53%;
   transform: translateY(-50%);
+
+  img {
+    width: 100%;
+    height: 100%;
+  }
 }
 
 .SocialLoginIcon-Wrapper {
   display: inline-block;
-  width: 40px;
-  height: 40px;
-  border: 1px solid #E5E5E5;
+  width: 50px;
+  height: 50px;
   border-radius: 25px;
-  margin: 0 20px 0 20px;
+  margin: 0 15px;
+  overflow: hidden;
 }
 
 .SocialLoginIcon-Wrapper:hover {
-  box-shadow: 0 0 10px #BDC3D1;
+  transform: scale(1.1);
 }

@@ -9,8 +9,8 @@ import { Room } from "./web/backend/entities/Room";
 import { RelationshipStatus } from "./web/backend/entities/RelationshipStatus";
 import { Relationship } from "./web/backend/entities/Relationship";
 import { RoomPlayer } from "./web/backend/entities/RoomPlayers";
-
-
+import {UserIndices1576322993380 as UserIndeces} from './migrations/1576322993380-UserIndices';
+import {Card} from "./web/backend/entities/Card";
 
 async function main() {
     await web.start(SERVER_PORT);
@@ -20,27 +20,27 @@ async function main() {
 
 const options: ConnectionOptions = {
     type: "postgres",
-    host: "127.0.0.1",
-    port: 5432,
-    username: "dixit",
-    password: "dixit",
-    database: "dixit",
+    host: DB_HOST,
+    port: DB_PORT,
+    username: DB_USER,
+    password: DB_PASSWORD,
+    database: DB_NAME,
     synchronize: true,
-    entities: [DixitUser, Player, Room, RoomStatus, RelationshipStatus, Relationship, RoomPlayer]
+    migrationsRun: true,
+    migrations: [UserIndeces],
+    cli: {
+        migrationsDir: "migrations"
+    },
+    entities: [DixitUser, Card, Player, Room, RoomStatus, RelationshipStatus, Relationship, RoomPlayer]
 };
 
-createConnection(options).then(async connection => {
-    // const user = new DixitUser();
-    // user.email = 'test@gmail.com';
-    // user.nickname = 'vanya';
-    // user.password = '123sad';
-    //
-    // const player = new Player();
-    // player.user_id = user;
-    // player.nickname = 'dunkey';
-    // await connection.manager.save(user);
-    // await connection.manager.save(player);
-
-}, error => console.log("Cannot connect: ", error)).then(() => {
-    return main();
-}).catch(error => console.error(error));
+createConnection(options)
+    .then(connection => {
+        console.log("Connected to db");
+        connection.runMigrations();
+        console.log("Migrations complete");
+    }, error => {
+        console.log("Cannot connect: ", error)
+    })
+    .then(main)
+    .catch(error => {console.error(error)});

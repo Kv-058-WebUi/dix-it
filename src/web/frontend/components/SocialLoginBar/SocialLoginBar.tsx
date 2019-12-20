@@ -8,6 +8,7 @@ export default class SocialLoginBar extends React.Component {
         return (
             <div className="SocialLoginBar">
                 <div className="SocialLoginBar-Title"> Quick access</div>
+                <SocialLoginIcon socialLoginType={SocialLoginType.Google}/>
                 <SocialLoginIcon socialLoginType={SocialLoginType.Facebook}/>
                 <SocialLoginIcon socialLoginType={SocialLoginType.Twitter}/>
                 <SocialLoginIcon socialLoginType={SocialLoginType.Instagram}/>
