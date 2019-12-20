@@ -13,7 +13,7 @@ export const Fireworks = () => {
     return (
         <div>
             <div id={'container'} style={{ height: fireworksHeight }}></div>
-            {/* <audio autoPlay src={require('./win.mp3')}></audio> */}
+            <audio autoPlay src={require('./win.mp3')}></audio>
         </div>
     )
 }
