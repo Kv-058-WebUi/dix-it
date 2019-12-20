@@ -8,6 +8,7 @@ export interface messageParams {
     timestamp: string,
     displayCreator?: boolean,
     showArrow?: boolean,
+    userName?: string,
 }
 
 export default class Message extends React.Component<messageParams> {
@@ -16,18 +17,22 @@ export default class Message extends React.Component<messageParams> {
         this.state = {};
     }
 
-    getTime() {
-        let timestamp = new Date(this.props.timestamp);
-        return timestamp.getHours() + ':' + timestamp.getMinutes();
+    getTime(): string {
+        const timestamp = new Date(this.props.timestamp);
+        const leadingZero = (num: number) => `0${num}`.slice(-2);
+
+        return [timestamp.getHours(), timestamp.getMinutes()]
+                .map(leadingZero)
+                .join(':');
     }
 
-    getCurrentUserName() {
-        return 'Not me';
+    isCurrentUserMessage(): boolean {
+        return this.props.userName === this.props.creator;
     }
 
     render() {
         return (
-            <div className={this.props.creator === this.getCurrentUserName() ?'message message_self' : 'message'}>
+            <div className={this.isCurrentUserMessage() ? 'message message_self' : 'message'}>
                 <div className='message__container'>
                     <div className={
                         this.props.displayCreator ? 'message__info' : 'message__info message__info_hidden'
