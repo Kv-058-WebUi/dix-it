@@ -5,7 +5,7 @@ import './gamepage.scss'
 import {SocketProps, player} from "./gamepage";
 
 interface GameSideProps extends SocketProps {
-    players: player[]
+    players: player[];
 }
 
 export default function GameSidePanel(props: GameSideProps) {

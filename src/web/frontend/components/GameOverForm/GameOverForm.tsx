@@ -7,15 +7,15 @@ import { Redirect } from 'react-router-dom';
 import {player} from '../GamePage/gamepage';
 
 interface GameOverFormInterface {
-    players: player[]
+    players: player[];
 }
 
 export const GameOverForm = (props: GameOverFormInterface) => {
     const gameOverHeight = 'auto';
     const gameOverWidth = '600px'; 
-    const [isRedirect, setRedirect] = useState(false) 
+    const [isRedirect, setRedirect] = useState(false) ;
     const redirect = () => {
-        setRedirect(!isRedirect)
+        setRedirect(!isRedirect);
     };
     const renderRedirect = () => {
         if(isRedirect) {
@@ -24,7 +24,7 @@ export const GameOverForm = (props: GameOverFormInterface) => {
         }
     };
     useEffect(() => {
-       document.addEventListener('click', redirect)
+       document.addEventListener('click', redirect);
     });
     const winner = props.players.shift();
     
