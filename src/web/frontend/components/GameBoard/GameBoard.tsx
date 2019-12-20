@@ -83,12 +83,11 @@ export default class GameBoard extends Component <{}, GameBoardState> {
     render() {
         const { pushedCards } = this.state;
         return (
-            <div className={'game-board'}>
+            <React.Fragment>
                 <UpBar/>
                 <PushedCards users={this.state.users} pushedCards={pushedCards} />
                 <Hand cards={this.state.users[0].cards} pushCard={this.pushCard} />
-
-            </div>
+            </React.Fragment>
         );
     }
 }
