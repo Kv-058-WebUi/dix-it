@@ -21,9 +21,7 @@ export const GameOverForm = (props: any) => {
     useEffect(() => {
        document.addEventListener('click', redirect)
     })
-    const winner = props.players.shift();
-    console.log('winner',winner);
-    
+    const winner = props.players.shift();    
     return (
         <div>
             {renderRedirect()}

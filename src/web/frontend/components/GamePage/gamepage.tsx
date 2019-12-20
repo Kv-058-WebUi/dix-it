@@ -8,8 +8,13 @@ import { GameOverForm } from "../GameOverForm/GameOverForm";
 export interface SocketProps {
     socket: SocketIOClient.Socket;
 }
+interface sortedPlayersInterface {
+    img: string,
+    name: string,
+    score: number
+}
 export default function GamePage(props: SocketProps) {
-    let sortedplayers: any = []
+    let sortedplayers: sortedPlayersInterface[]
     const players = [
         { img: 'https://data.whicdn.com/images/326190807/original.jpg', name: 'Travis Scott', score: 28 },
         { img: 'https://cdn190.picsart.com/230274111006202.jpg?c256x256', name: 'Dominic Toretto', score: 30 },
@@ -32,7 +37,7 @@ export default function GamePage(props: SocketProps) {
         return arrayCopy;
     }
 
-    const [isModalShown, setModalShown]:any = useState(false);
+    const [isModalShown, setModalShown] = useState(false);
     sortedplayers = sortBy('score');    
     const [playerlist] = useState(sortedplayers)
     const winnerList = [...playerlist]
@@ -50,7 +55,6 @@ export default function GamePage(props: SocketProps) {
                     <GameOverForm players = {winnerList}/>
             ): <button onClick={() => setModalShown(true)}>Win the game</button>}  
             </header>
-            {console.log('sortedplayers', sortedplayers)}
             <GameBoard/>
             <GameSidePanel players = {playerlist} socket={ props.socket }/>
             <footer>
