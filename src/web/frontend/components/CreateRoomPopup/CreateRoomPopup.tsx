@@ -7,6 +7,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import ModalWindow from "../ModalWindow/ModalWindow";
 import './create-room-popup.scss';
+import axios from "axios";
 
 export default function CreateRoomPopup() {
 
@@ -87,12 +88,25 @@ export default function CreateRoomPopup() {
   const handleChecboxClick = () => {
     setDisabled(!disabled);
     setDisabledText(!disabledText);
-  }
+    console.log(disabled);
+  };
 
-  const handleSubmit = (event: any) => {
-    alert('1');
+  const RESPONSE_STATUS_SUCCESS = "success";
+  const RESPONSE_STATUS_ERROR = "error";
+
+  const handleSubmit = (event: any): void => {
     event.preventDefault();
-  }
+        axios.post('api/rooms', {
+            max_players: amount,
+            name: 'ddsds',
+            is_private: !disabled
+        }).then((response) => {
+            console.log(response)
+        }).catch((error) => {
+            console.log(error);
+        });
+    }
+  
 
   return (
     <ModalWindow
