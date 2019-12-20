@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PushedCards from '../PushedCards/PushedCards';
 import Hand from '../Hand/Hand';
 import Dixit from '../../model/Dixit';
+import UpBar from "../UpBar/UpBar"
 
 import SettingsIcon from '@material-ui/icons/Settings';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
@@ -81,15 +82,16 @@ export default class GameBoard extends Component <{}, GameBoardState> {
         const { pushedCards } = this.state;
         pushedCards.push(card);
         this.setState({ pushedCards });
-    };
+        };
 
     render() {
         const { pushedCards } = this.state;
         return (
-            <div className={'game-board'}>
+            <React.Fragment>
+                <UpBar/>
                 <PushedCards users={this.state.users} pushedCards={pushedCards} />
                 <Hand cards={this.state.users[0].cards} pushCard={this.pushCard} />
-            </div>
+            </React.Fragment>
         );
     }
 }

@@ -5,6 +5,7 @@ import GameSettings from "./gamesettings";
 import GameSidePanel from "./gameSidePanel";
 import { GameOverForm } from "../GameOverForm/GameOverForm";
 
+
 export interface SocketProps {
     socket: SocketIOClient.Socket;
 }
