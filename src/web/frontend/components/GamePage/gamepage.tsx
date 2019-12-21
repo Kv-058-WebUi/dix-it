@@ -3,9 +3,17 @@ import * as React from "react";
 import {Link} from "react-router-dom";
 import GameSettings from "./gamesettings";
 import GameSidePanel from "./gameSidePanel";
+import {useEffect} from "react";
 
-//todo: add chat
-export default function GamePage() {
+export interface SocketProps {
+    socket: SocketIOClient.Socket;
+}
+export default function GamePage(props: SocketProps) {
+
+    useEffect(() => {
+        props.socket.emit('game page open')
+    });
+
     return (
         <div className={'game-root'}>
             <header>
@@ -14,7 +22,7 @@ export default function GamePage() {
                 </Link>
             </header>
             <GameBoard/>
-            <GameSidePanel/>
+            <GameSidePanel socket={ props.socket }/>
             <footer>
                 <GameSettings/>
             </footer>
