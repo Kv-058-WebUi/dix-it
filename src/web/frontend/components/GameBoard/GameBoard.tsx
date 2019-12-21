@@ -4,6 +4,9 @@ import Hand from '../Hand/Hand';
 import Dixit from '../../model/Dixit';
 import UpBar from "../UpBar/UpBar"
 
+import SettingsIcon from '@material-ui/icons/Settings';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 
 // todo: find better solution
 import '../../images/cards/card_1.png';
@@ -18,6 +21,7 @@ import '../../images/cards/card_9.png';
 import '../../images/cards/card_10.png';
 import '../../images/cards/card_11.png';
 import '../../images/cards/card_12.png';
+import { GameOverForm } from '../GameOverForm/GameOverForm';
 
 
 
