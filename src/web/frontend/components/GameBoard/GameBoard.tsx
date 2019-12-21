@@ -106,20 +106,29 @@ export default class GameBoard extends Component <GameBoardProps, GameBoardState
         const { pushedCards, users } = this.state;
         const playerCards = users[0] && users[0].cards;
         return (
-            <div>
-                <UpBar/>
-                <PushedCards users={this.state.users} pushedCards={pushedCards} />
-                 {users.length ? 
-                    <Hand cards={playerCards} pushCard={this.pushCardFn} /> 
-                : ''}
-        
-                <div className={'game-settings'}>
-                    <button className={'game-settings__btn'} onClick={() => this.toggleMenu()} type={'button'}>
-                        <SettingsIcon style={{ fill: '#fff' }}/>
-                    </button>
-                    {this.showMenu()}
+            <React.Fragment>
+                <div className={'game-board'}>
+
+                    <UpBar/>
+                    <PushedCards users={this.state.users} pushedCards={pushedCards} />
+                    {users.length ? 
+                        <Hand cards={playerCards} pushCard={this.pushCardFn} /> 
+                    : ''}
+            
+                    <div className={'game-settings'}>
+                        <button className={'game-settings__btn'} onClick={() => this.toggleMenu()} type={'button'}>
+                            <SettingsIcon style={{ fill: '#fff' }}/>
+                        </button>
+                        {this.showMenu()}
+                    </div>
                 </div>
-            </div>
+            </React.Fragment>
+
+            // <React.Fragment>
+            //     <UpBar/>
+            //     <PushedCards users={this.state.users} pushedCards={pushedCards} />
+            //     <Hand cards={this.state.users[0].cards} pushCard={this.pushCard} />
+            // </React.Fragment>
         );
     }
 }
