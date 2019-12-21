@@ -6,8 +6,9 @@
 .game-root {
   display: grid;
   grid-template-columns: 75% 25%;
-  grid-template-rows: 10% 60% 25%;
+  grid-template-rows: 5% 15% 40% 40%;
   grid-template-areas: "header sidepanel"
+                        "word sidepanel"
                         "desc sidepanel"
                         "hand sidepanel";
 }
@@ -27,4 +28,8 @@ header {
 
 .field-box {
   grid-area: desc;
+}
+
+.Wordclass {
+  grid-area: word;
 }
