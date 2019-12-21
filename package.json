@@ -56,7 +56,6 @@
     "ts-loader": "^6.2.1",
     "ts-node-dev": "^1.0.0-pre.44",
     "typescript": "^3.7.2",
-    "url-loader": "^2.2.0",
     "webpack": "^4.41.2",
     "webpack-cli": "^3.3.10",
     "webpack-dev-server": "^3.9.0"
@@ -80,6 +79,7 @@
     "cors": "^2.8.5",
     "ejs": "^2.7.1",
     "express": "^4.17.1",
+    "fireworks-canvas": "^2.3.2",
     "jsonwebtoken": "^8.5.1",
     "jwt-decode": "^2.2.0",
     "nodemailer": "^6.4.1",
