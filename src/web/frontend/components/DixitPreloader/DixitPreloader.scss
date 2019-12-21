@@ -1,0 +1,48 @@
+$spinkit-size: 1em;
+
+.sk-three-bounce {
+  $animationDuration: 1.5s;
+  $delayRange: 0.32s;
+  width: ($spinkit-size * 4.25);
+  height: $spinkit-size;
+  margin: auto;
+  display: flex;
+  position:relative;
+  justify-content: space-between;
+
+  .sk-child {
+    width: $spinkit-size;
+    height: $spinkit-size;
+    background-color: #337ab7;
+    box-shadow: 0px 0px 30px #EC7760;
+    border-radius: 100%;
+    animation: sk-three-bounce $animationDuration ease-in-out 0s infinite both;
+  }
+
+  .sk-bounce-1 {
+    animation-delay: -$delayRange;
+    background: linear-gradient(90deg, #F27A54 0%, rgb(213,108,141) 100%);
+  }
+  .sk-bounce-2 {
+    animation-delay: (-$delayRange / 2);
+    background: linear-gradient(90deg, rgb(213,108,141) 0%, rgb(188,96,189) 100%);
+  }
+  .sk-bounce-3 {
+    background: linear-gradient(90deg, rgb(188,96,189) 0%, #A154F2 100%);
+  }
+
+  // .sk-bounce-1.monochrome,
+  // .sk-bounce-2.monochrome,
+  // .sk-bounce-3.monochrome {
+  //   background: #68707b;
+  // }
+}
+
+@keyframes sk-three-bounce {
+  0%, 80%, 100% {
+    transform: scale(0);
+  }
+  40% {
+    transform: scale(1);
+  }
+}
