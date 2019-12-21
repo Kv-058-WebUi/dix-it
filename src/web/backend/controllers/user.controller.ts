@@ -21,7 +21,7 @@ export class UserController implements Controller {
             .createQueryBuilder('user')
             .getMany();
         response.send(users);
-    }
+    };
 
     private deleteUser = async (request: express.Request, response: express.Response, next: express.NextFunction) => {
         const id = request.params.id;

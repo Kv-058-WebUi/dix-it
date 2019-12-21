@@ -1,16 +1,19 @@
 import express from "express";
-import http from "http";
 import path from "path";
 import RoomController from "./backend/controllers/room.controller";
-import Controller from './backend/interfaces/controller.interface';
 import AuthenticationController from "./backend/authentication/authentication.controller";
 import bodyParser from "body-parser";
 import { UserController } from "./backend/controllers/user.controller";
 import { GameController } from "./backend/controllers/game.controller";
 import cors from "cors";
+import io from "socket.io"
+import SocketIO from "socket.io";
+import SocketController from "./backend/controllers/socket.controller";
+import passport from './backend/authentication/passport/passport';
 
 class App {
   public app: express.Application;
+  public socket!: SocketIO.Server;
   // Express app initialization
   constructor() {
     this.app = express();
@@ -34,41 +37,32 @@ class App {
       res.render("index");
     });
   }
-  public listen() {
-    this.app.listen(process.env.PORT, () => {
-      console.log(`App listening on the port ${process.env.PORT}`);
-    });
-  }
 
-  public getServer() {
+    public initializeSocket() {
+        new SocketController().initializeSocket(this.socket);
+    }
+
+    public getServer() {
     return this.app;
   }
 
   private initializeMiddlewares() {
     this.app.use(bodyParser.json());
+    this.app.use(bodyParser.urlencoded({ extended: false }));
     this.app.use(cors());
+    this.app.use(passport.initialize());
   }
 }
-
-// Start function
-// export const start = (port: number): Promise<void> => {
-//     const server = http.createServer(app);
-
-//     return new Promise<void>((resolve, reject) => {
-//         server.listen(port, resolve);
-//     });
-// };
-
-
 
 export const start = (port: number): Promise<void> => {
   return new Promise<void>((resolve, reject) => {
     port = Number(process.env.PORT) || 5000;
-    const server = new App().app.listen(port, function () {
+    const app = new App();
+    const server = app.app.listen(port, function () {
       console.log(`Listening on port ${port}`);
-
-
     });
+    app.socket = io(server);
+    app.initializeSocket();
   });
 };
 

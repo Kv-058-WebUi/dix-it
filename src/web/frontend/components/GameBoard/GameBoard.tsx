@@ -8,6 +8,7 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import axios from 'axios';
+import UpBar from "../UpBar/UpBar"
 
 
 // todo: find better solution
@@ -99,13 +100,14 @@ export default class GameBoard extends Component <GameBoardProps, GameBoardState
         const { pushedCards } = this.state;
         pushedCards.push(card);
         this.setState({ pushedCards });
-    };
+        };
 
     render() {
         const { pushedCards, users } = this.state;
         const playerCards = users[0] && users[0].cards;
         return (
             <div>
+                <UpBar/>
                 <PushedCards users={this.state.users} pushedCards={pushedCards} />
                  {users.length ? 
                     <Hand cards={playerCards} pushCard={this.pushCardFn} /> 

@@ -92,7 +92,6 @@ export default class Dixit {
                     player.cards.push(currentCard);
                     cardDeck.splice(index, 1);
             }
-            console.log('player: ', player);
             return player;
         });
     }

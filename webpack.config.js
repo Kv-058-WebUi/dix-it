@@ -1,7 +1,7 @@
-var HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackRootPlugin = require('html-webpack-root-plugin');
-let path = require('path');
 const CopyPlugin = require('copy-webpack-plugin');
+const path = require('path');
 
 module.exports = {
     mode: "development",
@@ -21,6 +21,7 @@ module.exports = {
     devtool: "source-map",
 
     devServer: {
+        writeToDisk: true,
         contentBase: path.join(__dirname, 'dist/web/frontend'),
         compress: true,
         port: 3000,

@@ -48,7 +48,7 @@ class RegistrationForm extends React.Component<RegistrationFormProps, Registrati
         this.setState({errorText: ""});
         event.preventDefault();
         if (this.formHasAllFieldsFilled()) {
-            axios.post('http://localhost:5000/auth/register', {
+            axios.post('/api/auth/register', {
                 nickname: this.state.username,
                 email: this.state.email,
                 password: this.state.password
@@ -81,21 +81,15 @@ class RegistrationForm extends React.Component<RegistrationFormProps, Registrati
 
     render() {
         const {classes}: any = this.props;
-        const formHeight = '590px';
-        const formWidth = '360px';
+
         return (
-            <ModalWindow
-                modalWindowType='register'
-                windowHeight={formHeight}
-                windowWidth={formWidth}
-                isContentCentered={true}>
+            <React.Fragment>
                 {this.state.isRegistrationCompleted ? (
                     <RegistrationConfirmation />
                 ) : (
                     <form onSubmit={(e) => {
                         this.onFormSubmit(e)
                     }}>
-                        <div className='RegistrationForm-ControlButtons'>Sign Up Sign In</div>
                         <div className="RegistrationForm-InputFields">
                             <InputField fieldType='username' onValueUpdate={(username) => {
                                 this.setState({username: username})
@@ -114,11 +108,10 @@ class RegistrationForm extends React.Component<RegistrationFormProps, Registrati
                                 Create account
                             </Button>
                         </div>
-                        <SocialLoginBar/>
                     </form>
                 )}
 
-            </ModalWindow>
+            </React.Fragment>
         );
     };
 }
