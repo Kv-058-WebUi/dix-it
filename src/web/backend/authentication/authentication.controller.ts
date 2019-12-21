@@ -7,12 +7,12 @@ import UserWithThatEmailAlreadyExistsException from "../exceptions/UserWithThatE
 import UserWithThatNicknameAlreadyExistsException from "../exceptions/UserWithThatNicknameAlreadyExistsException";
 import UserInvalidPasswordException from '../exceptions/UserInvalidPasswordException';
 import UserNotFoundException from '../exceptions/UserNotFoundException';
-import { JWT_SECRET } from '../../../config';
+import { JWT_SECRET, FRONTEND_URL, FRONTEND_PORT } from '../../../config';
 import { DixitUser } from '../entities/User';
 import EmailSender from "./EmailSender";
 import passport from 'passport';
 import { LoginUserData, JwtPayload } from './helpers';
-import path from 'path';
+import EmailNotConfirmedException from '../exceptions/EmailNotConfirmedException';
 
 
 class AuthenticationController implements Controller {
@@ -28,6 +28,7 @@ class AuthenticationController implements Controller {
         this.router.post(`${this.path}/register`, this.registration);
         this.router.post(`${this.path}/login`, this.login);
         this.router.post(`${this.path}/isAuthenticated`, this.isAuthenticated);
+        this.router.get(`${this.path}/verify`, this.verify);
     }
 
     private createToken(user: DixitUser) {
@@ -38,6 +39,20 @@ class AuthenticationController implements Controller {
         };
 
         return jwt.sign(payload, JWT_SECRET);
+    }
+
+    private verify = async (request: express.Request, response: express.Response, next: express.NextFunction) => {
+        try {
+            const jwt_token = request.query.jwt_token;
+            const jwtData = jwt.verify(jwt_token, JWT_SECRET);
+            const user_id = (jwtData as JwtPayload).user_id;
+
+            await this.authenticationService.verify(user_id);
+        } catch (e) {
+            next();
+        }
+        
+        response.redirect(`${FRONTEND_URL}:${FRONTEND_PORT}/`);
     }
 
     private registration = async (request: express.Request, response: express.Response, next: express.NextFunction) => {
@@ -73,6 +88,8 @@ class AuthenticationController implements Controller {
             if (error instanceof UserInvalidPasswordException ||
                 error instanceof UserNotFoundException) {
                 message = 'Invalid login or password.';
+            } else if(error instanceof EmailNotConfirmedException) {
+                message = 'Please confirm your email.';
             }
             response.send({ error: message });
         }

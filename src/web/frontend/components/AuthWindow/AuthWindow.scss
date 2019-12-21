@@ -4,6 +4,10 @@
   text-align: center;
   color: #fff;
 
+  &.pending {
+    filter: brightness(0.5) grayscale(1);
+  }
+
   .tabs {
     display: flex;
     justify-content: space-between;

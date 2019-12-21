@@ -1,8 +1,8 @@
 import nodemailer from "nodemailer";
-import { EMAIL_USERNAME, EMAIL_PASSWORD } from '../../../config';
+import { EMAIL_USERNAME, EMAIL_PASSWORD, FRONTEND_URL, FRONTEND_PORT } from '../../../config';
 
 const EMAIL_SERVICE = "gmail";
-const USER_VERIFICATION_BASE_URL = "http://localhost:5000/auth/verify?";
+const USER_VERIFICATION_BASE_URL = `${FRONTEND_URL}:${FRONTEND_PORT}/api/auth/verify?`;
 
 export default class EmailSender {
 

@@ -1,6 +1,7 @@
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackRootPlugin = require('html-webpack-root-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
+const {BACKEND_PORT,BACKEND_URL,FRONTEND_URL,FRONTEND_PORT} = require('./src/config');
 let path = require('path');
 
 module.exports = {
@@ -22,14 +23,14 @@ module.exports = {
 
     devServer: {
         writeToDisk: true,
-        contentBase: path.join(__dirname, 'dist/web/frontend'),
+        contentBase: path.resolve('public'),
         compress: true,
-        port: 3000,
+        port: FRONTEND_PORT,
         publicPath: '/',
         hot: true,
         historyApiFallback: true,
         proxy: {
-            '/api': 'http://localhost:5000'
+            '/api': BACKEND_URL+':'+BACKEND_PORT
         }
     },
 

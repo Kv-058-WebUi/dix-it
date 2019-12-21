@@ -2,10 +2,12 @@ import { getRepository } from 'typeorm';
 import bcryptjs from 'bcryptjs'
 import CreateUserDto from '../dto/user.dto';
 import { DixitUser } from '../entities/User';
+import { Player } from '../entities/Player';
 import UserWithThatEmailAlreadyExistsException from '../exceptions/UserWithThatEmailAlredyExistException';
 import UserWithThatNicknameAlreadyExistsException from '../exceptions/UserWithThatNicknameAlreadyExistsException';
 import UserNotFoundException from '../exceptions/UserNotFoundException';
 import UserInvalidPasswordException from '../exceptions/UserInvalidPasswordException';
+import EmailNotConfirmedException from '../exceptions/EmailNotConfirmedException';
 import { LoginUserData } from './helpers';
 import { generateURL } from 'react-robohash';
 import axios from 'axios';
@@ -15,6 +17,7 @@ import crypto from 'crypto';
 
 class AuthenticationService {
     private userRepository = getRepository(DixitUser);
+    private playerRepository = getRepository(Player);
 
     private async createProfilePicture(userData: CreateUserDto): Promise<string> {
         const nicknameLength = userData.nickname.length;
@@ -77,7 +80,13 @@ class AuthenticationService {
             password: hashedPassword,
             profile_picture
         });
-        await this.userRepository.save(user);
+        const userRecord = await this.userRepository.save(user);
+        const player = this.playerRepository.create({
+            nickname: userData.nickname,
+            user_id: userRecord
+        });
+        
+        await this.playerRepository.save(player);
         return user;
     }
 
@@ -97,7 +106,15 @@ class AuthenticationService {
             throw new UserInvalidPasswordException(userData.login);
         }
 
+        if (!user.email_confirmed) {
+            throw new EmailNotConfirmedException(user.email);
+        }
+
         return user;
+    }
+
+    public async verify(user_id: DixitUser['user_id']) {
+        this.userRepository.update({ user_id }, { email_confirmed: true });
     }
 }
 
