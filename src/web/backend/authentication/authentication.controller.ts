@@ -141,7 +141,7 @@ class AuthenticationController implements Controller {
                 });
                 payload = {
                     authenticated: false,
-                    nickname: this.generateGuestName(),
+                    nickname: player.nickname,
                     user_id: undefined,
                     player_id: player.player_id,
                     profile_picture: 'anonymous_user.png'
