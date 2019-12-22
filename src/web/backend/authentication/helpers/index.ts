@@ -1,4 +1,5 @@
 import { DixitUser } from '../../entities/User';
+import { Player } from '../../entities/Player';
 
 export type LoginUserData = {
   login: string,
@@ -6,7 +7,9 @@ export type LoginUserData = {
 }
 
 export type JwtPayload = {
-  user_id: DixitUser['user_id'],
+  user_id?: DixitUser['user_id'],
   profile_picture: DixitUser['profile_picture'],
-  nickname: DixitUser['nickname']
+  nickname: DixitUser['nickname'],
+  player_id?: Player['player_id'],
+  authenticated: boolean
 }

@@ -92,6 +92,7 @@
     "react-router-dom": "^5.1.2",
     "reflect-metadata": "^0.1.13",
     "socket.io": "^2.3.0",
-    "typeorm": "^0.2.20"
+    "typeorm": "^0.2.20",
+    "unique-names-generator": "^4.1.1"
   }
 }
