@@ -1,7 +1,7 @@
-var HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackRootPlugin = require('html-webpack-root-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
-let path = require('path');
+const path = require('path');
 
 module.exports = {
     mode: "development",
