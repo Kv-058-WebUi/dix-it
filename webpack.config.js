@@ -30,7 +30,7 @@ module.exports = {
         historyApiFallback: true,
         proxy: {
             '/api': 'http://localhost:5000'
-        }
+    }
     },
 
     resolve: {
@@ -92,9 +92,9 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin(),
         new HtmlWebpackRootPlugin(),
-        new CopyPlugin([{ 
+        new CopyPlugin([{
             from: path.join(__dirname, 'src/web/frontend/images'),
-            to: path.join(__dirname, 'dist/web/frontend/images') 
+            to: path.join(__dirname, 'dist/web/frontend/images')
         }])
     ]
 };

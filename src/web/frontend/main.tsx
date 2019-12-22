@@ -12,24 +12,29 @@ import {
 import "./sass/main.scss";
 import io from "socket.io-client"
 
+import {Provider} from 'react-redux'
+import store from './redux/store/store'
+
 const App = () => {
     const socket = io('http://localhost:5000');
     return (
-        <UserProvider>
-            <Router>
-                <Switch>
-                    <Route path="/game">
-                        <GamePage socket={ socket }/>
-                    </Route>
-                    <Route path="/lobby">
-                        <Lobby />
-                    </Route>
-                    <Route path="/">
-                        <MainPage />
-                    </Route>
-                </Switch>
-            </Router>
-        </UserProvider>
+        <Provider store={store}>
+            <UserProvider>
+                <Router>
+                    <Switch>
+                        <Route path="/game">
+                            <GamePage socket={ socket }/>
+                        </Route>
+                        <Route path="/lobby">
+                            <Lobby />
+                        </Route>
+                        <Route path="/">
+                            <MainPage />
+                        </Route>
+                    </Switch>
+                </Router>
+            </UserProvider>
+        </Provider>
     );
 };
 
