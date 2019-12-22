@@ -32,8 +32,8 @@ export default class RoomController implements Controller{
         const rooms = await this.roomRepository
         .find({where: {status: 2}});
         const beatyRooms: CreateRoomDto[] = rooms.map(room => {
-            const {creator_id, name, max_players, is_private, status} = room;
-            return Object.assign({}, {creator_id: {player_id: creator_id.player_id}, name, max_players, is_private, status: {code: status.code}})
+            const {creator_id, name, max_players, is_private, status, room_id} = room;
+            return Object.assign({}, {room_id, creator_id: {player_id: creator_id.player_id, nickname: creator_id.nickname}, name, max_players, is_private, status: {code: status.code}})
         });
         response.send(beatyRooms)
     };
@@ -54,5 +54,4 @@ export default class RoomController implements Controller{
         .where('room_id = :id', {id: request.params.id})
         .execute()
     }
-
 }

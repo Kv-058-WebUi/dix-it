@@ -1,9 +1,12 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackRootPlugin = require('html-webpack-root-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
+<<<<<<< HEAD
 const path = require('path');
+=======
+let path = require('path');
 const SRC = path.resolve(__dirname, 'node_modules');
-
+>>>>>>> dev
 
 module.exports = {
     mode: "development",
