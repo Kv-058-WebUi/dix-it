@@ -22,6 +22,7 @@ import '../../images/cards/card_10.png';
 import '../../images/cards/card_11.png';
 import '../../images/cards/card_12.png';
 import { GameOverForm } from '../GameOverForm/GameOverForm';
+import WordInput from "../WordInput/WordInput";
 
 
 
@@ -32,6 +33,8 @@ import { GameOverForm } from '../GameOverForm/GameOverForm';
 type GameBoardState = {
     users: object[],
     pushedCards: object[],
+    inputIsVisible: boolean,
+    word: string
 };
 
 export default class GameBoard extends Component <{}, GameBoardState> {
@@ -75,20 +78,37 @@ export default class GameBoard extends Component <{}, GameBoardState> {
         this.state = {
             users: playersWithCards,
             pushedCards: [],
+            inputIsVisible: false,
+            word: 'Choose your card'
         }
     }
+    handleWord = (wordValue: string) => {
+        this.setState({word: wordValue})
+    };
 
-    pushCard = (card) => {
+    pushCard = (card:any) => {
         const { pushedCards } = this.state;
         pushedCards.push(card);
-        this.setState({ pushedCards });
-        };
+        this.setState({pushedCards});
+        this.setInputVisible(true);
+    };
+
+    setInputVisible = (state: boolean) => {
+        this.setState({inputIsVisible: state})
+    };
 
     render() {
         const { pushedCards } = this.state;
         return (
             <React.Fragment>
-                <UpBar/>
+                {
+                   this.state.inputIsVisible ? (<WordInput
+                       visibility={this.setInputVisible}
+                       onWordInput = {this.handleWord}
+                   />  ) : null
+
+                }
+                <UpBar word={this.state.word}/>
                 <PushedCards users={this.state.users} pushedCards={pushedCards} />
                 <Hand cards={this.state.users[0].cards} pushCard={this.pushCard} />
             </React.Fragment>
