@@ -36,7 +36,6 @@ export class Room {
     @Column({
         type: 'text',
         unique: true,
-        default: Math.floor(Math.random()*90000) + 10000
     })
     room_code!: string
 

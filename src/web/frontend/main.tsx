@@ -23,13 +23,13 @@ const App = () => {
                 <Router>
                     <Switch>
                         <Route path="/game">
-                            <GamePage socket={ socket }/>
+                            <GamePage socket={socket}/>
                         </Route>
                         <Route path="/lobby">
-                            <Lobby />
+                            <Lobby/>
                         </Route>
                         <Route path="/">
-                            <MainPage />
+                            <MainPage/>
                         </Route>
                     </Switch>
                 </Router>
@@ -39,6 +39,6 @@ const App = () => {
 };
 
 ReactDOM.render(
-    <App />,
+    <App/>,
     document.getElementById("root"),
 );

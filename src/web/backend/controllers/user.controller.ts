@@ -13,13 +13,13 @@ export class UserController implements Controller {
     }
 
     private initializeRoutes() {
-    this.router.get(this.path, this.getAllUsers);
+        this.router.get(this.path, this.getAllUsers);
     }
 
     private getAllUsers = async (request: express.Request, response: express.Response) => {
         const users = await this.userRepository
-        .createQueryBuilder('user')
-        .getMany();
+            .createQueryBuilder('user')
+            .getMany();
         response.send(users);
     };
 

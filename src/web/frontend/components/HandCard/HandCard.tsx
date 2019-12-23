@@ -1,6 +1,7 @@
-import React, {Component} from 'react';
-import Submit from '../Submit/Submit';
+import React, { Component } from 'react';
+import Submit, { PushCardFn } from '../Submit/Submit';
 import classNames from 'classnames';
+import {Card} from '../GameBoard/GameBoard';
 import {connect} from "react-redux";
 import {testAction} from '../../redux/actions/testAction'
 import {asyncGetData} from '../../redux/actions/fetchData'
@@ -11,8 +12,14 @@ type HandCardState = {
     showCard: boolean
 };
 
-class HandCard extends Component <any, HandCardState> {
-    constructor(props: any) {
+type HandProps = {
+    card: Card,
+    pushCard: PushCardFn,
+    isCardPushed: boolean
+};
+
+class HandCard extends Component <HandProps, HandCardState> {
+    constructor(props: HandProps) {
         super(props);
 
         this.state = {
@@ -21,46 +28,45 @@ class HandCard extends Component <any, HandCardState> {
         };
     }
 
+    handleCardClick = (): void  => this.setState({ showSubmitButton: true });
     componentDidMount(): void {
         const {asyncGetData} = this.props;
         asyncGetData();
 
     }
 
-    handleCardClick = () => this.setState({showSubmitButton: true});
-
-    handleLeave = (e: any) => {
+    handleLeave = (e: any): void  => {
         e.preventDefault();
         if (this.state.showSubmitButton) {
             this.setState({showSubmitButton: false});
         }
     };
 
-    hideCard = () => {
-        this.setState({showCard: false}, () => this.props.test(5));
-    }
-
     render() {
-        const {pushCard, card = {}} = this.props;
-
+        const { pushCard, card, isCardPushed } = this.props;
         const blurClass = classNames({
-            'border-blur': this.state.showSubmitButton
+            'border-blur': this.state.showSubmitButton,
+            'blur-disabled': isCardPushed
         });
-
         return (
             <div>
-                {this.state.showCard ?
+                { this.state.showCard ?
                     <div onMouseLeave={this.handleLeave} className='handcard-container'>
                         <div className='hand-card'>
                             <img className={blurClass}
                                  onClick={this.handleCardClick}
-                                 src={`images/${card.imgURL}`}
+                                 src={`images/cards/${card.card_path}`}
                             />
                         </div>
-                        {this.state.showSubmitButton ?
-                            <Submit pushCard={pushCard} card={card}
-                                    hideCard={this.hideCard}/> : ''}
-                    </div> : ''}
+
+                        {isCardPushed ? '' :
+                             this.state.showSubmitButton ?
+                                <Submit pushCard={pushCard}
+                                        card={card}
+                                /> : ''
+                        }
+                    </div>
+                : '' }
             </div>
         );
     }

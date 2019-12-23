@@ -16,7 +16,6 @@ export default class Message extends React.Component<messageParams> {
         super(props);
         this.state = {};
     }
-
     getTime(): string {
         const timestamp = new Date(this.props.timestamp);
         const leadingZero = (num: number) => `0${num}`.slice(-2);
