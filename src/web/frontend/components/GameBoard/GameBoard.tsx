@@ -90,27 +90,27 @@ export default class GameBoard extends Component <{}, GameBoardState> {
         const { pushedCards } = this.state;
         pushedCards.push(card);
         this.setState({pushedCards});
-        this.setInputVisible(true);
+            this.setInputVisible(true)
+ 
     };
 
-    setInputVisible = (state: boolean) => {
-        this.setState({inputIsVisible: state})
+    setInputVisible = (status: boolean) => {
+        this.setState({inputIsVisible: status})
     };
 
     render() {
         const { pushedCards } = this.state;
         return (
             <React.Fragment>
+                <UpBar word={this.state.word}/>
+                <PushedCards users={this.state.users} pushedCards={pushedCards} />
+                <Hand cards={this.state.users[0].cards} pushCard={this.pushCard} />
                 {
                    this.state.inputIsVisible ? (<WordInput
                        visibility={this.setInputVisible}
                        onWordInput = {this.handleWord}
-                   />  ) : null
-
+                   />) : null
                 }
-                <UpBar word={this.state.word}/>
-                <PushedCards users={this.state.users} pushedCards={pushedCards} />
-                <Hand cards={this.state.users[0].cards} pushCard={this.pushCard} />
             </React.Fragment>
         );
     }

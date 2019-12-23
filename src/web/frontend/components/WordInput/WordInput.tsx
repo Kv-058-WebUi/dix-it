@@ -8,7 +8,7 @@ const WordInput = (props: any) => {
     const sendWordToParent = (e: any) => {
         if(e.key === 'Enter') {
             const input = document.querySelector('.wordInput') as HTMLInputElement;
-            if(input) {
+            if(input.value != '') {
                 props.onWordInput(input.value);
                 props.visibility(false);
             }
