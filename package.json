@@ -10,12 +10,7 @@
     "build:react": "webpack --config webpack.config.js",
     "build:react.prod": "webpack --config webpack.config.prod.js",
     "build:UI": "npm run build:css && npm run build:react",
-<<<<<<< HEAD
     "start": "node ./dist/main.prod.js",
-=======
-    "start": "node ./dist/main.js",
-    "migrations": "ts-node  ./node_modules/typeorm/cli migration:run",
->>>>>>> dev
     "dev-css": "npm run build:css && node-sass src/web/frontend/sass/ -o src/web/frontend/css/ --watch --recursive",
     "dev-UI": "concurrently --kill-others \"npm run dev-css\" \"webpack-dev-server --open\"",
     "dev-backend": "ts-node-dev --respawn ./src/main.ts",
@@ -44,12 +39,9 @@
     "@types/express": "^4.17.2",
     "@types/jest": "^24.0.23",
     "@types/node": "^12.12.14",
-<<<<<<< HEAD
-=======
     "@types/passport": "^1.0.2",
     "@types/passport-jwt": "^3.0.3",
     "@types/passport-local": "^1.0.33",
->>>>>>> dev
     "@types/react": "^16.9.12",
     "@types/react-dom": "^16.9.4",
     "@types/react-router-dom": "^5.1.2",
@@ -83,11 +75,8 @@
     "@types/jwt-decode": "^2.2.1",
     "@types/node-sass": "^4.11.0",
     "@types/nodemailer": "^6.2.2",
-<<<<<<< HEAD
-=======
     "@types/socket.io": "^2.1.4",
     "@types/socket.io-client": "^1.4.32",
->>>>>>> dev
     "axios": "^0.19.0",
     "bcryptjs": "^2.4.3",
     "classnames": "^2.2.6",
