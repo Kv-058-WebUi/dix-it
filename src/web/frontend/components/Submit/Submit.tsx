@@ -1,15 +1,22 @@
 import React, { Component } from 'react';
+import {Card} from '../GameBoard/GameBoard';
 import './submit.scss';
+import { type } from 'os';
 
-export default class Submit extends Component {
+export type PushCardFn = (card:Card) => void;
+type SubmitProps = {
+    card: Card, 
+    pushCard: PushCardFn,
+};
+
+export default class Submit extends Component <SubmitProps> {
 
     render() {
-        const { pushCard, card, hideCard } = this.props;
+        const { pushCard, card } = this.props;
         return (
             <div className='submit-container'>
                 <button
-                    onMouseDown={() => pushCard(card)}
-                    onClick={hideCard}
+                    onClick={() => pushCard(card)}
                     className='submit-button'>
                     Submit
                 </button>

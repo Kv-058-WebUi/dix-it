@@ -1,6 +1,7 @@
 node_modules
 .DS_Store
 .idea
+.history
 idea/
 src/web/frontend/css
 dist/*

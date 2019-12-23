@@ -33,3 +33,9 @@
   box-shadow: 0px 0px 30px #3C79FA;
   border-radius: 15px;
 }
+
+.blur-disabled {
+  opacity: 1;
+  box-shadow: none;
+  border-radius: 15px;
+}
