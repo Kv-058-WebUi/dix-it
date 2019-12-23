@@ -16,8 +16,8 @@ export default class RoomController implements Controller{
     }
     
     private initializeRoutes() {
-    this.router.get(this.path, this.getAllRooms);
-    this.router.post(this.path, this.createRoom);
+        this.router.get(this.path, this.getAllRooms);
+        this.router.post(this.path, this.createRoom);
     }
 
     private createRoom = async (request: express.Request, response: express.Response) => {
