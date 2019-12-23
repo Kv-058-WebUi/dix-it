@@ -5,7 +5,7 @@ import ModalWindow from "../ModalWindow/ModalWindow";
 export default class Rules extends Component {
 
     render() {
-        const rulesHeight = '450px';
+        const rulesHeight = '500px';
         const rulesWidth = '800px';
         return (
             <ModalWindow modalWindowType='rules' windowHeight={rulesHeight} windowWidth={rulesWidth}>
