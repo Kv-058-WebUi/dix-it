@@ -21,22 +21,22 @@ export default class RoomController implements Controller{
     }
 
     private createRoom = async (request: express.Request, response: express.Response) => {
-        const postData: CreateRoomDto = request.body //Data from createRoom form
+        const postData: CreateRoomDto = request.body; //Data from createRoom form
         // const status = "find by id"       
         const newRoom = this.roomRepository.create(postData);       
         await this.roomRepository.save(newRoom);
         response.send(newRoom);
-    }
+    };
 
     private getAllRooms = async (request: express.Request, response: express.Response) => {
         const rooms = await this.roomRepository
-        .find({where: {status: 2}})
+        .find({where: {status: 2}});
         const beatyRooms: CreateRoomDto[] = rooms.map(room => {
-            const {creator_id, name, max_players, is_private, status} = room;
-            return Object.assign({}, {creator_id: {player_id: creator_id.player_id}, name, max_players, is_private, status: {code: status.code}})
-        })  
+            const {creator_id, name, max_players, is_private, status, room_id} = room;
+            return Object.assign({}, {room_id, creator_id: {player_id: creator_id.player_id, nickname: creator_id.nickname}, name, max_players, is_private, status: {code: status.code}})
+        });
         response.send(beatyRooms)
-    }
+    };
 
     private modifyRoom = async (request: express.Request, response: express.Response) => {
         const finished = await this.roomStatusRepository
@@ -54,5 +54,4 @@ export default class RoomController implements Controller{
         .where('room_id = :id', {id: request.params.id})
         .execute()
     }
-
 }

@@ -1,13 +1,13 @@
 import React from "react";
 import './InputField.scss';
-import {FieldType} from "./FieldType";
+import { FieldType } from "./FieldType";
 import InputValidator from "./InputValidator"
 
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import VisibilityIcon from '@material-ui/icons/Visibility';
-import {InputAdornment, TextField} from "@material-ui/core";
-import {withStyles} from "@material-ui/styles";
+import { InputAdornment, TextField } from "@material-ui/core";
+import { withStyles } from "@material-ui/styles";
 
 
 const styles = () => ({
@@ -15,13 +15,30 @@ const styles = () => ({
         borderRadius: 25,
         backgroundColor: '#fff',
         maxWidth: 270,
-        minWidth: 270,
-        boxShadow: '0px 0px 15px #EC7760'
+        minWidth: 270
     },
     input: {
         color: '#000',
     },
 });
+
+
+const DixitTextField = withStyles({
+    root: {
+        '& .MuiOutlinedInput-root': {
+            '& fieldset': {
+                border: 'none',
+            },
+            '&:hover fieldset': {
+                border: 'none'
+            },
+            '&.Mui-focused fieldset': {
+                border: 'none',
+                boxShadow: '0px 0px 15px #EC7760'
+            },
+        },
+    },
+  })(TextField);
 
 interface InputFieldProps {
     fieldType: string
@@ -52,30 +69,30 @@ class InputField extends React.Component<InputFieldProps, InputFieldState> {
     };
 
     showPassword(): void {
-        this.setState({isPasswordVisible: true});
+        this.setState({ isPasswordVisible: true });
     };
 
     hidePassword(): void {
-        this.setState({isPasswordVisible: false});
+        this.setState({ isPasswordVisible: false });
     }
 
     validateInput(isInputValid: (inputValue: string) => boolean, errorHelperText: string, event?: any): void {
         const inputText = event.target.value;
         if (!isInputValid(inputText)) {
-            this.setState({isValueInvalid: true, helperText: errorHelperText});
+            this.setState({ isValueInvalid: true, helperText: errorHelperText });
             return;
         }
-        this.setState({isValueInvalid: false, helperText: ""});
+        this.setState({ isValueInvalid: false, helperText: "" });
     }
 
     //don't send value to parent if it's invalid
-    sendInputValueToParent(event: any): void {
+    sendInputValueToParent(isInputValid: (inputValue: string) => boolean, event: any): void {
         let fieldValue = event.target.value;
-        if (this.state.isValueInvalid) {
+        if (!isInputValid(fieldValue)) {
             fieldValue = "";
         }
         this.props.onValueUpdate(fieldValue);
-        this.setState({inputValue: fieldValue});
+        this.setState({ inputValue: fieldValue });
     }
 
     getAttributesForUsernameField(InputProps: any): any {
@@ -86,7 +103,7 @@ class InputField extends React.Component<InputFieldProps, InputFieldState> {
             InputProps: {
                 startAdornment: (
                     <InputAdornment position="start">
-                        <AccountCircleIcon className="Icon"/>
+                        <AccountCircleIcon className="Icon" />
                     </InputAdornment>
                 ),
                 ...InputProps
@@ -96,13 +113,29 @@ class InputField extends React.Component<InputFieldProps, InputFieldState> {
 
     getAttributesForEmailField(InputProps: any) {
         return {
-            type: "text",
+            type: "email",
             errorHelperText: "Not an email",
             isInputValid: InputValidator.isEmailValid,
             InputProps: {
                 startAdornment: (
                     <InputAdornment position="start">
-                        <MailOutlineIcon className="Icon"/>
+                        <MailOutlineIcon className="Icon" />
+                    </InputAdornment>
+                ),
+                ...InputProps
+            }
+        };
+    }
+
+    getAttributesForLoginField(InputProps: any) {
+        return {
+            type: "text",
+            errorHelperText: "Not an email or username",
+            isInputValid: InputValidator.isLoginValid,
+            InputProps: {
+                startAdornment: (
+                    <InputAdornment position="start">
+                        <MailOutlineIcon className="Icon" />
                     </InputAdornment>
                 ),
                 ...InputProps
@@ -131,8 +164,8 @@ class InputField extends React.Component<InputFieldProps, InputFieldState> {
     }
 
     getAttributesForCurrentFieldType(fieldType: string): any {
-        const {classes}: InputFieldProps = this.props;
-        const {isPasswordVisible} = this.state;
+        const { classes }: InputFieldProps = this.props;
+        const { isPasswordVisible } = this.state;
 
         const InputProps = {
             classes: classes
@@ -144,14 +177,24 @@ class InputField extends React.Component<InputFieldProps, InputFieldState> {
             return this.getAttributesForEmailField(InputProps);
         if (fieldType === FieldType.Password)
             return this.getAttributesForPasswordField(InputProps, isPasswordVisible);
+        if (fieldType === FieldType.Login)
+            return this.getAttributesForLoginField(InputProps);
     }
 
     capitalizeFirstChar(s: string) {
         return s.charAt(0).toUpperCase() + s.slice(1);
     }
 
+    getPlaceholder(fieldType: FieldType): string {
+        if (fieldType === FieldType.Login) {
+            return 'Nickname or email';
+        }
+
+        return this.capitalizeFirstChar(fieldType);
+    }
+
     render() {
-        const {fieldType}: any = this.props;
+        const { fieldType }: any = this.props;
         const {
             InputProps, type,
             errorHelperText, isInputValid
@@ -159,12 +202,12 @@ class InputField extends React.Component<InputFieldProps, InputFieldState> {
 
         return (
             <div className="InputField">
-                <TextField
-                    placeholder={this.capitalizeFirstChar(fieldType)}
+                <DixitTextField
+                    placeholder={this.getPlaceholder(fieldType)}
                     required
                     helperText={this.state.helperText}
-                    onChange={(event) => this.validateInput(isInputValid, errorHelperText, event)}
-                    onBlur={(event) => this.sendInputValueToParent(event)}
+                    onBlur={(event) => this.validateInput(isInputValid, errorHelperText, event)}
+                    onChange={(event) => this.sendInputValueToParent(isInputValid, event)}
                     error={this.state.isValueInvalid}
                     variant="outlined"
                     InputProps={InputProps}

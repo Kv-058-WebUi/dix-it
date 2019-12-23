@@ -1,6 +1,8 @@
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackRootPlugin = require('html-webpack-root-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 let path = require('path');
+const SRC = path.resolve(__dirname, 'node_modules');
 
 module.exports = {
     mode: "development",
@@ -20,7 +22,8 @@ module.exports = {
     devtool: "source-map",
 
     devServer: {
-        contentBase: path.join(__dirname, 'dist/web/frontend'),
+        writeToDisk: true,
+        contentBase: path.resolve('public'),
         compress: true,
         port: 3000,
         publicPath: '/',
@@ -60,6 +63,18 @@ module.exports = {
                 ]
             },
             {
+                test: /\.mp3$/,
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            name: '[name].[ext]',
+                            outputPath: 'sounds/'
+                        }
+                    }
+                ]
+            },
+            {
                 test: /\.(jpe?g|gif|png|svg)$/i,
                 use: [
                     {
@@ -87,5 +102,12 @@ module.exports = {
         },
         usedExports: true
     },
-    plugins: [new HtmlWebpackPlugin(), new HtmlWebpackRootPlugin()]
+    plugins: [
+        new HtmlWebpackPlugin(),
+        new HtmlWebpackRootPlugin(),
+        new CopyPlugin([{ 
+            from: path.join(__dirname, 'src/web/frontend/images'),
+            to: path.join(__dirname, 'dist/web/frontend/images') 
+        }])
+    ]
 };
