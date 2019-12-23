@@ -4,6 +4,7 @@ import { DixitUser } from "../../../backend/entities/User";
 import { Player } from "../../../backend/entities/Player";
 import { JwtPayload } from '../../../backend/authentication/helpers';
 import axios from "axios";
+import cookie from "cookie";
 
 type UserData = {
   authenticated: boolean,
@@ -33,20 +34,26 @@ const UserProvider = ({ children }: any) => {
   const [user, setUser] = useState<UserData>(dummyUser);
 
   useEffect(() => {
-    const token = localStorage.getItem('jwt_token');
+    let cookies = cookie.parse(document.cookie);
+    
+    if(cookies.oauth_jwt_token) {
+      localStorage.setItem('jwt_token', cookies.oauth_jwt_token);
+      document.cookie = "oauth_jwt_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    }
+
+    let token = localStorage.getItem('jwt_token');
 
     axios.post('/api/auth/getUser', null, { headers: {"Authorization" : `Bearer ${token}`} })
       .then(res => {
         const decoded: JwtPayload = jwt_decode(res.data.jwt_token);
 
         if (decoded.authenticated) {
-          axios.defaults.headers.common["Authorization"] = token;
+          axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
         } else {
           delete axios.defaults.headers.common["Authorization"];
           localStorage.setItem('jwt_token', res.data.jwt_token);
         }
         setUser(decoded);
-        console.log(decoded);
       })
       .catch((error) => {
         console.log(error);

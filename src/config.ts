@@ -1,3 +1,8 @@
+import { resolve } from "path";
+import { config } from "dotenv"
+
+config({ path: resolve(__dirname, "../.env") })
+
 export const BACKEND_URL = process.env.BACKEND_URL || 'http://localhost';
 export const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost';
 export const BACKEND_PORT = parseInt(process.env.BACKEND_PORT || "5000");
@@ -12,3 +17,5 @@ export const EMAIL_USERNAME = process.env.EMAIL_USERNAME || "username";
 export const EMAIL_PASSWORD = process.env.EMAIL_PASSWORD || "password";
 export const JWT_SECRET = process.env.JWT_SECRET || "jwt_secret";
 export const JWT_EXPIRATION = process.env.JWT_EXPIRATION || '7d';
+export const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID || '';
+export const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET || '';

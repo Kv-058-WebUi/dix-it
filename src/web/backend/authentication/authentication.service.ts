@@ -8,12 +8,13 @@ import UserWithThatNicknameAlreadyExistsException from '../exceptions/UserWithTh
 import UserNotFoundException from '../exceptions/UserNotFoundException';
 import UserInvalidPasswordException from '../exceptions/UserInvalidPasswordException';
 import EmailNotConfirmedException from '../exceptions/EmailNotConfirmedException';
-import { LoginUserData } from './helpers';
+import { LoginUserData, urlFileSaver } from './helpers';
 import { generateURL } from 'react-robohash';
-import axios from 'axios';
-import fs from 'fs';
+import { generate as generatePassword } from 'generate-password';
 import path from 'path';
 import crypto from 'crypto';
+import { Profile } from "passport-google-oauth20";
+import EmailSender from './EmailSender';
 
 class AuthenticationService {
     private userRepository = getRepository(DixitUser);
@@ -36,21 +37,11 @@ class AuthenticationService {
         const defaultImage = 'anonymous_user.png';
         const image = `${name}.png`;
         const filePath = path.resolve(`public/images/avatars/${name}.png`);
-        const writer = fs.createWriteStream(filePath);
 
         return new Promise((resolve, reject) => {
-            axios({
-                url,
-                method: "get",
-                responseType: "stream"
-            }).then((response) => {
-                response.data.pipe(writer);
-            }).catch((e) => {
-                resolve(defaultImage);
-            });
-
-            writer.on('finish', () => { resolve(image) });
-            writer.on('error', () => { resolve(defaultImage) });
+            urlFileSaver(url, filePath)
+                .then(()=>{resolve(image)})
+                .catch(()=>{resolve(defaultImage)});
         });
     }
 
@@ -73,7 +64,7 @@ class AuthenticationService {
         }
         const salt = await bcryptjs.genSalt(10);
         const hashedPassword = await bcryptjs.hash(userData.password, salt);
-        const profile_picture = await this.createProfilePicture(userData);
+        const profile_picture = userData.profile_picture || await this.createProfilePicture(userData);
 
         const user = this.userRepository.create({
             ...userData,
@@ -87,6 +78,36 @@ class AuthenticationService {
         });
         
         await this.playerRepository.save(player);
+        return user;
+    }
+
+    public async registerGoogle(profile: Profile) {
+        let password = generatePassword({
+            length: 10,
+            numbers: true,
+            symbols: true,
+            uppercase:	false,
+            excludeSimilarCharacters: true,
+            exclude: '*}{[]|:;/.><,`~',
+            strict: true
+        });
+        const name = crypto.createHash('md5')
+            .update(profile._json.email + profile._json.name)
+            .digest('hex')
+            + path.extname(profile._json.picture);
+        const filePath = path.resolve(`public/images/avatars/${name}`);
+        let profile_picture = name;
+
+        try {
+            await urlFileSaver(profile._json.picture, filePath);
+        } catch(e) {
+            profile_picture = 'anonymous_user.png';
+        }
+        
+        const userData: CreateUserDto = {password, profile_picture, email: profile._json.email, nickname: profile._json.name};
+        const user = await this.register(userData);
+
+        EmailSender.getTransporterInstance().sendDefaultPass(user, password);
         return user;
     }
 

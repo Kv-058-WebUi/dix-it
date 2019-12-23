@@ -11,6 +11,7 @@ import { JWT_SECRET, FRONTEND_URL, FRONTEND_PORT } from '../../../config';
 import { DixitUser } from '../entities/User';
 import EmailSender from "./EmailSender";
 import passport from 'passport';
+import { Profile } from "passport-google-oauth20";
 import { LoginUserData, JwtPayload } from './helpers';
 import EmailNotConfirmedException from '../exceptions/EmailNotConfirmedException';
 import { Player } from '../entities/Player';
@@ -33,6 +34,35 @@ class AuthenticationController implements Controller {
         this.router.post(`${this.path}/isAuthenticated`, this.isAuthenticated);
         this.router.post(`${this.path}/getUser`, this.getUser);
         this.router.get(`${this.path}/verify`, this.verify);
+        this.router.get(
+            `${this.path}/google`,
+            passport.authenticate("google", { session: false, scope: ["profile", "email"]}));
+        this.router.get(
+            `${this.path}/google/callback`,
+            passport.authenticate('google', { session: false, failureRedirect: '/' }),
+            this.googleCallback);
+    }
+
+    private googleCallback = async (request: express.Request, response: express.Response, next: express.NextFunction) => {
+        const profile = request.user as Profile;
+        let user = await getRepository(DixitUser).findOne({email: profile._json.email});
+
+        if(!user) {
+            // TODO create form to enter nickname
+            // forbid creating nicknames that already exists
+            try {
+                user = await this.authenticationService.registerGoogle(profile);
+            } catch (e) {
+                console.log(e)
+                response.redirect('/');
+                return;
+            }
+        }
+
+        const token = await this.createToken(user);
+
+        response.cookie('oauth_jwt_token', token, {maxAge: 1000*60*60});//1 hour cookie
+        response.redirect('/lobby');
     }
 
     private async createToken(user: DixitUser) {
