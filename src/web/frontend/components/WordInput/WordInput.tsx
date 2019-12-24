@@ -2,6 +2,7 @@ import ModalWindow from "../ModalWindow/ModalWindow";
 import React, {useEffect} from "react";
 import './wordinput.scss';
 
+
 const WordInput = (props: any) => {
     const width = '400px';
     const height = '50px';
@@ -10,6 +11,7 @@ const WordInput = (props: any) => {
             const input = document.querySelector('.wordInput') as HTMLInputElement;
             if(input.value != '') {
                 props.onWordInput(input.value);
+                props.socket.emit('New Word From StoryTeller', input.value);
                 props.visibility(false);
             }
         }

@@ -15,7 +15,6 @@ const useStyles = makeStyles((theme: Theme) =>
         colorPrimary: 'rgb(163,35,62)',
         marginTop:'10px',
         width:'442px'
-
       },
     },
   }),
@@ -26,7 +25,8 @@ const myTheme = createMuiTheme({
         MuiLinearProgress: createStyles({
             root:{
                 colorSecondary: 'rgb(249,55,85)',
-                colorPrimary: 'rgb(163,35,62)'
+                colorPrimary: 'rgb(163,35,62)',
+                margin: 'auto',
             },
             barColorSecondary:{
                 backgroundColor: 'rgb(249,55,85)'

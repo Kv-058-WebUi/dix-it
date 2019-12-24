@@ -57,7 +57,7 @@ export default function GamePage(props: SocketProps) {
                     <GameOverForm players = {winnerList}/>
             ): <button onClick={() => setModalShown(true)}>Win the game</button>}  
             </header>
-            <GameBoard/>
+            <GameBoard socket = {props.socket}/>
             <GameSidePanel players = {playerlist} socket={ props.socket }/>
             <footer>
                 <GameSettings/>

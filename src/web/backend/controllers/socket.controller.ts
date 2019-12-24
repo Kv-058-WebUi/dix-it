@@ -7,6 +7,10 @@ interface Message {
     timestamp: string,
 }
 
+// interface Word {
+//     word: string
+// }
+
 export default class SocketController {
 
 
@@ -25,11 +29,17 @@ export default class SocketController {
             console.log('user disconnected');
         });
         client.on('send chat msg', chatMessage);
+        client.on('New Word From StoryTeller', newWord);
 
-        function chatMessage(msg: Message) {
-                console.log('chat msg received');
-                console.log(msg);
-                client.broadcast.to('some room').emit('new chat msg', msg);
+        function chatMessage(msg: Message) { 
+            console.log('chat msg received');
+            console.log(msg);
+            client.broadcast.to('some room').emit('new chat msg', msg);
+        }
+        function newWord (word: any ) {
+            console.log('new word has been sended');
+            console.log(word);
+            client.broadcast.to('some room').emit('New Word From StoryTeller', word);
         }
     }
 

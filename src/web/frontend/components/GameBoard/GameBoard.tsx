@@ -9,14 +9,16 @@ import axios from 'axios';
 import UpBar from "../UpBar/UpBar";
 import WordInput from '../WordInput/WordInput';
 
-type GameBoardProps = {};
+type GameBoardProps = {
+    socket: SocketIOClient.Socket
+};
 
 type GameBoardState = {
     users: Users[],
     pushedCards: Card[],
     showMenu: boolean,
     isCardPushed: boolean,
-    inputIsVisible: boolean,
+    isInputVisible: boolean,
     word: string
 };
 
@@ -32,20 +34,21 @@ export interface Card {
 };
 
 export default class GameBoard extends Component <GameBoardProps, GameBoardState> {
-    constructor(props: GameBoardProps) {
+    constructor(props: any) {
         super(props);
         this.state = {
             users: [],
             pushedCards: [],
-            inputIsVisible: false,
+            isInputVisible: false,
             word: 'Choose your card',
             showMenu: false,
             isCardPushed: false,
         };
     }
     
-    componentWillMount() {
+    componentDidMount() {
         axios.get(`/api/game/serve`).then(res => this.setState({users: res.data}));
+        this.props.socket.on('New Word From StoryTeller', this.handleWord);
     }
 
     toggleMenu() {
@@ -77,14 +80,17 @@ export default class GameBoard extends Component <GameBoardProps, GameBoardState
         this.setState({word: wordValue})
     };
 
+    
+
     pushCardFn = (card: Card) => {
         const { pushedCards, isCardPushed } = this.state;
         pushedCards.push(card);
         this.setState({ pushedCards, isCardPushed: true });
         this.setInputVisible(true)
     }
+
     setInputVisible = (status: boolean) => {
-        this.setState({inputIsVisible: status})
+        this.setState({isInputVisible: status})
     };
 
     render() {
@@ -113,12 +119,13 @@ export default class GameBoard extends Component <GameBoardProps, GameBoardState
                         }) 
                     : '' }
 
-                                         {
-                   this.state.inputIsVisible ? (<WordInput
+                    {
+                   this.state.isInputVisible ? (<WordInput
                        visibility={this.setInputVisible}
                        onWordInput = {this.handleWord}
+                       socket = {this.props.socket}
                    />) : null
-                }    
+                    }    
                   
                     <div className={'game-settings'}>
                         <button className={'game-settings__btn'} onClick={() => this.toggleMenu()} type={'button'}>
