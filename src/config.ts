@@ -3,11 +3,10 @@ import { config } from "dotenv"
 
 config({ path: resolve(__dirname, "../.env") })
 
-export const BACKEND_URL = process.env.BACKEND_URL || 'http://localhost';
-export const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost';
-export const BACKEND_PORT = parseInt(process.env.BACKEND_PORT || "5000");
-export const FRONTEND_PORT = parseInt(process.env.FRONTEND_PORT || "3000");
-export const SERVER_PORT = parseInt(process.env.PORT || "8000");
+export const SERVER_URL = process.env.SERVER_URL || 'http://localhost';
+export const CLIENT_URL = process.env.CLIENT_URL || 'http://localhost';
+export const SERVER_PORT = parseInt(process.env.SERVER_PORT || "5000");
+export const CLIENT_PORT = parseInt(process.env.CLIENT_PORT || "3000");
 export const DB_PORT = parseInt(process.env.DB_PORT || "5432");
 export const DB_USER = process.env.DB_USER || 'dixit';
 export const DB_PASSWORD = process.env.DB_PASSWORD || 'dixit';

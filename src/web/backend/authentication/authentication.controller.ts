@@ -7,7 +7,7 @@ import UserWithThatEmailAlreadyExistsException from "../exceptions/UserWithThatE
 import UserWithThatNicknameAlreadyExistsException from "../exceptions/UserWithThatNicknameAlreadyExistsException";
 import UserInvalidPasswordException from '../exceptions/UserInvalidPasswordException';
 import UserNotFoundException from '../exceptions/UserNotFoundException';
-import { JWT_SECRET, FRONTEND_URL, FRONTEND_PORT } from '../../../config';
+import { JWT_SECRET, CLIENT_URL, CLIENT_PORT } from '../../../config';
 import { DixitUser } from '../entities/User';
 import EmailSender from "./EmailSender";
 import passport from 'passport';
@@ -91,7 +91,7 @@ class AuthenticationController implements Controller {
             next();
         }
         
-        response.redirect(`${FRONTEND_URL}:${FRONTEND_PORT}/`);
+        response.redirect(`${CLIENT_URL}:${CLIENT_PORT}/`);
     }
 
     private registration = async (request: express.Request, response: express.Response, next: express.NextFunction) => {

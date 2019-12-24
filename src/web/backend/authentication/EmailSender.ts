@@ -1,9 +1,9 @@
 import nodemailer from "nodemailer";
-import { EMAIL_USERNAME, EMAIL_PASSWORD, FRONTEND_URL, FRONTEND_PORT } from '../../../config';
+import { EMAIL_USERNAME, EMAIL_PASSWORD, CLIENT_URL, CLIENT_PORT } from '../../../config';
 import { DixitUser } from "../entities/User";
 
 const EMAIL_SERVICE = "gmail";
-const USER_VERIFICATION_BASE_URL = `${FRONTEND_URL}:${FRONTEND_PORT}/api/auth/verify?`;
+const USER_VERIFICATION_BASE_URL = `${CLIENT_URL}:${CLIENT_PORT}/api/auth/verify?`;
 
 export default class EmailSender {
 
@@ -58,7 +58,7 @@ export default class EmailSender {
             <br/>
             <p>Thank you for the registration in Dixit!</p>
             <p>Your default password: ${password}</p>
-            <a href="${FRONTEND_URL}:${FRONTEND_PORT}">Click here to start playing!</a>`
+            <a href="${CLIENT_URL}:${CLIENT_PORT}">Click here to start playing!</a>`
         };
 
         this.transporter.sendMail(mailOptions, (error: Error, info: any) => {

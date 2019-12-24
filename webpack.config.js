@@ -27,12 +27,12 @@ module.exports = {
         writeToDisk: true,
         contentBase: path.resolve('public'),
         compress: true,
-        port: 3000,
+        port: process.env.CLIENT_PORT,
         publicPath: '/',
         hot: true,
         historyApiFallback: true,
         proxy: {
-            '/api': 'http://localhost:5000'
+            '/api': process.env.SERVER_URL+':'+process.env.SERVER_PORT
         }
     },
 
