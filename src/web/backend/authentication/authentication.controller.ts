@@ -32,7 +32,7 @@ class AuthenticationController implements Controller {
         this.router.post(`${this.path}/register`, this.registration);
         this.router.post(`${this.path}/login`, this.login);
         this.router.post(`${this.path}/isAuthenticated`, this.isAuthenticated);
-        this.router.post(`${this.path}/getUser`, this.getUser);
+        this.router.post(`${this.path}/user`, this.getUser);
         this.router.get(`${this.path}/verify`, this.verify);
         this.router.get(
             `${this.path}/google`,

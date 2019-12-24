@@ -43,7 +43,7 @@ const UserProvider = ({ children }: any) => {
 
     let token = localStorage.getItem('jwt_token');
 
-    axios.post('/api/auth/getUser', null, { headers: {"Authorization" : `Bearer ${token}`} })
+    axios.post('/api/auth/user', null, { headers: {"Authorization" : `Bearer ${token}`} })
       .then(res => {
         const decoded: JwtPayload = jwt_decode(res.data.jwt_token);
 
