@@ -162,11 +162,9 @@ export default class Table extends React.Component<any, tableState> {
                         instantList: res.data,
                         done: true
                     });
-                    console.log(res.data);
                 }
             );
     };
-
 
     compareBy(key: any) {
         return function (a: any, b: any) {
