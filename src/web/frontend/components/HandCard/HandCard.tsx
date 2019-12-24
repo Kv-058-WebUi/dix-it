@@ -29,10 +29,10 @@ class HandCard extends Component <HandProps, HandCardState> {
     }
 
     handleCardClick = (): void  => this.setState({ showSubmitButton: true });
+
     componentDidMount(): void {
         const {asyncGetData} = this.props;
         asyncGetData();
-
     }
 
     handleLeave = (e: any): void  => {
@@ -43,6 +43,7 @@ class HandCard extends Component <HandProps, HandCardState> {
     };
 
     render() {
+        console.log('APP', this.props);
         const { pushCard, card, isCardPushed } = this.props;
         const blurClass = classNames({
             'border-blur': this.state.showSubmitButton,
@@ -72,9 +73,16 @@ class HandCard extends Component <HandProps, HandCardState> {
     }
 }
 
+function mapStateToProps(state:any) {
+    return {
+        showCard: state.showCard,
+        showSubmitButton: state.showSubmitButton
+    }
+}
+
 const mapDispatchToProps = (dispatch: any) => ({
     test: (value: any) => dispatch(testAction(value)),
     asyncGetData: () => dispatch(asyncGetData()),
 });
 
-export default connect(null, mapDispatchToProps)(HandCard);
+export default connect(mapStateToProps, mapDispatchToProps)(HandCard);

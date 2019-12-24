@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {response} from "express";
+// import {response} from "express";
 
 // import {GET_DATA_INIT, GET_DATA_SUCCESS, GET_DATA_FAILURE} from '../constants'
 
@@ -20,7 +20,7 @@ import {response} from "express";
 // };
 
 function getFetch() {
-    return axios.get('api/room')
+    return axios.get('/api/rooms')
 }
 
 function setFetch(data:any) {

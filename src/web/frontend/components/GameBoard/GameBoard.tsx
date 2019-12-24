@@ -21,12 +21,12 @@ export interface Users {
     id: number;
     name: string;
     cards: Card[];
-};
+}
 
 export interface Card {
     card_id: number;
     card_path: string;
-};
+}
 
 export default class GameBoard extends Component <GameBoardProps, GameBoardState> {
     constructor(props: GameBoardProps) {
@@ -38,7 +38,7 @@ export default class GameBoard extends Component <GameBoardProps, GameBoardState
             isCardPushed: false
         };
     }
-    
+
     componentWillMount() {
         axios.get(`/api/game/serve`).then(res => this.setState({users: res.data}));
     }
@@ -73,21 +73,21 @@ export default class GameBoard extends Component <GameBoardProps, GameBoardState
         const { pushedCards, isCardPushed } = this.state;
         pushedCards.push(card);
         this.setState({ pushedCards, isCardPushed: true });
-    }
+    };
 
     render() {
         const { pushedCards, users, isCardPushed } = this.state;
         const playerCards = users[0] && users[0].cards;
-      
+
         return (
             <React.Fragment>
                     <UpBar/>
                     <PushedCards users={this.state.users} pushedCards={pushedCards}  />
 
-                    { users.length ? 
-                        <Hand cards={playerCards} 
-                            pushCard={this.pushCardFn} 
-                            isCardPushed={isCardPushed}/> 
+                    { users.length ?
+                        <Hand cards={playerCards}
+                            pushCard={this.pushCardFn}
+                            isCardPushed={isCardPushed}/>
                     : '' }
 
                     { isCardPushed ?
@@ -98,10 +98,10 @@ export default class GameBoard extends Component <GameBoardProps, GameBoardState
                                     playerCards.splice(index, 1)
                                 }
                             })
-                        }) 
+                        })
                     : '' }
-                             
-                  
+
+
                     <div className={'game-settings'}>
                         <button className={'game-settings__btn'} onClick={() => this.toggleMenu()} type={'button'}>
                             <SettingsIcon style={{ fill: '#fff' }}/>
