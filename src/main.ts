@@ -1,3 +1,4 @@
+import './preload_env';
 import {SERVER_PORT, DB_HOST, DB_USER, DB_PASSWORD, DB_PORT, DB_NAME, SERVER_URL} from "./config";
 import "reflect-metadata";
 import * as web from "./web";

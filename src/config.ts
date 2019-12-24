@@ -1,8 +1,3 @@
-import { resolve } from "path";
-import { config } from "dotenv"
-
-config({ path: resolve(__dirname, "../.env") })
-
 export const SERVER_URL = process.env.SERVER_URL || 'http://localhost';
 export const CLIENT_URL = process.env.CLIENT_URL || 'http://localhost';
 export const SERVER_PORT = parseInt(process.env.SERVER_PORT || "5000");
