@@ -8,6 +8,7 @@ import Select from '@material-ui/core/Select';
 import ModalWindow from "../ModalWindow/ModalWindow";
 import './create-room-popup.scss';
 import axios from "axios";
+import UserProvider from '../UserProvider/UserProvider';
 
 export default function CreateRoomPopup() {
 
@@ -77,12 +78,22 @@ export default function CreateRoomPopup() {
   });
 
   const [amount, setAmount] = React.useState('5');
+  const [roomName, setRoomName] = React.useState('');
+  const [password, setPassword] = React.useState('');
   const [disabled, setDisabled] = React.useState(true);
   const [disabledText, setDisabledText] = React.useState(true);
   const [labelWidth] = React.useState(0);
 
-  const handleChange = (event: any) => {
+  const handleSelectAmount = (event: any) => {
     setAmount(event.target.value);
+  };
+
+  const handleRoomName = (event: any) => {
+    setRoomName(event.target.value);
+  };
+
+  const handlePassword = (event: any) => {
+    setPassword(event.target.value);
   };
 
   const handleChecboxClick = () => {
@@ -96,60 +107,67 @@ export default function CreateRoomPopup() {
 
   const handleSubmit = (event: any): void => {
     event.preventDefault();
-        axios.post('api/rooms', {
-            max_players: amount,
-            name: 'ddsds',
-            is_private: !disabled
-        }).then((response) => {
-            console.log(response)
-        }).catch((error) => {
-            console.log(error);
-        });
-    }
-  
+    axios.post('api/rooms', {
+      max_players: amount,
+      name: roomName,
+      is_private: !disabled,
+      password: password,
+      status: 2
+    }).then((response) => {
+      console.log(response)
+    }).catch((error) => {
+      console.log(error);
+    });
+  }
+
 
   return (
-    <ModalWindow
-      modalWindowType='create-room'
-      windowHeight={formHeight}
-      windowWidth={formWidth}
-      isContentCentered={false}>
+    <UserProvider.context.Consumer>{context => (
+      <React.Fragment>
+
+      <ModalWindow
+        modalWindowType='create-room'
+        windowHeight={formHeight}
+        windowWidth={formWidth}
+        isContentCentered={false}>
         <form action="/game" onSubmit={handleSubmit}>
-      <label className='create-room-popup__label' htmlFor='room-name'>Room name:</label>
-      <input type='text' className='create-room-popup__text-field' id='room-name' required/>
-      <div className='create-room-popup__line-wrapper'>
-        <label htmlFor='player-amount'
-          className='create-room-popup__label'>Amount of players:</label>
-        <MuiThemeProvider theme={myTheme}>
-          <FormControl variant="filled">
-            <Select
-              labelId="player-amount"
-              value={amount}
-              onChange={handleChange}
-              labelWidth={labelWidth}
-            >
-              <MenuItem value={3}>3</MenuItem>
-              <MenuItem value={4}>4</MenuItem>
-              <MenuItem value={5}>5</MenuItem>
-              <MenuItem value={6}>6</MenuItem>
-              <MenuItem value={7}>7</MenuItem>
-            </Select>
-          </FormControl>
-        </MuiThemeProvider>
-      </div>
-      <div className='create-room-popup__line-wrapper'>
-        <label htmlFor='is-private' className='create-room-popup__label'>Private?</label>
-        <div className='create-room-popup__is-private'>
-          <input type='checkbox' name='is-private' id='is-private' value='is-private'
-            className='create-room-popup__is-private-value' onClick={handleChecboxClick}/>
-          <span className='create-room-popup__is-private-mark'></span>
-        </div>
-      </div>
-      <label className={`create-room-popup__label ${disabledText ? "disabled" : ""}`} htmlFor='room-password'>Password:</label>
-      <input required type='password' className='create-room-popup__text-field' id='room-password' disabled={disabled}/>
-      <input type="submit" name="#roomhash" id="Submit" value="Create Room" className='create-room-popup__btn'/>
-      </form>
-    </ModalWindow>
+          <label className='create-room-popup__label' htmlFor='room-name'>Room name:</label>
+          <input onChange={handleRoomName} type='text' className='create-room-popup__text-field' id='room-name' value={roomName} required />
+          <div className='create-room-popup__line-wrapper'>
+            <label htmlFor='player-amount'
+              className='create-room-popup__label'>Amount of players:</label>
+            <MuiThemeProvider theme={myTheme}>
+              <FormControl variant="filled">
+                <Select
+                  labelId="player-amount"
+                  value={amount}
+                  onChange={handleSelectAmount}
+                  labelWidth={labelWidth}
+                >
+                  <MenuItem value={3}>3</MenuItem>
+                  <MenuItem value={4}>4</MenuItem>
+                  <MenuItem value={5}>5</MenuItem>
+                  <MenuItem value={6}>6</MenuItem>
+                  <MenuItem value={7}>7</MenuItem>
+                </Select>
+              </FormControl>
+            </MuiThemeProvider>
+          </div>
+          <div className='create-room-popup__line-wrapper'>
+            <label htmlFor='is-private' className='create-room-popup__label'>Private?</label>
+            <div className='create-room-popup__is-private'>
+              <input type='checkbox' name='is-private' id='is-private' value='is-private'
+                className='create-room-popup__is-private-value' onClick={handleChecboxClick} />
+              <span className='create-room-popup__is-private-mark'></span>
+            </div>
+          </div>
+          <label className={`create-room-popup__label ${disabledText ? "disabled" : ""}`} htmlFor='room-password'>Password:</label>
+          <input onChange={handlePassword} value={password} required type='password' className='create-room-popup__text-field' id='room-password' disabled={disabled} />
+          <input type="submit" name="#roomhash" id="Submit" value="Create Room" className='create-room-popup__btn' />
+        </form>
+      </ModalWindow>
+      </React.Fragment>
+    )}</UserProvider.context.Consumer>
   );
 };
 
