@@ -1,9 +1,12 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackRootPlugin = require('html-webpack-root-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
+const dotenv = require("dotenv");
 const path = require('path');
 const SRC = path.resolve(__dirname, 'node_modules');
 
+dotenv.config();
 
 module.exports = {
     mode: "development",
@@ -26,12 +29,12 @@ module.exports = {
         writeToDisk: true,
         contentBase: path.resolve('public'),
         compress: true,
-        port: 3000,
+        port: process.env.CLIENT_PORT,
         publicPath: '/',
         hot: true,
         historyApiFallback: true,
         proxy: {
-            '/api': 'http://localhost:5000'
+            '/api': process.env.SERVER_URL+':'+process.env.SERVER_PORT
         }
     },
 
@@ -104,6 +107,7 @@ module.exports = {
         usedExports: true
     },
     plugins: [
+        new Dotenv(),
         new HtmlWebpackPlugin(),
         new HtmlWebpackRootPlugin(),
         new CopyPlugin([{ 
