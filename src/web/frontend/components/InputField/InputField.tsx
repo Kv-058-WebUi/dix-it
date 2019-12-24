@@ -187,7 +187,7 @@ class InputField extends React.Component<InputFieldProps, InputFieldState> {
 
     getPlaceholder(fieldType: FieldType): string {
         if (fieldType === FieldType.Login) {
-            return 'Nickname or email';
+            return 'Nickname or Email';
         }
 
         return this.capitalizeFirstChar(fieldType);

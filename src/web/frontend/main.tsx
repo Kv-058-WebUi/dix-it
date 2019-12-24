@@ -11,9 +11,8 @@ import {
 } from "react-router-dom";
 import "./sass/main.scss";
 import io from "socket.io-client"
-
 const App = () => {
-    const socket = io('http://localhost:5000');
+    const socket = io(process.env.SERVER_URL+':'+process.env.SERVER_PORT);
     return (
         <UserProvider>
             <Router>
