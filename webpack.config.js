@@ -2,9 +2,11 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackRootPlugin = require('html-webpack-root-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
+const dotenv = require("dotenv");
 const path = require('path');
 const SRC = path.resolve(__dirname, 'node_modules');
 
+dotenv.config();
 
 module.exports = {
     mode: "development",
