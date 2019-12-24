@@ -4,7 +4,6 @@ import MainPage from './components/MainPage/MainPage';
 import Lobby from './components/Lobby/Lobby';
 import GamePage from "./components/GamePage/gamepage";
 import UserProvider from './components/UserProvider/UserProvider';
-import { SERVER_URL, SERVER_PORT } from '../../config'; 
 import {
     BrowserRouter as Router,
     Switch,
@@ -13,7 +12,7 @@ import {
 import "./sass/main.scss";
 import io from "socket.io-client"
 const App = () => {
-    const socket = io(SERVER_URL + ':' + SERVER_PORT);
+    const socket = io('http://localhost:5000');
     return (
         <UserProvider>
             <Router>
