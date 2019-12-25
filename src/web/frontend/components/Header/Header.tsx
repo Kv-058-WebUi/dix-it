@@ -53,7 +53,7 @@ export default class Header extends Component<HeaderProps, HeaderState> {
                     <UserNav></UserNav>
                     <UserProvider.context.Consumer>{context => (
                         <React.Fragment>
-                            {!context.user || !context.user.authenticated
+                            {!context.user.authenticated
                                 ? (<a href='#' onClick={this.handleAuthFormClick}>Sign In</a>)
                                 : ''}
                         </React.Fragment>
@@ -68,7 +68,7 @@ export default class Header extends Component<HeaderProps, HeaderState> {
                 ) : ''}
                 {this.state.showAuthForm ? (
                     <div onClick={this.handleFormClick}>
-                        <AuthWindow />
+                        <AuthWindow onClose={()=>{this.setState({showAuthForm: false})}}/>
                     </div>
                 ) : ''}
             </nav>

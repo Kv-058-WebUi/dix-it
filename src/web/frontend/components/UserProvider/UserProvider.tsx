@@ -15,7 +15,8 @@ type UserData = {
 }
 
 type ContextData = {
-  user: UserData
+  user: UserData,
+  updateContext: () => void
 }
 
 const dummyUser = {
@@ -25,7 +26,8 @@ const dummyUser = {
 }
 
 const contextProps: ContextData = {
-  user: dummyUser
+  user: dummyUser,
+  updateContext: () => {}
 }
 
 const context = createContext(contextProps);
@@ -33,7 +35,7 @@ const context = createContext(contextProps);
 const UserProvider = ({ children }: any) => {
   const [user, setUser] = useState<UserData>(dummyUser);
 
-  useEffect(() => {
+  function updateContext() {
     let cookies = cookie.parse(document.cookie);
     
     if(cookies.oauth_jwt_token) {
@@ -58,10 +60,14 @@ const UserProvider = ({ children }: any) => {
       .catch((error) => {
         console.log(error);
       });
+  }
+
+  useEffect(() => {
+    updateContext();
   }, []);
 
   return (
-    <context.Provider value={{user}}>
+    <context.Provider value={{user, updateContext}}>
       {children}
     </context.Provider>
   );
