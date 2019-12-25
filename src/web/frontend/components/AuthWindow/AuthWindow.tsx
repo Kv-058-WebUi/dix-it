@@ -15,7 +15,8 @@ type AuthProps = {
 };
 
 type AuthState = {
-  activeTab: ActiveTab
+  activeTab: ActiveTab,
+  isPending: boolean
 };
 
 export { ActiveTab };
@@ -25,12 +26,17 @@ export default class AuthWindow extends Component<AuthProps, AuthState> {
     super(props);
 
     this.state = {
-      activeTab: props.activeTab || ActiveTab.SignUp
+      activeTab: props.activeTab || ActiveTab.SignUp,
+      isPending: false
     };
   }
 
   switchTab(activeTab: ActiveTab) {
     this.setState({ activeTab });
+  }
+
+  setPending(isPending: boolean) {
+    this.setState({ isPending });
   }
 
   render() {
@@ -42,13 +48,13 @@ export default class AuthWindow extends Component<AuthProps, AuthState> {
         windowHeight={formHeight}
         windowWidth={formWidth}
         isContentCentered={true}>
-        <div className={'AuthWindow'}>
-          <div className="tabs">
+        <div className={'AuthWindow' + (this.state.isPending ? ' pending' : '')}>
+          <div className='tabs'>
             <a href="#" className={this.state.activeTab == ActiveTab.SignUp ? 'tab active' : 'tab'} onClick={(e) => this.switchTab(ActiveTab.SignUp)}>Sign Up</a>
             <a href="#" className={this.state.activeTab == ActiveTab.SignIn ? 'tab active' : 'tab'} onClick={(e) => this.switchTab(ActiveTab.SignIn)}>Sign In</a>
           </div>
           <div className="auth_form">
-            {this.state.activeTab === ActiveTab.SignIn ? (<AuthorizationForm />) : (<RegistrationForm />)}
+            {this.state.activeTab === ActiveTab.SignIn ? (<AuthorizationForm />) : (<RegistrationForm onPending={this.setPending.bind(this)}/>)}
           </div>
           <SocialLoginBar/>
         </div>

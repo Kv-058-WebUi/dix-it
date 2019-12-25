@@ -16,7 +16,7 @@ import {Provider} from 'react-redux'
 import store from './redux/store/store'
 
 const App = () => {
-    const socket = io('http://localhost:5000');
+    const socket = io(process.env.SERVER_URL+':'+process.env.SERVER_PORT);
     return (
         <Provider store={store}>
             <UserProvider>

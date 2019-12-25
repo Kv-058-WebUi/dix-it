@@ -1,15 +1,9 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackRootPlugin = require('html-webpack-root-plugin');
-const CopyPlugin = require('copy-webpack-plugin');
-const Dotenv = require('dotenv-webpack');
-const dotenv = require("dotenv");
-const path = require('path');
-const SRC = path.resolve(__dirname, 'node_modules');
-
-dotenv.config();
+let path = require('path');
 
 module.exports = {
-    mode: "development",
+    mode: "production",
 
     entry: {
         main: "./src/web/frontend/main.tsx",
@@ -19,22 +13,21 @@ module.exports = {
         filename: "[name].bundle.js",
         chunkFilename: '[name].chunk.js',
         path: __dirname + "/dist/web/frontend",
-        publicPath: "/",
+        publicPath: "/assets/",
     },
 
     // Enable sourcemaps for debugging webpack's output.
     devtool: "source-map",
 
     devServer: {
-        writeToDisk: true,
-        contentBase: path.resolve('public'),
+        contentBase: path.join(__dirname, 'dist/web/frontend'),
         compress: true,
-        port: process.env.CLIENT_PORT,
+        port: 3000,
         publicPath: '/',
         hot: true,
         historyApiFallback: true,
         proxy: {
-            '/api': process.env.SERVER_URL+':'+process.env.SERVER_PORT
+            '/api': 'http://localhost:5000'
         }
     },
 
@@ -67,18 +60,6 @@ module.exports = {
                 ]
             },
             {
-                test: /\.mp3$/,
-                use: [
-                    {
-                        loader: 'file-loader',
-                        options: {
-                            name: '[name].[ext]',
-                            outputPath: 'sounds/'
-                        }
-                    }
-                ]
-            },
-            {
                 test: /\.(jpe?g|gif|png|svg)$/i,
                 use: [
                     {
@@ -106,13 +87,5 @@ module.exports = {
         },
         usedExports: true
     },
-    plugins: [
-        new Dotenv(),
-        new HtmlWebpackPlugin(),
-        new HtmlWebpackRootPlugin(),
-        new CopyPlugin([{
-            from: path.join(__dirname, 'src/web/frontend/images'),
-            to: path.join(__dirname, 'dist/web/frontend/images')
-        }])
-    ]
+    plugins: [new HtmlWebpackPlugin(), new HtmlWebpackRootPlugin()]
 };

@@ -1,0 +1,24 @@
+{
+    "type": "postgres",
+    "host": "localhost",
+    "port": 5432,
+    "username": "dixit",
+    "password": "dixit",
+    "database": "dixit",
+    "synchronize": true,
+    "logging": false,
+    "entities": [
+       "dist/entity/**/*.js"
+    ],
+    "migrations": [
+       "dist/migration/**/*.js"
+    ],
+    "subscribers": [
+       "dist/subscriber/**/*.js"
+    ],
+    "cli": {
+       "entitiesDir": "src/web/backend/entities",
+       "migrationsDir": "src/web/backend/migration",
+       "subscribersDir": "src/web/backend/subscriber"
+    }
+ }
