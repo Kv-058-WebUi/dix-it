@@ -12,6 +12,7 @@ import { Relationship } from "./web/backend/entities/Relationship";
 import { RoomPlayer } from "./web/backend/entities/RoomPlayers";
 import {UserIndices1576322993380 as UserIndeces} from './migrations/1576322993380-UserIndices';
 import { CardsCreatingMigration1577107758080 as CardsCreatingMigration } from "./migrations/1577107758080-CardsCreatingMigration";
+import { RoomStatusesMigration1577366149533 as roomStatusMigration } from './migrations/1577369835936-roomStatusMigration';
 import {Card} from "./web/backend/entities/Card";
 
 async function main() {
@@ -28,7 +29,7 @@ const options: ConnectionOptions = {
     database: DB_NAME,
     synchronize: true,
     migrationsRun: true,
-    migrations: [UserIndeces, CardsCreatingMigration],
+    migrations: [UserIndeces, CardsCreatingMigration, roomStatusMigration],
     cli: {
         migrationsDir: "migrations"
     },
