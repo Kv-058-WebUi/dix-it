@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Submit, { PushCardFn } from '../Submit/Submit';
 import classNames from 'classnames';
-import {Card} from '../GameBoard/GameBoard';
+import {CardType} from '../GameBoard/GameBoard';
 import './handcard.scss';
 
 type HandCardState = {
@@ -10,7 +10,7 @@ type HandCardState = {
 };
 
 type HandProps = {
-    card: Card,
+    card: CardType,
     pushCard: PushCardFn,
     isCardPushed: boolean
 };

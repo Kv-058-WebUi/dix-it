@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import HandCard from "../HandCard/HandCard";
-import {Card} from '../GameBoard/GameBoard';
+import {CardType} from '../GameBoard/GameBoard';
 import './hand.scss';
 import { PushCardFn } from '../Submit/Submit';
 
 
 type HandProps = {
-    cards: Card[], 
+    cards: CardType[], 
     pushCard: PushCardFn,
     isCardPushed: boolean
 };
@@ -16,7 +16,7 @@ export default class Hand extends Component <HandProps> {
         const { pushCard, cards, isCardPushed } = this.props;
         return (
             <div className='field-hand'>
-                {cards.map((card:Card, index:number) => {
+                {cards.map((card:CardType, index:number) => {
                     return (
                         <HandCard
                             key={index}

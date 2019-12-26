@@ -61,7 +61,7 @@ class GamePage extends React.Component<any> {
                         <GameOverForm players={this.state.sortedList}/>
                     ) : <button onClick={this.props.showWinner}>Win the game</button>}
                 </header>
-                <GameBoard/>
+                <GameBoard socket={ this.props.socket }/>
                 <GameSidePanel players={this.state.sortedList} socket={this.props.socket} user={this.props.user}/>
                 <footer>
                     <GameSettings/>

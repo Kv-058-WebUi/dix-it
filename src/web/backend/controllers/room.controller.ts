@@ -8,6 +8,11 @@ import { JwtPayload } from '../authentication/helpers';
 import passport from 'passport';
 import crypto from 'crypto';
 
+export enum ROOM_STATUSES {
+    STARTED = 1,
+    WAITING = 2,
+    FINISHED = 3
+}
 export default class RoomController implements Controller{
     public path = '/rooms';
     public router = express.Router();
@@ -41,8 +46,9 @@ export default class RoomController implements Controller{
                 const newRoom = this.roomRepository.create(postData);       
                 await this.roomRepository.save(newRoom);
                 response.send(newRoom);
+            } else {
+                response.send({ error: 'NO'});
             }
-            response.send({ error: 'NO'});
         })(request, response);
     };
 

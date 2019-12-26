@@ -6,6 +6,7 @@ import { getRepository } from "typeorm";
 import { Player } from "../entities/Player";
 import { RoomStatus } from "../entities/RoomStatus";
 import welcomeDict from '../helpers/chat-welcome-dictionary'; 
+import { ROOM_STATUSES } from "./room.controller";
 
 interface Message {
     id: number,
@@ -13,6 +14,11 @@ interface Message {
     content: string
     timestamp: string,
     isBotMessage: boolean,
+}
+
+interface cardMessage {
+    card_id: number;
+    card_path: string;
 }
 
 interface GamePlayer {
@@ -28,6 +34,7 @@ interface Game {
 }
 
 const games: Array<Game> = [];
+
 
 async function getDefaultGame(): Promise<Game> {
     return new Promise((resolve, reject) => {
@@ -82,7 +89,12 @@ export default class SocketController {
                     return;
                 }
 
-                let roomStatus = getRepository(RoomStatus).create({ code: 1, status: 'awaiting players' });
+                let roomStatus = await getRepository(RoomStatus).findOne({ code: ROOM_STATUSES.WAITING });
+
+                if(!roomStatus) {
+                    roomStatus = getRepository(RoomStatus).create({ code: ROOM_STATUSES.WAITING, status: 'waiting for players' });
+                    await getRepository(RoomStatus).save(roomStatus);
+                }
 
                 let room = getRepository(Room).create({
                     name: 'some room',
@@ -149,6 +161,12 @@ export default class SocketController {
             client.broadcast.to(game.room.name).emit('user left', gamePlayer.jwtData);
         });
         client.on('send chat msg', chatMessage);
+        client.on('New Word From StoryTeller', newWord);
+        client.on('send pushed card', (msg: cardMessage) => {
+            console.log('card received', msg);
+            client.broadcast.to('some room').emit('new card', msg);
+        });
+        // client.on('Synchronize timer', syncTimers);
 
         async function chatMessage(msg: Message) {
             console.log('chat msg received');
@@ -167,6 +185,17 @@ export default class SocketController {
             game.chat.push(msg);
             client.broadcast.to(game.room.name).emit('new chat msg', msg);
         }
+
+        function newWord (word: string ) {
+            console.log('new word has been sended');
+            console.log(word);
+            client.broadcast.to('some room').emit('New Word From StoryTeller', word);
+        }
+        // function syncTimers (timerState: number) {
+        //     // console.log('timer restarted');
+        //     // console.log(timerState);          
+        //     client.broadcast.to('some room').emit('Synchronize timer', timerState)
+        // }
     }
 
 }
