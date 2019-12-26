@@ -6,6 +6,7 @@ import { getRepository } from "typeorm";
 import { Player } from "../entities/Player";
 import { RoomStatus } from "../entities/RoomStatus";
 import welcomeDict from '../helpers/chat-welcome-dictionary'; 
+import { ROOM_STATUSES } from "./room.controller";
 
 interface Message {
     id: number,
@@ -82,7 +83,12 @@ export default class SocketController {
                     return;
                 }
 
-                let roomStatus = getRepository(RoomStatus).create({ code: 1, status: 'awaiting players' });
+                let roomStatus = await getRepository(RoomStatus).findOne({ code: ROOM_STATUSES.WAITING });
+
+                if(!roomStatus) {
+                    roomStatus = getRepository(RoomStatus).create({ code: ROOM_STATUSES.WAITING, status: 'waiting for players' });
+                    await getRepository(RoomStatus).save(roomStatus);
+                }
 
                 let room = getRepository(Room).create({
                     name: 'some room',
