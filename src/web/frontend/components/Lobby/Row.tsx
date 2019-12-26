@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export interface roomParams {
     room_id: any;
-    creator_id: {player_id:number};
+    creator_id: {player_id:number, nickname: string};
     name: string;
     is_private: boolean;
     playersCur: number,
@@ -20,7 +20,7 @@ export class Row extends React.Component<roomParams> {
         return (
             <div className={'lobby__table-row'}>
                 <div className={'lobby__table-cell creator'}>
-                    <p className={'lobby__table-text'}>{this.props.creator_id.player_id}</p>
+                    <p className={'lobby__table-text'}>{this.props.creator_id.nickname}</p>
                 </div>
                 <div className={'lobby__table-cell room-name'}>
                     <p className={'lobby__table-text'}>{this.props.name}</p>

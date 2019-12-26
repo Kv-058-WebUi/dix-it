@@ -23,7 +23,7 @@ export class Room {
 
     @Column({
         type: 'boolean',
-        nullable: false
+        nullable: true
     })
     is_private!: boolean
 
