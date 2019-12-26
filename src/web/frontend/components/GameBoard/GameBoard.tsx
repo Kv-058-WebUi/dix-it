@@ -19,7 +19,8 @@ type GameBoardState = {
     showMenu: boolean,
     isCardPushed: boolean,
     isInputVisible: boolean,
-    word: string
+    word: string,
+    timerState: number
 };
 
 export interface Users {
@@ -34,7 +35,7 @@ export interface Card {
 };
 
 export default class GameBoard extends Component <GameBoardProps, GameBoardState> {
-    constructor(props: any) {
+    constructor(props: GameBoardProps) {
         super(props);
         this.state = {
             users: [],
@@ -43,6 +44,7 @@ export default class GameBoard extends Component <GameBoardProps, GameBoardState
             word: 'Choose your card',
             showMenu: false,
             isCardPushed: false,
+            timerState: 0
         };
     }
     
@@ -80,7 +82,16 @@ export default class GameBoard extends Component <GameBoardProps, GameBoardState
         this.setState({word: wordValue})
     };
 
-    
+    restartTimer = () => {
+        this.setState({timerState: 0});
+    }
+
+    timerPlusPlus = (diff: number) => {
+        let {timerState} = this.state
+        this.setState({
+            timerState: timerState + diff
+        })
+    }
 
     pushCardFn = (card: Card) => {
         const { pushedCards, isCardPushed } = this.state;
@@ -99,7 +110,12 @@ export default class GameBoard extends Component <GameBoardProps, GameBoardState
       
         return (
             <React.Fragment>
-                    <UpBar word={this.state.word}/>
+                    <UpBar word={this.state.word}
+                       socket = {this.props.socket}
+                       timerState = {this.state.timerState}
+                       timerPlusPlus = {this.timerPlusPlus}
+                       restartTimer = {this.restartTimer}
+                    />
                     <PushedCards users={this.state.users} pushedCards={pushedCards}  />
 
                     { users.length ? 
@@ -124,6 +140,7 @@ export default class GameBoard extends Component <GameBoardProps, GameBoardState
                        visibility={this.setInputVisible}
                        onWordInput = {this.handleWord}
                        socket = {this.props.socket}
+                       restartTimer = {this.restartTimer}
                    />) : null
                     }    
                   

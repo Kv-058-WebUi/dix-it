@@ -37,31 +37,29 @@ const myTheme = createMuiTheme({
         })
     }
   });
-export default function LinearDeterminate() {
+export default function LinearDeterminate(props: any) {
   const classes = useStyles();
-  const [completed, setCompleted] = React.useState(0);
-
+  let {timerState} = props;
+  props.socket.emit('Synchronize timer', timerState)
+  if(timerState === 100) {
+    props.restartTimer()
+  }
   React.useEffect(() => {
     function progress() {
-      setCompleted(oldCompleted => {
-        if (oldCompleted === 100) {
-          return 0;
-        }
-        const diff = 0.1 * 10;
-        return Math.min(oldCompleted + diff, 100);
-      });
+      const diff = 0.1 * 10;
+      return Math.min(props.timerPlusPlus(diff), 100);
     }
-
     const timer = setInterval(progress, 500);
     return () => {
       clearInterval(timer);
     };
   }, []);
 
+
   return (
     <div className={classes.root}>
         <MuiThemeProvider theme={myTheme}>
-      <LinearProgress variant="determinate" value={completed} color="secondary" /></MuiThemeProvider>
+         <LinearProgress variant="determinate" value={timerState} color="secondary" /></MuiThemeProvider>
     </div>
   );
 }

@@ -30,16 +30,22 @@ export default class SocketController {
         });
         client.on('send chat msg', chatMessage);
         client.on('New Word From StoryTeller', newWord);
+        client.on('Synchronize timer', syncTimers);
 
         function chatMessage(msg: Message) { 
             console.log('chat msg received');
             console.log(msg);
             client.broadcast.to('some room').emit('new chat msg', msg);
         }
-        function newWord (word: any ) {
+        function newWord (word: string ) {
             console.log('new word has been sended');
             console.log(word);
             client.broadcast.to('some room').emit('New Word From StoryTeller', word);
+        }
+        function syncTimers (timerState: number) {
+            // console.log('timer restarted');
+            // console.log(timerState);          
+            client.broadcast.to('some room').emit('Synchronize timer', timerState)
         }
     }
 

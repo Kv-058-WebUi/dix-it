@@ -18,7 +18,11 @@ export default class UpBar extends React.Component<any, word>  {
         return (
             <div className="Wordclass">
                 <WordBar word={this.props.word}/>
-                <LinearDeterminate />
+                <LinearDeterminate socket = {this.props.socket}
+                timerState = {this.props.timerState}
+                timerPlusPlus = {this.props.timerPlusPlus}
+                restartTimer = {this.props.restartTimer}
+                />
             </div>
             );
     }

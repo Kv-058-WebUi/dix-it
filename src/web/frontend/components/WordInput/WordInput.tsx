@@ -12,6 +12,7 @@ const WordInput = (props: any) => {
             if(input.value != '') {
                 props.onWordInput(input.value);
                 props.socket.emit('New Word From StoryTeller', input.value);
+                props.restartTimer(true);
                 props.visibility(false);
             }
         }
