@@ -7,10 +7,10 @@ const iconFacebook = require('../../images/social_icons/icon-facebook.svg');
 const iconTwitter = require('../../images/social_icons/icon-twitter.svg');
 const iconInstagram = require('../../images/social_icons/icon-instagram.svg');
 
-const GOOGLE_URL = 'https://www.google.com/';
-const FACEBOOK_URL = 'https://www.facebook.com/';
-const TWITTER_URL = 'https://twitter.com/';
-const INSTAGRAM_URL = 'https://www.instagram.com/';
+const GOOGLE_URL = '/api/auth/google';
+const FACEBOOK_URL = '/api/auth/facebook';
+const TWITTER_URL = '/api/auth/twitter';
+const INSTAGRAM_URL = '/api/auth/instagram';
 
 const styles = () => ({
     root: {

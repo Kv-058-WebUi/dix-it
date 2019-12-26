@@ -13,7 +13,7 @@ function UserNav() {
     return (
         <UserProvider.context.Consumer>{context => (
             <React.Fragment>
-                {context.user && context.user.authenticated
+                {context.user.authenticated
                     ? (<React.Fragment>
                         <div className="UserNav__profile_picture">
                             <img alt='profile picture' src={path.normalize(`images/avatars/${context.user.profile_picture || 'aonymous_user.png'}`)}/>

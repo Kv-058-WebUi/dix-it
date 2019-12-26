@@ -1,4 +1,5 @@
-import {SERVER_PORT, DB_HOST, DB_USER, DB_PASSWORD, DB_PORT, DB_NAME} from "./config";
+import './preload_env';
+import {SERVER_PORT, DB_HOST, DB_USER, DB_PASSWORD, DB_PORT, DB_NAME, SERVER_URL} from "./config";
 import "reflect-metadata";
 import * as web from "./web";
 import {ConnectionOptions, createConnection, getRepository} from "typeorm";
@@ -15,8 +16,7 @@ import {Card} from "./web/backend/entities/Card";
 
 async function main() {
     await web.start(SERVER_PORT);
-    console.log(`Server started at http://localhost:${SERVER_PORT}`);
-    console.log(`${process.env.PORT}`);
+    console.log(`Server started at ${SERVER_URL}:${SERVER_PORT}`);
 }
 
 const options: ConnectionOptions = {
