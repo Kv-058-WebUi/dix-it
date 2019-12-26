@@ -23,13 +23,15 @@ const App = () => {
                 <Router>
                     <Switch>
                         <Route path="/game">
-                            <GamePage socket={socket}/>
+                            <UserProvider.context.Consumer>{context => (
+                                <GamePage socket={ socket } user={ context.user }/>
+                            )}</UserProvider.context.Consumer>
                         </Route>
                         <Route path="/lobby">
-                            <Lobby/>
+                            <Lobby />
                         </Route>
                         <Route path="/">
-                            <MainPage/>
+                            <MainPage />
                         </Route>
                     </Switch>
                 </Router>

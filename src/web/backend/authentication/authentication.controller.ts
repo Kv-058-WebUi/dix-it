@@ -16,7 +16,7 @@ import { LoginUserData, JwtPayload } from './helpers';
 import EmailNotConfirmedException from '../exceptions/EmailNotConfirmedException';
 import { Player } from '../entities/Player';
 import { getRepository } from 'typeorm';
-import { uniqueNamesGenerator, Config as NamesConfig, adjectives, animals, starWars } from 'unique-names-generator';
+import { uniqueNamesGenerator, Config as NamesConfig, adjectives, animals } from 'unique-names-generator';
 
 
 class AuthenticationController implements Controller {
@@ -66,13 +66,17 @@ class AuthenticationController implements Controller {
     }
 
     private async createToken(user: DixitUser) {
-        const player = await getRepository(Player).findOne({user_id: user});
+        let player = await getRepository(Player).findOne({user_id: user});
+        if(!player) {
+            player = await getRepository(Player).create({user_id: user, nickname: user.nickname});
+            await getRepository(Player).save(player);
+        }
         const payload: JwtPayload = {
             authenticated: true,
             user_id: user.user_id,
             profile_picture: user.profile_picture,
             nickname: user.nickname,
-            player_id: player ? player.player_id : undefined
+            player_id: player.player_id
         };
 
         return jwt.sign(payload, JWT_SECRET);
@@ -146,10 +150,8 @@ class AuthenticationController implements Controller {
 
     
     private generateGuestName(): string {
-        const seed = Math.random();
-
         const customConfig: NamesConfig = {
-            dictionaries: [adjectives, seed < 0.8 ? animals : starWars],
+            dictionaries: [adjectives, animals],
             separator: ' ',
             length: 2,
             style: 'capital'

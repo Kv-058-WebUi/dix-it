@@ -3,13 +3,16 @@ import React, {useState, useEffect} from "react";
 import {Link} from "react-router-dom";
 import GameSettings from "./gamesettings";
 import GameSidePanel from "./gameSidePanel";
-import GameOverForm from "../GameOverForm/GameOverForm";
+import { GameOverForm } from "../GameOverForm/GameOverForm";
+import { UserData } from "../UserProvider/UserProvider";
 import {connect} from "react-redux";
 import {gamePageStore} from "../../redux/actions/setStore";
 import {showWinner} from "../../redux/actions/showWinnerModal";
 
-export interface SocketProps {
+
+export interface GamePageProps {
     socket: SocketIOClient.Socket;
+    user: UserData | null;
 }
 
 export interface player {
@@ -46,6 +49,31 @@ class GamePage extends React.Component<any> {
         })
     };
 
+    // const [isModalShown, setModalShown] = useState(false);
+    // sortedplayers = sortBy('score');
+    // const [playerlist] = useState(sortedplayers);
+    // const winnerList = [...playerlist];
+    // useEffect(() => {
+    //     props.socket.emit('game page open', props.user);
+    // });
+
+    return (
+        <div className={'game-root'}>
+            <header>
+                <Link to='/'>
+                    <img className='game-logo' src={require('../Header/LOGO.png')} alt='logo'/>
+                </Link>
+                {isModalShown ? (
+                    <GameOverForm players = {winnerList}/>
+            ): <button onClick={() => setModalShown(true)}>Win the game</button>}
+            </header>
+            <GameBoard/>
+            <GameSidePanel players = {playerlist} socket={ props.socket } user={props.user}/>
+            <footer>
+                <GameSettings/>
+            </footer>
+        </div>
+    )
     render() {
         console.log('APP', this.props);
         return (
@@ -59,7 +87,7 @@ class GamePage extends React.Component<any> {
                     ) : <button onClick={this.props.showWinner}>Win the game</button>}
                 </header>
                 <GameBoard/>
-                <GameSidePanel players={this.state.sortedList} socket={this.props.socket}/>
+                <GameSidePanel players={this.state.sortedList} socket={this.props.socket} user={props.user}/>
                 <footer>
                     <GameSettings/>
                 </footer>

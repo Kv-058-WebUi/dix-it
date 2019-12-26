@@ -105,6 +105,13 @@
             }
         }
     }
+    &__unautorized-text {
+        display: block;
+        padding: 20px;
+        text-align: center;
+        color: #E5E5E5;
+        font: 700 24px Montserrat, sans-serif;
+    }
     &__btn {
         display: block;
         align-self: center;
@@ -118,6 +125,7 @@
         text-transform: uppercase;
         text-align: center;
         transition: 0.3s;
+        cursor: pointer;
         &:hover {
             box-shadow: 0px 0px 30px #EC7760;
         }

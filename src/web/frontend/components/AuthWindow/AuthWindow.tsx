@@ -11,7 +11,8 @@ enum ActiveTab {
 }
 
 type AuthProps = {
-  activeTab?: ActiveTab
+  activeTab?: ActiveTab,
+  onClose: () => void
 };
 
 type AuthState = {
@@ -54,7 +55,7 @@ export default class AuthWindow extends Component<AuthProps, AuthState> {
             <a href="#" className={this.state.activeTab == ActiveTab.SignIn ? 'tab active' : 'tab'} onClick={(e) => this.switchTab(ActiveTab.SignIn)}>Sign In</a>
           </div>
           <div className="auth_form">
-            {this.state.activeTab === ActiveTab.SignIn ? (<AuthorizationForm />) : (<RegistrationForm onPending={this.setPending.bind(this)}/>)}
+            {this.state.activeTab === ActiveTab.SignIn ? (<AuthorizationForm onClose={this.props.onClose}/>) : (<RegistrationForm onPending={this.setPending.bind(this)}/>)}
           </div>
           <SocialLoginBar/>
         </div>
