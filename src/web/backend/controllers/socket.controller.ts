@@ -16,6 +16,11 @@ interface Message {
     isBotMessage: boolean,
 }
 
+interface cardMessage {
+    card_id: number;
+    card_path: string;
+}
+
 interface GamePlayer {
     id: string,
     points: number,
@@ -29,6 +34,7 @@ interface Game {
 }
 
 const games: Array<Game> = [];
+
 
 async function getDefaultGame(): Promise<Game> {
     return new Promise((resolve, reject) => {
@@ -156,6 +162,10 @@ export default class SocketController {
         });
         client.on('send chat msg', chatMessage);
         client.on('New Word From StoryTeller', newWord);
+        client.on('send pushed card', (msg: cardMessage) => {
+            console.log('card received', msg);
+            client.broadcast.to('some room').emit('new card', msg);
+        });
         // client.on('Synchronize timer', syncTimers);
 
         async function chatMessage(msg: Message) {
