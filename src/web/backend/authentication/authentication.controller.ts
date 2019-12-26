@@ -16,7 +16,7 @@ import { LoginUserData, JwtPayload } from './helpers';
 import EmailNotConfirmedException from '../exceptions/EmailNotConfirmedException';
 import { Player } from '../entities/Player';
 import { getRepository } from 'typeorm';
-import { uniqueNamesGenerator, Config as NamesConfig, adjectives, animals, starWars } from 'unique-names-generator';
+import { uniqueNamesGenerator, Config as NamesConfig, adjectives, animals } from 'unique-names-generator';
 
 
 class AuthenticationController implements Controller {
