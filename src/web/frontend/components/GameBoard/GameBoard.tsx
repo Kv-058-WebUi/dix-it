@@ -7,15 +7,26 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import axios from 'axios';
 import UpBar from "../UpBar/UpBar";
+import WordInput from '../WordInput/WordInput';
 
-type GameBoardProps = {};
+type GameBoardProps = {
+    socket: SocketIOClient.Socket
+};
 
 type GameBoardState = {
     users: Users[],
     pushedCards: Card[],
     showMenu: boolean,
-    isCardPushed: boolean
+    isCardPushed: boolean,
+    isInputVisible: boolean,
+    word: string,
+    timerState: number
 };
+
+export type RestartTimer = () => void;
+export type TimerPlusPlus = (diff: number) => void;
+export type OnWordInput = (wordValue: string) => void;
+export type Visibility = (status: boolean) => void;
 
 export interface Users {
     id: number;
@@ -34,13 +45,17 @@ export default class GameBoard extends Component <GameBoardProps, GameBoardState
         this.state = {
             users: [],
             pushedCards: [],
+            isInputVisible: false,
+            word: 'Choose your card',
             showMenu: false,
-            isCardPushed: false
+            isCardPushed: false,
+            timerState: 0
         };
     }
 
     componentWillMount() {
         axios.get(`/api/game/serve`).then(res => this.setState({users: res.data}));
+        this.props.socket.on('New Word From StoryTeller', this.handleWord);
     }
 
     toggleMenu() {
@@ -68,11 +83,30 @@ export default class GameBoard extends Component <GameBoardProps, GameBoardState
             );
         }
     }
+    handleWord = (wordValue: string) => {
+        this.setState({word: wordValue})
+    };
+
+    restartTimer = () => {
+        this.setState({timerState: 0});
+    }
+
+    timerPlusPlus = (diff: number) => {
+        let {timerState} = this.state
+        this.setState({
+            timerState: timerState + diff
+        })
+    }
 
     pushCardFn = (card: Card) => {
         const { pushedCards, isCardPushed } = this.state;
         pushedCards.push(card);
         this.setState({ pushedCards, isCardPushed: true });
+        this.setInputVisible(true)
+    }
+
+    setInputVisible = (status: boolean) => {
+        this.setState({isInputVisible: status})
     };
 
     render() {
@@ -81,7 +115,12 @@ export default class GameBoard extends Component <GameBoardProps, GameBoardState
 
         return (
             <React.Fragment>
-                    <UpBar/>
+                    <UpBar word={this.state.word}
+                       socket = {this.props.socket}
+                       timerState = {this.state.timerState}
+                       timerPlusPlus = {this.timerPlusPlus}
+                       restartTimer = {this.restartTimer}
+                    />
                     <PushedCards users={this.state.users} pushedCards={pushedCards}  />
 
                     { users.length ?
@@ -101,7 +140,15 @@ export default class GameBoard extends Component <GameBoardProps, GameBoardState
                         })
                     : '' }
 
-
+                    {
+                   this.state.isInputVisible ? (<WordInput
+                       visibility={this.setInputVisible}
+                       onWordInput = {this.handleWord}
+                       socket = {this.props.socket}
+                       restartTimer = {this.restartTimer}
+                   />) : null
+                    }    
+                  
                     <div className={'game-settings'}>
                         <button className={'game-settings__btn'} onClick={() => this.toggleMenu()} type={'button'}>
                             <SettingsIcon style={{ fill: '#fff' }}/>
