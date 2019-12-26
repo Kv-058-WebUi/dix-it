@@ -124,7 +124,7 @@ const cards = [
     }
 ];
 
-export class CardsCreatingMigration1577107758080 implements MigrationInterface {
+export class AddCardsCreatingMigration1577368445530 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<any> {
         for(let i = 0; i < cards.length; i++) {

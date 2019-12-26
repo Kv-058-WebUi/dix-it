@@ -2,9 +2,6 @@ import React from "react";
 import {Button} from "@material-ui/core";
 import {withStyles} from "@material-ui/styles";
 import axios from "axios";
-
-import SocialLoginBar from "../SocialLoginBar/SocialLoginBar";
-import ModalWindow from "../ModalWindow/ModalWindow";
 import './RegistrationForm.scss'
 import InputField from "../InputField/InputField";
 import RegistrationConfirmation from "./RegistrationConfirmation/RegistrationConfirmation"
@@ -27,7 +24,7 @@ const RESPONSE_STATUS_SUCCESS = "success";
 const RESPONSE_STATUS_ERROR = "error";
 
 interface RegistrationFormProps {
-
+    onPending: (value: boolean) => void;
 }
 
 interface RegistrationFormState {
@@ -36,18 +33,20 @@ interface RegistrationFormState {
     password: string,
     errorText: string,
     isRegistrationCompleted: boolean;
+    isPending: boolean;
 }
 
 class RegistrationForm extends React.Component<RegistrationFormProps, RegistrationFormState> {
     constructor(props: RegistrationFormProps) {
         super(props);
-        this.state = {username: "", email: "", password: "", errorText: "", isRegistrationCompleted: false};
+        this.state = {username: "", email: "", password: "", errorText: "", isRegistrationCompleted: false, isPending: true};
     }
 
     onFormSubmit(event: any): void {
         this.setState({errorText: ""});
         event.preventDefault();
         if (this.formHasAllFieldsFilled()) {
+            this.setPending(true);
             axios.post('/api/auth/register', {
                 nickname: this.state.username,
                 email: this.state.email,
@@ -56,8 +55,16 @@ class RegistrationForm extends React.Component<RegistrationFormProps, Registrati
                 this.handleServerResponse(response);
             }).catch((error) => {
                 console.log(error);
+                this.setState({errorText: 'Oh, snap! Something went wrong :('});
+            }).finally(()=>{
+                this.setPending(false);
             });
         }
+    }
+
+    setPending(isPending: boolean) {
+        this.setState({isPending});
+        this.props.onPending(isPending);
     }
 
     handleServerResponse(response: any): void {

@@ -17,7 +17,7 @@ export class Dixit {
             throw new Error('Wrong quantity of players');
         }
         this.players = players;
-		this.cardsPerPlayer = 4;
+		this.cardsPerPlayer = 7;
     }
 
     async serveCards() {

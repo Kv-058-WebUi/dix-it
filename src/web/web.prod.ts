@@ -4,7 +4,7 @@ import RoomController from "./backend/controllers/room.controller";
 import AuthenticationController from "./backend/authentication/authentication.controller";
 import bodyParser from "body-parser";
 import { UserController } from "./backend/controllers/user.controller";
-import { DemoController } from "./backend/controllers/demo.controller";
+import { GameController } from "./backend/controllers/game.controller";
 import cors from "cors";
 import io from "socket.io"
 import SocketIO from "socket.io";
@@ -32,17 +32,17 @@ class App {
     this.app.use('/api', new RoomController().router);
     this.app.use('/api', new AuthenticationController().router);
     this.app.use('/api', new UserController().router);
-    this.app.use('/api', new DemoController().router);
+    this.app.use('/api', new GameController().router);
     this.app.get("/*", (req, res) => {
       res.render("index");
     });
   }
 
-  public initializeSocket() {
-    new SocketController().initializeSocket(this.socket);
-  }
+    public initializeSocket() {
+        new SocketController().initializeSocket(this.socket);
+    }
 
-  public getServer() {
+    public getServer() {
     return this.app;
   }
 

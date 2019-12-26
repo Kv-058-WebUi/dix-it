@@ -1,4 +1,5 @@
-import {SERVER_PORT, DB_HOST, DB_USER, DB_PASSWORD, DB_PORT, DB_NAME} from "./config";
+import './preload_env';
+import {SERVER_PORT, DB_HOST, DB_USER, DB_PASSWORD, DB_PORT, DB_NAME, SERVER_URL} from "./config";
 import "reflect-metadata";
 import * as web from "./web";
 import {ConnectionOptions, createConnection, getRepository} from "typeorm";
@@ -12,11 +13,11 @@ import { RoomPlayer } from "./web/backend/entities/RoomPlayers";
 import {UserIndices1576322993380 as UserIndeces} from './migrations/1576322993380-UserIndices';
 import { CardsCreatingMigration1577107758080 as CardsCreatingMigration } from "./migrations/1577107758080-CardsCreatingMigration";
 import {Card} from "./web/backend/entities/Card";
+import { AddCardsCreatingMigration1577368445530 } from './migrations/1577368445530-AddCardsCreatingMigration';
 
 async function main() {
     await web.start(SERVER_PORT);
-    console.log(`Server started at http://localhost:${SERVER_PORT}`);
-    console.log(`${process.env.PORT}`);
+    console.log(`Server started at ${SERVER_URL}:${SERVER_PORT}`);
 }
 
 const options: ConnectionOptions = {
@@ -28,7 +29,7 @@ const options: ConnectionOptions = {
     database: DB_NAME,
     synchronize: true,
     migrationsRun: true,
-    migrations: [UserIndeces, CardsCreatingMigration],
+    migrations: [UserIndeces, CardsCreatingMigration, AddCardsCreatingMigration1577368445530],
     cli: {
         migrationsDir: "migrations"
     },
