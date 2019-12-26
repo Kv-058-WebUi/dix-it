@@ -3,15 +3,9 @@ import ModalWindow from "../ModalWindow/ModalWindow";
 import './GameOverForm.scss'
 import { Fireworks } from './Fireworks/Fireworks';
 import Winner from './Winner/Winner';
-import { Redirect } from 'react-router-dom';
-// import {player} from '../GamePage/gamepage';
+// import { Redirect } from 'react-router-dom';
 import {connect} from "react-redux";
-// import {gamePageStore} from "../../redux/actions/setStore";
 import {hideWinner} from "../../redux/actions/hideWinnerModal";
-
-// interface GameOverFormInterface {
-//     players: player[];
-// }
 
 const GameOverForm = (props:any) => {
     const gameOverHeight = 'auto';
@@ -25,6 +19,9 @@ const GameOverForm = (props:any) => {
             console.log('redirect');
             props.hideWinner();
             // return <Redirect to='/lobby'/>
+            setTimeout(() => {
+                window.location.href = '/lobby'
+            }, 500)
         }
     };
     useEffect(() => {
