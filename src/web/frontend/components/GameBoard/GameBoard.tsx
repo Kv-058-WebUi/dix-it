@@ -8,6 +8,7 @@ import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import axios from 'axios';
 import UpBar from "../UpBar/UpBar";
 import { Card } from '@material-ui/core';
+import WordInput from '../WordInput/WordInput';
 
 type GameBoardProps = {
     socket: SocketIOClient.Socket
@@ -18,8 +19,16 @@ type GameBoardState = {
     cards: CardType[],
     pushedCards: CardType[],
     showMenu: boolean,
-    isCardPushed: boolean
+    isCardPushed: boolean,
+    isInputVisible: boolean,
+    word: string,
+    timerState: number
 };
+
+export type RestartTimer = () => void;
+export type TimerPlusPlus = (diff: number) => void;
+export type OnWordInput = (wordValue: string) => void;
+export type Visibility = (status: boolean) => void;
 
 export interface Users {
     id: number;
@@ -30,7 +39,7 @@ export interface Users {
 export interface CardType {
     card_id: number;
     card_path: string;
-};
+}
 
 export default class GameBoard extends Component <GameBoardProps, GameBoardState> {
     constructor(props: GameBoardProps) {
@@ -39,11 +48,14 @@ export default class GameBoard extends Component <GameBoardProps, GameBoardState
             users: [],
             cards: [],
             pushedCards: [],
+            isInputVisible: false,
+            word: 'Choose your card',
             showMenu: false,
-            isCardPushed: false
+            isCardPushed: false,
+            timerState: 0
         };
     }
-    
+
     componentWillMount() {
         Promise.all([
             axios.get('/api/demo/serve'),
@@ -55,6 +67,7 @@ export default class GameBoard extends Component <GameBoardProps, GameBoardState
             cards: cardsResp.data,
             users: playersResp.data,
         }));
+        this.props.socket.on('New Word From StoryTeller', this.handleWord);
     }
 
     toggleMenu() {
@@ -82,6 +95,20 @@ export default class GameBoard extends Component <GameBoardProps, GameBoardState
             );
         }
     }
+    handleWord = (wordValue: string) => {
+        this.setState({word: wordValue})
+    };
+
+    restartTimer = () => {
+        this.setState({timerState: 0});
+    }
+
+    timerPlusPlus = (diff: number) => {
+        let {timerState} = this.state
+        this.setState({
+            timerState: timerState + diff
+        })
+    }
 
     pushCardFn = (card: CardType) => {
         const { pushedCards, isCardPushed } = this.state;
@@ -98,24 +125,32 @@ export default class GameBoard extends Component <GameBoardProps, GameBoardState
 
         this.props.socket.emit('send pushed card', cardMessage);
         console.log('pushed card emitted');
+        this.setInputVisible(true);
     }
 
     componentDidMount = ()  => {
         this.props.socket.on('new card', this.handleNewCard);
-        console.log('pushedCards 1', this.state.pushedCards);
     }
 
     handleNewCard = (newCard: CardType) => {
         console.log('recieved card on FE', newCard)
         this.setState({ pushedCards: [...this.state.pushedCards, newCard] });
-        console.log('pushedCards 2', this.state.pushedCards);
     }
+
+    setInputVisible = (status: boolean) => {
+        this.setState({isInputVisible: status})
+    };
 
     render() {
         const { users, isCardPushed, pushedCards, cards } = this.state;
         return (
             <React.Fragment>
-                    <UpBar/>
+                    <UpBar word={this.state.word}
+                       socket = {this.props.socket}
+                       timerState = {this.state.timerState}
+                       timerPlusPlus = {this.timerPlusPlus}
+                       restartTimer = {this.restartTimer}
+                    />
                     <PushedCards users={users} pushedCards={pushedCards} />
 
                     { users.length ? 
@@ -132,9 +167,17 @@ export default class GameBoard extends Component <GameBoardProps, GameBoardState
                                     cards.splice(index, 1)
                                 }
                             })
-                        }) 
+                        })
                     : '' }
-                             
+
+                    {
+                   this.state.isInputVisible ? (<WordInput
+                       visibility={this.setInputVisible}
+                       onWordInput = {this.handleWord}
+                       socket = {this.props.socket}
+                       restartTimer = {this.restartTimer}
+                   />) : null
+                    }    
                   
                     <div className={'game-settings'}>
                         <button className={'game-settings__btn'} onClick={() => this.toggleMenu()} type={'button'}>

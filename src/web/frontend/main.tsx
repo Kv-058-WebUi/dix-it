@@ -11,30 +11,36 @@ import {
 } from "react-router-dom";
 import "./sass/main.scss";
 import io from "socket.io-client"
+
+import {Provider} from 'react-redux'
+import store from './redux/store/store'
+
 const App = () => {
     const socket = io(process.env.SERVER_URL+':'+process.env.SERVER_PORT);
     return (
-        <UserProvider>
-            <Router>
-                <Switch>
-                    <Route path="/game">
-                        <UserProvider.context.Consumer>{context => (
-                            <GamePage socket={ socket } user={ context.user }/>
-                        )}</UserProvider.context.Consumer>
-                    </Route>
-                    <Route path="/lobby">
-                        <Lobby />
-                    </Route>
-                    <Route path="/">
-                        <MainPage />
-                    </Route>
-                </Switch>
-            </Router>
-        </UserProvider>
+        <Provider store={store}>
+            <UserProvider>
+                <Router>
+                    <Switch>
+                        <Route path="/game">
+                            <UserProvider.context.Consumer>{context => (
+                                <GamePage socket={ socket } user={ context.user }/>
+                            )}</UserProvider.context.Consumer>
+                        </Route>
+                        <Route path="/lobby">
+                            <Lobby />
+                        </Route>
+                        <Route path="/">
+                            <MainPage />
+                        </Route>
+                    </Switch>
+                </Router>
+            </UserProvider>
+        </Provider>
     );
 };
 
 ReactDOM.render(
-    <App />,
+    <App/>,
     document.getElementById("root"),
 );

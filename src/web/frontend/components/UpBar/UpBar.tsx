@@ -1,24 +1,28 @@
 import React from 'react';
-import './UpBar.scss';
+import './Upbar.scss';
 import LinearDeterminate from './TimerBar/TimerBar'
 import {WordBar, wordParams} from './WordBar/WordBar';
 
-interface wordState {
-    insertedword: wordParams;
+interface word {
+    word: string;
   }
 
-export default class UpBar extends React.Component<any, wordState>  {
 
-    public state: wordState = {
-        insertedword : {word:'Dreaming'},
-      };
+export default class UpBar extends React.Component<any, word>  {
 
+    constructor(props: word) {
+        super(props)
+    }
 
     render() {
         return (
             <div className="Wordclass">
-                <WordBar word={this.state.insertedword.word}/>
-                <LinearDeterminate />
+                <WordBar word={this.props.word}/>
+                <LinearDeterminate socket = {this.props.socket}
+                timerState = {this.props.timerState}
+                timerPlusPlus = {this.props.timerPlusPlus}
+                restartTimer = {this.props.restartTimer}
+                />
             </div>
             );
     }

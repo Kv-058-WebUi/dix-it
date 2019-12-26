@@ -50,14 +50,14 @@ export default class HandCard extends Component <HandProps, HandCardState> {
                                  src={`images/cards/${card.card_path}`}
                             />
                         </div>
-                    
+
                         {isCardPushed ? '' :
                              this.state.showSubmitButton ?
-                                <Submit pushCard={pushCard} 
+                                <Submit pushCard={pushCard}
                                         card={card}
                                 /> : ''
                         }
-                    </div> 
+                    </div>
                 : '' }
             </div>
         );

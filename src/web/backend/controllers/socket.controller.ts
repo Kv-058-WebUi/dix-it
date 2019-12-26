@@ -15,14 +15,11 @@ interface Message {
     isBotMessage: boolean,
 }
 
-<<<<<<< HEAD
 interface cardMessage {
     card_id: number;
     card_path: string;
 }
 
-export default class SocketController {
-=======
 interface GamePlayer {
     id: string,
     points: number,
@@ -36,7 +33,7 @@ interface Game {
 }
 
 const games: Array<Game> = [];
->>>>>>> dev
+
 
 async function getDefaultGame(): Promise<Game> {
     return new Promise((resolve, reject) => {
@@ -158,18 +155,13 @@ export default class SocketController {
             client.broadcast.to(game.room.name).emit('user left', gamePlayer.jwtData);
         });
         client.on('send chat msg', chatMessage);
-
-<<<<<<< HEAD
+        client.on('New Word From StoryTeller', newWord);
         client.on('send pushed card', (msg: cardMessage) => {
             console.log('card received', msg);
             client.broadcast.to('some room').emit('new card', msg);
         });
+        // client.on('Synchronize timer', syncTimers);
 
-        function chatMessage(msg: Message) {
-            console.log('chat msg received');
-            console.log(msg);
-            client.broadcast.to('some room').emit('new chat msg', msg);
-=======
         async function chatMessage(msg: Message) {
             console.log('chat msg received');
             console.log(msg);
@@ -186,8 +178,18 @@ export default class SocketController {
 
             game.chat.push(msg);
             client.broadcast.to(game.room.name).emit('new chat msg', msg);
->>>>>>> dev
         }
+
+        function newWord (word: string ) {
+            console.log('new word has been sended');
+            console.log(word);
+            client.broadcast.to('some room').emit('New Word From StoryTeller', word);
+        }
+        // function syncTimers (timerState: number) {
+        //     // console.log('timer restarted');
+        //     // console.log(timerState);          
+        //     client.broadcast.to('some room').emit('Synchronize timer', timerState)
+        // }
     }
 
 }
