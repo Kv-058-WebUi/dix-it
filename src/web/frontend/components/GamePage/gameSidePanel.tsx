@@ -3,9 +3,9 @@ import Chat from "../Chat/chat";
 import * as React from "react";
 import './gamepage.scss'
 
-import {SocketProps, player} from "./gamepage";
+import {GamePageProps, player} from "./gamepage";
 import UserProvider from "../UserProvider/UserProvider";
-interface GameSideProps extends SocketProps {
+interface GameSideProps extends GamePageProps {
     players: player[];
 }       
 export default function GameSidePanel(props: GameSideProps) {
@@ -14,7 +14,7 @@ export default function GameSidePanel(props: GameSideProps) {
             context => (
                 <div className={'game-side-panel'}>
                     <PlayerList players={props.players}/>
-                    <Chat socket = {props.socket} userName = {context.user && context.user.nickname ? context.user.nickname : 'Me'}/>
+                    <Chat  user={props.user} socket = {props.socket} userName = {context.user && context.user.nickname ? context.user.nickname : 'Me'}/>
                 </div>
             )
         }

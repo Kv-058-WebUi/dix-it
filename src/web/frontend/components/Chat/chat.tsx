@@ -1,15 +1,15 @@
 import React, {SyntheticEvent} from 'react';
 import './chat.scss';
-import Message, {messageParams} from "./message";
+import Message, {messageParams, BotMessage} from "./message";
 import ChatInput from "./chatInput";
-import {SocketProps} from "../GamePage/gamepage";
+import {GamePageProps} from "../GamePage/gamepage";
 
 interface ChatState {
     value: string,
     messages: messageParams[],
 }
 
-interface ChatProps extends SocketProps{
+interface ChatProps extends GamePageProps{
     userName: string,
 }
 
@@ -24,6 +24,7 @@ export default class Chat extends React.Component<ChatProps, ChatState> {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleNewMessage = this.handleNewMessage.bind(this);
+        this.handleChatHistory = this.handleChatHistory.bind(this);
     }
 
     componentDidUpdate() {
@@ -33,6 +34,12 @@ export default class Chat extends React.Component<ChatProps, ChatState> {
 
     componentDidMount() {
         this.props.socket.on('new chat msg', this.handleNewMessage);
+        this.props.socket.on('chatHistory', this.handleChatHistory);
+        this.props.socket.emit('chat open');
+    }
+
+    handleChatHistory(messages: Array<messageParams>) {
+        this.setState({messages});
     }
 
     handleNewMessage(newMessage: messageParams) {
@@ -43,6 +50,7 @@ export default class Chat extends React.Component<ChatProps, ChatState> {
         return (
             this.state.messages.map((message: messageParams, i) => {
                 return (
+                    message.isBotMessage ? <BotMessage key={i} {...message}/> :
                     <Message {...message } showArrow={this.showArrow(i)} displayCreator={this.displayCreator(i)} userName={ this.props.userName } key={i} />
                 )
             })
@@ -82,6 +90,12 @@ export default class Chat extends React.Component<ChatProps, ChatState> {
 
         this.props.socket.emit('send chat msg', message);
         console.log('chat msg emitted');
+
+        // IDDQD activated
+        if(message.content === 'iddqd') {
+            this.props.socket.emit('restart');
+            return;
+        }
     }
 
 
