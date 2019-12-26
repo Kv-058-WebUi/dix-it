@@ -15,25 +15,26 @@ type UserData = {
 }
 
 type ContextData = {
-  user: UserData,
+  user: UserData | null,
   updateContext: () => void
 }
 
-const dummyUser = {
-  authenticated: false,
-  nickname: 'Guest',
-  profile_picture: 'anonymous_user.png'
+let defaultUser: JwtPayload | null = null;
+let token = localStorage.getItem('jwt_token');
+
+if(token) {
+  defaultUser = jwt_decode(token);
 }
 
 const contextProps: ContextData = {
-  user: dummyUser,
+  user: defaultUser,
   updateContext: () => {}
 }
 
 const context = createContext(contextProps);
 
 const UserProvider = ({ children }: any) => {
-  const [user, setUser] = useState<UserData>(dummyUser);
+  const [user, setUser] = useState<UserData | null>(defaultUser);
 
   function updateContext() {
     let cookies = cookie.parse(document.cookie);
@@ -43,11 +44,15 @@ const UserProvider = ({ children }: any) => {
       document.cookie = "oauth_jwt_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     }
 
-    let token = localStorage.getItem('jwt_token');
+    token = localStorage.getItem('jwt_token');
 
     axios.post('/api/auth/user', null, { headers: {"Authorization" : `Bearer ${token}`} })
       .then(res => {
         const decoded: JwtPayload = jwt_decode(res.data.jwt_token);
+
+        if(decoded === defaultUser) {
+          return;
+        }
 
         if (decoded.authenticated) {
           axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;

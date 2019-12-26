@@ -53,7 +53,7 @@ export default class Header extends Component<HeaderProps, HeaderState> {
                     <UserNav></UserNav>
                     <UserProvider.context.Consumer>{context => (
                         <React.Fragment>
-                            {!context.user.authenticated
+                            {!context.user || !context.user.authenticated
                                 ? (<a href='#' onClick={this.handleAuthFormClick}>Sign In</a>)
                                 : ''}
                         </React.Fragment>
