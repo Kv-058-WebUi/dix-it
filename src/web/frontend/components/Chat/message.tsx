@@ -9,10 +9,10 @@ export interface messageParams {
     displayCreator?: boolean,
     showArrow?: boolean,
     userName?: string,
+    isBotMessage?: boolean,
 }
-
-export default class Message extends React.Component<messageParams> {
-    constructor(props: messageParams) {
+class ChatMessage<P extends messageParams, S> extends React.Component<P, any> {
+    constructor(props: P) {
         super(props);
         this.state = {};
     }
@@ -24,6 +24,22 @@ export default class Message extends React.Component<messageParams> {
                 .map(leadingZero)
                 .join(':');
     }
+};
+export class BotMessage extends ChatMessage<messageParams, {}> {
+    render() {
+        return (
+            <div className='message'>
+                <div className='message__container bot__message'>
+                    <div className={'message__content'}>
+                        <p>{this.props.content}</p>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+};
+
+export default class Message extends ChatMessage<messageParams, {}> {
 
     isCurrentUserMessage(): boolean {
         return this.props.userName === this.props.creator;

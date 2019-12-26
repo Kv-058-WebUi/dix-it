@@ -4,10 +4,12 @@ import {Link} from "react-router-dom";
 import GameSettings from "./gamesettings";
 import GameSidePanel from "./gameSidePanel";
 import { GameOverForm } from "../GameOverForm/GameOverForm";
+import { UserData } from "../UserProvider/UserProvider";
 
 
-export interface SocketProps {
+export interface GamePageProps {
     socket: SocketIOClient.Socket;
+    user: UserData | null;
 }
 export interface player {
     img: string;
@@ -15,7 +17,7 @@ export interface player {
     score: number;
 }
 
-export default function GamePage(props: SocketProps) {
+export default function GamePage(props: GamePageProps) {
     let sortedplayers: player[] = [];
     const players: player[] = [
         { img: 'https://data.whicdn.com/images/326190807/original.jpg', name: 'Travis Scott', score: 28 },
@@ -44,7 +46,7 @@ export default function GamePage(props: SocketProps) {
     const [playerlist] = useState(sortedplayers);
     const winnerList = [...playerlist];
     useEffect(() => {
-        props.socket.emit('game page open');
+        props.socket.emit('game page open', props.user);
     });
 
     return (
@@ -58,7 +60,7 @@ export default function GamePage(props: SocketProps) {
             ): <button onClick={() => setModalShown(true)}>Win the game</button>}  
             </header>
             <GameBoard/>
-            <GameSidePanel players = {playerlist} socket={ props.socket }/>
+            <GameSidePanel players = {playerlist} socket={ props.socket } user={props.user}/>
             <footer>
                 <GameSettings/>
             </footer>

@@ -6,11 +6,11 @@ import { JwtPayload } from '../../../backend/authentication/helpers';
 import axios from "axios";
 import cookie from "cookie";
 
-type UserData = {
+export type UserData = {
   authenticated: boolean,
   nickname: DixitUser['nickname'],
   user_id?: DixitUser['user_id'],
-  player_id?: Player['player_id'],
+  player_id: Player['player_id'],
   profile_picture: DixitUser['profile_picture']
 }
 
