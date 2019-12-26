@@ -32,12 +32,12 @@ export interface Users {
     id: number;
     name: string;
     cards: Card[];
-};
+}
 
 export interface Card {
     card_id: number;
     card_path: string;
-};
+}
 
 export default class GameBoard extends Component <GameBoardProps, GameBoardState> {
     constructor(props: GameBoardProps) {
@@ -52,8 +52,8 @@ export default class GameBoard extends Component <GameBoardProps, GameBoardState
             timerState: 0
         };
     }
-    
-    componentDidMount() {
+
+    componentWillMount() {
         axios.get(`/api/game/serve`).then(res => this.setState({users: res.data}));
         this.props.socket.on('New Word From StoryTeller', this.handleWord);
     }
@@ -112,7 +112,7 @@ export default class GameBoard extends Component <GameBoardProps, GameBoardState
     render() {
         const { pushedCards, users, isCardPushed } = this.state;
         const playerCards = users[0] && users[0].cards;
-      
+
         return (
             <React.Fragment>
                     <UpBar word={this.state.word}
@@ -123,10 +123,10 @@ export default class GameBoard extends Component <GameBoardProps, GameBoardState
                     />
                     <PushedCards users={this.state.users} pushedCards={pushedCards}  />
 
-                    { users.length ? 
-                        <Hand cards={playerCards} 
-                            pushCard={this.pushCardFn} 
-                            isCardPushed={isCardPushed}/> 
+                    { users.length ?
+                        <Hand cards={playerCards}
+                            pushCard={this.pushCardFn}
+                            isCardPushed={isCardPushed}/>
                     : '' }
 
                     { isCardPushed ?
@@ -137,7 +137,7 @@ export default class GameBoard extends Component <GameBoardProps, GameBoardState
                                     playerCards.splice(index, 1)
                                 }
                             })
-                        }) 
+                        })
                     : '' }
 
                     {
