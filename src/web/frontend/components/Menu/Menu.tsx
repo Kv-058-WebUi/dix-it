@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import CreateRoomPopup from '../CreateRoomPopup/CreateRoomPopup';
+import UserProvider from '../UserProvider/UserProvider';
 import './menu.scss';
 
 type MenuState = {
@@ -31,7 +32,11 @@ export default class Menu extends Component<any, MenuState> {
                     <button className='button'><Link to='/game'>Play</Link></button>
                     <ul className='links'>
                         <li><Link to='/lobby'>Join the game</Link></li>
-                        <li><a href='#' onClick={this.handleCreateRoomClick}>Create room</a></li>
+                        <UserProvider.context.Consumer>
+                        {context => (
+                        <li className={!context.user || !context.user.authenticated ? 'no' : '' }><a href='#' onClick={this.handleCreateRoomClick}>Create room</a></li>
+                        )}
+                        </UserProvider.context.Consumer>
                     </ul>
                 </div>
                 { this.state.showCreateRoomPopup ? (

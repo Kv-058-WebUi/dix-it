@@ -102,9 +102,6 @@ export default function CreateRoomPopup() {
     console.log(disabled);
   };
 
-  const RESPONSE_STATUS_SUCCESS = "success";
-  const RESPONSE_STATUS_ERROR = "error";
-
   const handleSubmit = (event: any): void => {
     event.preventDefault();
     axios.post('api/rooms', {
@@ -112,11 +109,11 @@ export default function CreateRoomPopup() {
       name: roomName,
       is_private: !disabled,
       password: password,
-      status: 2
     }).then((response) => {
+      location.href = '/game';
       console.log(response)
     }).catch((error) => {
-      console.log(error);
+      console.log('error');
     });
   }
 
@@ -124,7 +121,7 @@ export default function CreateRoomPopup() {
   return (
     <UserProvider.context.Consumer>{context => (
       <React.Fragment>
-
+        {context.user && context.user.authenticated ? (
       <ModalWindow
         modalWindowType='create-room'
         windowHeight={formHeight}
@@ -165,8 +162,15 @@ export default function CreateRoomPopup() {
           <input onChange={handlePassword} value={password} required type='password' className='create-room-popup__text-field' id='room-password' disabled={disabled} />
           <input type="submit" name="#roomhash" id="Submit" value="Create Room" className='create-room-popup__btn' />
         </form>
-      </ModalWindow>
-      </React.Fragment>
+      </ModalWindow>)
+      : (<ModalWindow
+        modalWindowType='no-create-room'
+        windowHeight={formHeight}
+        windowWidth={formWidth}
+        isContentCentered={false}>
+        <span className="create-room-popup__unautorized-text">You must be logged in to be able to create a room!</span>
+      </ModalWindow>)
+      }</React.Fragment>
     )}</UserProvider.context.Consumer>
   );
 };

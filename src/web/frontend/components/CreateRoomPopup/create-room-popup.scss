@@ -105,6 +105,13 @@
             }
         }
     }
+    &__unautorized-text {
+        display: block;
+        padding: 20px;
+        text-align: center;
+        color: #E5E5E5;
+        font: 700 24px Montserrat, sans-serif;
+    }
     &__btn {
         display: block;
         align-self: center;
