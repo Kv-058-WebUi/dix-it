@@ -35,6 +35,7 @@ const GameOverForm = (props:any) => {
                 first = props.players[i];
             }
         }
+        return first;
     };
 
     return (
@@ -43,7 +44,7 @@ const GameOverForm = (props:any) => {
             <ModalWindow modalWindowType='gameover'
             windowHeight={gameOverHeight}
             windowWidth={gameOverWidth}>
-            <Winner winner = {winner} players = {props.players}/>
+            <Winner winner={winner()} players = {props.players}/>
             </ModalWindow>
             <Fireworks/>
         </div>
