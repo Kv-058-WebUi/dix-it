@@ -6,7 +6,7 @@ import { type } from 'os';
 export type PushCardFn = (card:Card) => void;
 type SubmitProps = {
     card: Card, 
-    pushCard: PushCardFn,
+    pushCard: PushCardFn
 };
 
 export default class Submit extends Component <SubmitProps> {
