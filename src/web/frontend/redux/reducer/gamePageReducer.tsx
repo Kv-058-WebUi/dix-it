@@ -1,3 +1,5 @@
+import {initStore, showWinner, hideWinner} from "../constants";
+
 const gamePageInitStore = {
     showSubmitButton: false,
     showCard: true,
@@ -16,13 +18,13 @@ const gamePageInitStore = {
 
 function gamePageStore(state = gamePageInitStore, action:any) {
     switch(action.type) {
-        case 'SET_STORE':
+        case initStore:
             return state;
-        case 'SHOW_WINNER':
+        case showWinner:
             const newState = {...state};
             newState.gamePage.isModalShown = true;
             return newState;
-        case 'HIDE_WINNER':
+        case hideWinner:
             const hideState = {...state};
             hideState.gamePage.isModalShown = false;
             return hideState;

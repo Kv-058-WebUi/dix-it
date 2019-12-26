@@ -46,10 +46,6 @@ class GamePage extends React.Component<any> {
         })
     };
 
-    componentWillUnmount = () => {
-        this.abort
-    };
-
     render() {
         console.log('APP', this.props);
         return (

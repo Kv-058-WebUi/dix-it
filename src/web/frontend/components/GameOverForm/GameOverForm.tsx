@@ -27,7 +27,15 @@ const GameOverForm = (props:any) => {
     useEffect(() => {
        document.addEventListener('click', redirect);
     });
-    const winner = props.players.shift();
+
+    const winner = () => {
+        let first;
+        for (let i in props.players) {
+            if(!first) {
+                first = props.players[i];
+            }
+        }
+    };
 
     return (
         <div>
