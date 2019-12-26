@@ -90,12 +90,6 @@ export default class Chat extends React.Component<ChatProps, ChatState> {
 
         this.props.socket.emit('send chat msg', message);
         console.log('chat msg emitted');
-
-        // IDDQD activated
-        if(message.content === 'iddqd') {
-            this.props.socket.emit('restart');
-            return;
-        }
     }
 
 

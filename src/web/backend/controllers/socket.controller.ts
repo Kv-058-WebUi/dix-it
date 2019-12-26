@@ -129,15 +129,6 @@ export default class SocketController {
             client.emit('chatHistory', game.chat);
         });
 
-        // function for debug/dev purpose 
-        client.on('restart', async () => {
-            let game = await getDefaultGame();
-            game.players = [];
-            game.chat = [];
-            client.emit('chatHistory', game.chat);
-            client.broadcast.to(game.room.name).emit('chatHistory', game.chat);
-        });
-
         client.on('disconnect', async () => {
             console.log('user disconnected');
 
@@ -163,6 +154,17 @@ export default class SocketController {
             console.log('chat msg received');
             console.log(msg);
             let game = await getDefaultGame();
+
+            //IDDQD activated
+            if(msg.content === 'iddqd') {
+                game.players = [];
+                game.chat = [];
+                client.emit('chatHistory', game.chat);
+                client.broadcast.to(game.room.name).emit('chatHistory', game.chat);
+                return;
+            }
+
+            game.chat.push(msg);
             client.broadcast.to(game.room.name).emit('new chat msg', msg);
         }
     }
