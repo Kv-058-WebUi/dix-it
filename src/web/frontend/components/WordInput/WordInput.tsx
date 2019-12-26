@@ -1,9 +1,16 @@
 import ModalWindow from "../ModalWindow/ModalWindow";
 import React, {useEffect} from "react";
 import './wordinput.scss';
+import {OnWordInput, RestartTimer, Visibility} from '../GameBoard/GameBoard';
 
+interface wordInputInterface {
+    socket: SocketIOClient.Socket,
+    onWordInput: OnWordInput,
+    restartTimer: RestartTimer,
+    visibility: Visibility
+}
 
-const WordInput = (props: any) => {
+const WordInput = (props: wordInputInterface) => {
     const width = '400px';
     const height = '50px';
     const sendWordToParent = (e: any) => {
@@ -12,7 +19,7 @@ const WordInput = (props: any) => {
             if(input.value != '') {
                 props.onWordInput(input.value);
                 props.socket.emit('New Word From StoryTeller', input.value);
-                props.restartTimer(true);
+                props.restartTimer();
                 props.visibility(false);
             }
         }

@@ -30,7 +30,7 @@ export default class SocketController {
         });
         client.on('send chat msg', chatMessage);
         client.on('New Word From StoryTeller', newWord);
-        client.on('Synchronize timer', syncTimers);
+        // client.on('Synchronize timer', syncTimers);
 
         function chatMessage(msg: Message) { 
             console.log('chat msg received');
@@ -42,11 +42,11 @@ export default class SocketController {
             console.log(word);
             client.broadcast.to('some room').emit('New Word From StoryTeller', word);
         }
-        function syncTimers (timerState: number) {
-            // console.log('timer restarted');
-            // console.log(timerState);          
-            client.broadcast.to('some room').emit('Synchronize timer', timerState)
-        }
+        // function syncTimers (timerState: number) {
+        //     // console.log('timer restarted');
+        //     // console.log(timerState);          
+        //     client.broadcast.to('some room').emit('Synchronize timer', timerState)
+        // }
     }
 
 }

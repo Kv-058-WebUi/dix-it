@@ -23,6 +23,11 @@ type GameBoardState = {
     timerState: number
 };
 
+export type RestartTimer = () => void;
+export type TimerPlusPlus = (diff: number) => void;
+export type OnWordInput = (wordValue: string) => void;
+export type Visibility = (status: boolean) => void;
+
 export interface Users {
     id: number;
     name: string;

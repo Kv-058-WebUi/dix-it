@@ -3,6 +3,14 @@ import { makeStyles, Theme, createStyles, createMuiTheme } from '@material-ui/co
 import LinearProgress from '@material-ui/core/LinearProgress';
 import './TimeBar.scss'
 import { MuiThemeProvider } from '@material-ui/core/styles';
+import {TimerPlusPlus, RestartTimer} from '../../GameBoard/GameBoard';
+
+interface timerInterface {
+  timerState: number,
+  restartTimer: RestartTimer,
+  timerPlusPlus: TimerPlusPlus,
+  socket: SocketIOClient.Socket
+}
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -37,17 +45,17 @@ const myTheme = createMuiTheme({
         })
     }
   });
-export default function LinearDeterminate(props: any) {
+export default function LinearDeterminate(props: timerInterface) {
   const classes = useStyles();
   let {timerState} = props;
-  props.socket.emit('Synchronize timer', timerState)
+  // props.socket.emit('Synchronize timer', timerState)
   if(timerState === 100) {
     props.restartTimer()
   }
   React.useEffect(() => {
     function progress() {
       const diff = 0.1 * 10;
-      return Math.min(props.timerPlusPlus(diff), 100);
+      return props.timerPlusPlus(diff);
     }
     const timer = setInterval(progress, 500);
     return () => {
