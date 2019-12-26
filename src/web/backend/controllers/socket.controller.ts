@@ -5,6 +5,7 @@ import { Room } from "../entities/Room";
 import { getRepository } from "typeorm";
 import { Player } from "../entities/Player";
 import { RoomStatus } from "../entities/RoomStatus";
+import welcomeDict from '../helpers/chat-welcome-dictionary'; 
 
 interface Message {
     id: number,
@@ -48,7 +49,8 @@ function generateChatBotMessage(player: Player, type: string): Message {
     };
 
     if (type === 'welcome') {
-        msg.content = player.nickname + ' has joined! 😜';
+        let seed = Math.floor(Math.random() * welcomeDict.length);
+        msg.content = welcomeDict[seed].split('[!!{username}!!]').join(player.nickname) + ' 😜';
     } else if (type === 'bye') {
         msg.content = player.nickname + ' has left the game. 😔';
     }
