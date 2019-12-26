@@ -2,9 +2,6 @@ import React, { Component } from 'react';
 import Submit, { PushCardFn } from '../Submit/Submit';
 import classNames from 'classnames';
 import {Card} from '../GameBoard/GameBoard';
-import {connect} from "react-redux";
-import {testAction} from '../../redux/actions/testAction'
-import {asyncGetData} from '../../redux/actions/fetchData'
 import './handcard.scss';
 
 type HandCardState = {
@@ -18,7 +15,7 @@ type HandProps = {
     isCardPushed: boolean
 };
 
-class HandCard extends Component <HandProps, HandCardState> {
+export default class HandCard extends Component <HandProps, HandCardState> {
     constructor(props: HandProps) {
         super(props);
 
@@ -30,20 +27,14 @@ class HandCard extends Component <HandProps, HandCardState> {
 
     handleCardClick = (): void  => this.setState({ showSubmitButton: true });
 
-    componentDidMount(): void {
-        const {asyncGetData} = this.props;
-        asyncGetData();
-    }
-
     handleLeave = (e: any): void  => {
         e.preventDefault();
         if (this.state.showSubmitButton) {
-            this.setState({showSubmitButton: false});
+            this.setState({ showSubmitButton: false });
         }
     };
 
     render() {
-        console.log('APP', this.props);
         const { pushCard, card, isCardPushed } = this.props;
         const blurClass = classNames({
             'border-blur': this.state.showSubmitButton,
@@ -72,17 +63,3 @@ class HandCard extends Component <HandProps, HandCardState> {
         );
     }
 }
-
-function mapStateToProps(state:any) {
-    return {
-        showCard: state.showCard,
-        showSubmitButton: state.showSubmitButton
-    }
-}
-
-const mapDispatchToProps = (dispatch: any) => ({
-    test: (value: any) => dispatch(testAction(value)),
-    asyncGetData: () => dispatch(asyncGetData()),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(HandCard);

@@ -1,17 +1,8 @@
 import {combineReducers} from 'redux'
-import testReducer from './test'
-import getDataReducer from './getDataReducer'
-
-const initState = {
-   showSubmitButton: false,
-   showCard: true
-};
+import gamePageStore from "./gamePageReducer"
 
 const combineReducer = combineReducers({
-   testReducer,
-   getDataReducer
+   gamePageStore
 });
 
-export default function rootReducer(state = initState, action:any) {
-   return state
-}
+export default combineReducer;
