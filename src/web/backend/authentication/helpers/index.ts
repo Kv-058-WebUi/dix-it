@@ -12,7 +12,7 @@ export type JwtPayload = {
   user_id?: DixitUser['user_id'],
   profile_picture: DixitUser['profile_picture'],
   nickname: DixitUser['nickname'],
-  player_id?: Player['player_id'],
+  player_id: Player['player_id'],
   authenticated: boolean
 }
 
