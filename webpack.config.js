@@ -56,15 +56,13 @@ module.exports = {
 
             {
                 test: /\.(woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
-                use: [
-                    {
-                        loader: 'file-loader',
-                        options: {
-                            name: '[name].[ext]',
-                            outputPath: 'fonts/'
-                        }
+                use: [{
+                    loader: 'file-loader',
+                    options: {
+                        name: '[name].[ext]',
+                        outputPath: 'fonts/'
                     }
-                ]
+                }]
             },
             {
                 test: /\.mp3$/,
@@ -80,19 +78,17 @@ module.exports = {
             },
             {
                 test: /\.(jpe?g|gif|png|svg)$/i,
-                use: [
-                    {
-                        loader: 'file-loader',
-                        options: {
-                            name: '[name].[ext]',
-                            outputPath: 'images/'
-                        }
+                use: [{
+                    loader: 'file-loader',
+                    options: {
+                        name: '[name].[ext]',
+                        outputPath: 'images/'
                     }
-            ]
+                }]
             },
 
             // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
-            {enforce: "pre", test: /\.js$/, loader: "source-map-loader"},
+            { enforce: "pre", test: /\.js$/, loader: "source-map-loader" },
             {
                 test: /\.(s*)css$/,
                 use: ['style-loader', 'css-loader', 'sass-loader']
@@ -110,9 +106,9 @@ module.exports = {
         new Dotenv(),
         new HtmlWebpackPlugin(),
         new HtmlWebpackRootPlugin(),
-        new CopyPlugin([{ 
+        new CopyPlugin([{
             from: path.join(__dirname, 'src/web/frontend/images'),
-            to: path.join(__dirname, 'dist/web/frontend/images') 
+            to: path.join(__dirname, 'dist/web/frontend/images')
         }])
     ]
 };

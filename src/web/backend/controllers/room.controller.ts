@@ -4,6 +4,9 @@ import Controller from '../interfaces/controller.interface';
 import {Room} from '../entities/Room';
 import CreateRoomDto from '../dto/room.dto';
 import { RoomStatus } from '../entities/RoomStatus';
+import { JwtPayload } from '../authentication/helpers';
+import passport from 'passport';
+import crypto from 'crypto';
 
 export default class RoomController implements Controller{
     public path = '/rooms';
@@ -21,11 +24,26 @@ export default class RoomController implements Controller{
     }
 
     private createRoom = async (request: express.Request, response: express.Response) => {
-        const postData: CreateRoomDto = request.body; //Data from createRoom form
-        // const status = "find by id"       
-        const newRoom = this.roomRepository.create(postData);       
-        await this.roomRepository.save(newRoom);
-        response.send(newRoom);
+        passport.authenticate('jwt', { session: false }, async (err, user, info) => {
+            if (!err && !info) {
+                let jwtPayload : JwtPayload = user;
+                const room_seed = Math.random() + (new Date()).getMilliseconds();
+                const room_code = crypto.createHash('md5')
+                    .update(jwtPayload.nickname + room_seed)
+                    .digest('hex');
+                const postData: CreateRoomDto = {
+                    ...request.body,
+                    creator_id: jwtPayload.player_id,
+                    status: 2,
+                    room_code
+                }; //Data from createRoom form
+                // const status = "find by id"       
+                const newRoom = this.roomRepository.create(postData);       
+                await this.roomRepository.save(newRoom);
+                response.send(newRoom);
+            }
+            response.send({ error: 'NO'});
+        })(request, response);
     };
 
     private getAllRooms = async (request: express.Request, response: express.Response) => {

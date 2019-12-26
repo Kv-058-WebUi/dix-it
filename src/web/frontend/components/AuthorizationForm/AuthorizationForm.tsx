@@ -5,6 +5,7 @@ import {withStyles} from "@material-ui/styles";
 import './AuthorizationForm.scss'
 import axios from "axios";
 import { withRouter, RouteComponentProps } from "react-router-dom";
+import UserProvider from "../UserProvider/UserProvider";
 
 const styles = () => ({
     button: {
@@ -26,7 +27,9 @@ type AuthFormState = {
     password: string
 };
 
-interface AuthFormProps extends RouteComponentProps {}
+interface AuthFormProps extends RouteComponentProps {
+    onClose: () => void
+}
 
 class AuthorizationForm extends React.Component<AuthFormProps, AuthFormState> {
     constructor(props: AuthFormProps) {
@@ -38,7 +41,7 @@ class AuthorizationForm extends React.Component<AuthFormProps, AuthFormState> {
         };
     }
 
-    onFormSubmit(event: FormEvent): void {
+    onFormSubmit(event: FormEvent, contextUpdate: () => void): void {
         event.preventDefault();
 
         const userData = {
@@ -55,8 +58,8 @@ class AuthorizationForm extends React.Component<AuthFormProps, AuthFormState> {
                 } else if(res.data.jwt_token) {
                     this.setState({ error: '' });
                     localStorage.setItem('jwt_token', res.data.jwt_token);
-                    location.href = '/lobby';
-                    // this.props.history.push('/lobby');
+                    contextUpdate();
+                    this.props.onClose();
                 }
             })
             .catch(() => {
@@ -70,7 +73,8 @@ class AuthorizationForm extends React.Component<AuthFormProps, AuthFormState> {
         const {classes}: any = this.props;
 
         return (
-            <form onSubmit={(event) => { this.onFormSubmit(event) }}>
+            <UserProvider.context.Consumer>{context => (
+            <form onSubmit={(event) => { this.onFormSubmit(event, context.updateContext) }}>
                 <div className="AuthorizationForm-InputFields">
                     <InputField fieldType='login' onValueUpdate={(value) => {this.setState({login: value})}}/>
                     <InputField fieldType='password' onValueUpdate={(value) => {this.setState({password: value})}}/>
@@ -84,7 +88,7 @@ class AuthorizationForm extends React.Component<AuthFormProps, AuthFormState> {
                         Sign In
                     </Button>
                 </div>
-            </form>
+            </form>)}</UserProvider.context.Consumer>
         );
     }
 }

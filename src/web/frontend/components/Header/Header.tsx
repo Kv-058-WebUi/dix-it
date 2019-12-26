@@ -68,7 +68,7 @@ export default class Header extends Component<HeaderProps, HeaderState> {
                 ) : ''}
                 {this.state.showAuthForm ? (
                     <div onClick={this.handleFormClick}>
-                        <AuthWindow />
+                        <AuthWindow onClose={()=>{this.setState({showAuthForm: false})}}/>
                     </div>
                 ) : ''}
             </nav>
