@@ -2,6 +2,7 @@ node_modules
 .DS_Store
 .idea
 .history
+.env
 idea/
 src/web/frontend/css
 dist/*

@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import {Card} from '../GameBoard/GameBoard';
+import {CardType} from '../GameBoard/GameBoard';
 import './submit.scss';
 import { type } from 'os';
 
-export type PushCardFn = (card:Card) => void;
+export type PushCardFn = (card:CardType) => void;
 type SubmitProps = {
-    card: Card, 
+    card: CardType, 
     pushCard: PushCardFn,
 };
 

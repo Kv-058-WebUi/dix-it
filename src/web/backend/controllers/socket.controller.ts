@@ -7,6 +7,11 @@ interface Message {
     timestamp: string,
 }
 
+interface cardMessage {
+    card_id: number;
+    card_path: string;
+}
+
 export default class SocketController {
 
 
@@ -26,10 +31,15 @@ export default class SocketController {
         });
         client.on('send chat msg', chatMessage);
 
+        client.on('send pushed card', (msg: cardMessage) => {
+            console.log('card received', msg);
+            client.broadcast.to('some room').emit('new card', msg);
+        });
+
         function chatMessage(msg: Message) {
-                console.log('chat msg received');
-                console.log(msg);
-                client.broadcast.to('some room').emit('new chat msg', msg);
+            console.log('chat msg received');
+            console.log(msg);
+            client.broadcast.to('some room').emit('new chat msg', msg);
         }
     }
 

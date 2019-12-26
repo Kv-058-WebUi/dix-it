@@ -7,12 +7,16 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import axios from 'axios';
 import UpBar from "../UpBar/UpBar";
+import { Card } from '@material-ui/core';
 
-type GameBoardProps = {};
+type GameBoardProps = {
+    socket: SocketIOClient.Socket
+};
 
 type GameBoardState = {
     users: Users[],
-    pushedCards: Card[],
+    cards: CardType[],
+    pushedCards: CardType[],
     showMenu: boolean,
     isCardPushed: boolean
 };
@@ -20,10 +24,10 @@ type GameBoardState = {
 export interface Users {
     id: number;
     name: string;
-    cards: Card[];
+    cards: CardType[];
 };
 
-export interface Card {
+export interface CardType {
     card_id: number;
     card_path: string;
 };
@@ -33,6 +37,7 @@ export default class GameBoard extends Component <GameBoardProps, GameBoardState
         super(props);
         this.state = {
             users: [],
+            cards: [],
             pushedCards: [],
             showMenu: false,
             isCardPushed: false
@@ -40,7 +45,16 @@ export default class GameBoard extends Component <GameBoardProps, GameBoardState
     }
     
     componentWillMount() {
-        axios.get(`/api/game/serve`).then(res => this.setState({users: res.data}));
+        Promise.all([
+            axios.get('/api/demo/serve'),
+            axios.get('/api/demo/players'),
+        ]).then(([
+            cardsResp, 
+            playersResp,
+        ]) => this.setState({
+            cards: cardsResp.data,
+            users: playersResp.data,
+        }));
     }
 
     toggleMenu() {
@@ -69,33 +83,53 @@ export default class GameBoard extends Component <GameBoardProps, GameBoardState
         }
     }
 
-    pushCardFn = (card: Card) => {
+    pushCardFn = (card: CardType) => {
         const { pushedCards, isCardPushed } = this.state;
         pushedCards.push(card);
-        this.setState({ pushedCards, isCardPushed: true });
+        this.setState({ 
+            pushedCards, 
+            isCardPushed: true 
+        });
+        
+        const cardMessage: CardType = {
+            card_id: card.card_id,
+            card_path: card.card_path
+        };
+
+        this.props.socket.emit('send pushed card', cardMessage);
+        console.log('pushed card emitted');
+    }
+
+    componentDidMount = ()  => {
+        this.props.socket.on('new card', this.handleNewCard);
+        console.log('pushedCards 1', this.state.pushedCards);
+    }
+
+    handleNewCard = (newCard: CardType) => {
+        console.log('recieved card on FE', newCard)
+        this.setState({ pushedCards: [...this.state.pushedCards, newCard] });
+        console.log('pushedCards 2', this.state.pushedCards);
     }
 
     render() {
-        const { pushedCards, users, isCardPushed } = this.state;
-        const playerCards = users[0] && users[0].cards;
-      
+        const { users, isCardPushed, pushedCards, cards } = this.state;
         return (
             <React.Fragment>
                     <UpBar/>
-                    <PushedCards users={this.state.users} pushedCards={pushedCards}  />
+                    <PushedCards users={users} pushedCards={pushedCards} />
 
                     { users.length ? 
-                        <Hand cards={playerCards} 
+                        <Hand cards={cards} 
                             pushCard={this.pushCardFn} 
                             isCardPushed={isCardPushed}/> 
                     : '' }
 
                     { isCardPushed ?
-                         pushedCards.map((item:Card, index:number) => {
+                         pushedCards.map((item:CardType, index:number) => {
                             const cardID = item.card_id;
-                            playerCards.map((item:Card, index:number) => {
+                            cards.map((item:CardType, index:number) => {
                                 if (item.card_id === cardID) {
-                                    playerCards.splice(index, 1)
+                                    cards.splice(index, 1)
                                 }
                             })
                         }) 

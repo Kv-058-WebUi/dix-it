@@ -1,22 +1,23 @@
 import { Card } from "../entities/Card";
 import { getRepository } from "typeorm";
 
-interface Users {
+export interface Users {
     id: number;
     name: string;
     cards: Card[];
 }
 
-export default class Dixit {
+export class Dixit {
     players: Users[];
     cardsPerPlayer: number;
     private cardRepository = getRepository(Card);
+    
     constructor(players: Users[]) {
         if (players.length < 3 || players.length > 7) {
             throw new Error('Wrong quantity of players');
         }
         this.players = players;
-		this.cardsPerPlayer = 7;
+		this.cardsPerPlayer = 4;
     }
 
     async serveCards() {
