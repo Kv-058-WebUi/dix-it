@@ -5,7 +5,7 @@ import { type } from 'os';
 
 export type PushCardFn = (card:CardType) => void;
 type SubmitProps = {
-    card: CardType, 
+    card: CardType,
     pushCard: PushCardFn,
 };
 

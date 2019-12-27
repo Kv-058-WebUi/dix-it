@@ -61,7 +61,7 @@ export default class GameBoard extends Component <GameBoardProps, GameBoardState
             axios.get('/api/demo/serve'),
             axios.get('/api/demo/players'),
         ]).then(([
-            cardsResp, 
+            cardsResp,
             playersResp,
         ]) => this.setState({
             cards: cardsResp.data,
@@ -113,11 +113,11 @@ export default class GameBoard extends Component <GameBoardProps, GameBoardState
     pushCardFn = (card: CardType) => {
         const { pushedCards, isCardPushed } = this.state;
         pushedCards.push(card);
-        this.setState({ 
-            pushedCards, 
-            isCardPushed: true 
+        this.setState({
+            pushedCards,
+            isCardPushed: true
         });
-        
+
         const cardMessage: CardType = {
             card_id: card.card_id,
             card_path: card.card_path
@@ -153,10 +153,10 @@ export default class GameBoard extends Component <GameBoardProps, GameBoardState
                     />
                     <PushedCards users={users} pushedCards={pushedCards} />
 
-                    { users.length ? 
-                        <Hand cards={cards} 
-                            pushCard={this.pushCardFn} 
-                            isCardPushed={isCardPushed}/> 
+                    { users.length ?
+                        <Hand cards={cards}
+                            pushCard={this.pushCardFn}
+                            isCardPushed={isCardPushed}/>
                     : '' }
 
                     { isCardPushed ?
@@ -177,8 +177,8 @@ export default class GameBoard extends Component <GameBoardProps, GameBoardState
                        socket = {this.props.socket}
                        restartTimer = {this.restartTimer}
                    />) : null
-                    }    
-                  
+                    }
+
                     <div className={'game-settings'}>
                         <button className={'game-settings__btn'} onClick={() => this.toggleMenu()} type={'button'}>
                             <SettingsIcon style={{ fill: '#fff' }}/>

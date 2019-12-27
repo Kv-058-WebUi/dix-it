@@ -8,12 +8,15 @@ import {connect} from "react-redux";
 import {hideWinner} from "../../redux/actions/hideWinnerModal";
 
 const GameOverForm = (props:any) => {
+
     const gameOverHeight = 'auto';
     const gameOverWidth = '600px';
-    const [isRedirect, setRedirect] = useState(false) ;
+    const [isRedirect, setRedirect] = useState(false);
+
     const redirect = () => {
         setRedirect(!isRedirect);
     };
+
     const renderRedirect = () => {
         if(isRedirect) {
             console.log('redirect');
@@ -24,6 +27,7 @@ const GameOverForm = (props:any) => {
             }, 500)
         }
     };
+
     useEffect(() => {
        document.addEventListener('click', redirect);
     });
@@ -38,13 +42,16 @@ const GameOverForm = (props:any) => {
         return first;
     };
 
+    let otherPlayers = [...props.players];
+    otherPlayers.shift();
+
     return (
         <div>
             {renderRedirect()}
             <ModalWindow modalWindowType='gameover'
             windowHeight={gameOverHeight}
             windowWidth={gameOverWidth}>
-            <Winner winner={winner()} players = {props.players}/>
+            <Winner winner={winner()} players = {otherPlayers}/>
             </ModalWindow>
             <Fireworks/>
         </div>
