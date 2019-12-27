@@ -38,9 +38,10 @@ const games: Array<Game> = [];
 
 async function getDefaultGame(): Promise<Game> {
     return new Promise((resolve, reject) => {
-        setTimeout(function () {
+        const gameResolverTimer = setTimeout(function () {
             if (games.length) {
                 resolve(games[0]);
+                clearTimeout(gameResolverTimer);
             }
         }, 100);
     });
@@ -162,9 +163,10 @@ export default class SocketController {
         });
         client.on('send chat msg', chatMessage);
         client.on('New Word From StoryTeller', newWord);
-        client.on('send pushed card', (msg: cardMessage) => {
+        client.on('send pushed card', async (msg: cardMessage) => {
             console.log('card received', msg);
-            client.broadcast.to('some room').emit('new card', msg);
+            let game = await getDefaultGame();
+            client.broadcast.to(game.room.name).emit('new card', msg);
         });
         // client.on('Synchronize timer', syncTimers);
 
@@ -186,15 +188,17 @@ export default class SocketController {
             client.broadcast.to(game.room.name).emit('new chat msg', msg);
         }
 
-        function newWord (word: string ) {
+        async function newWord (word: string ) {
             console.log('new word has been sended');
             console.log(word);
-            client.broadcast.to('some room').emit('New Word From StoryTeller', word);
+            let game = await getDefaultGame();
+            client.broadcast.to(game.room.name).emit('New Word From StoryTeller', word);
         }
-        // function syncTimers (timerState: number) {
+        // async function syncTimers (timerState: number) {
         //     // console.log('timer restarted');
-        //     // console.log(timerState);          
-        //     client.broadcast.to('some room').emit('Synchronize timer', timerState)
+        //     // console.log(timerState);      
+        //     let game = await getDefaultGame();    
+        //     client.broadcast.to(game.room.name).emit('Synchronize timer', timerState)
         // }
     }
 
