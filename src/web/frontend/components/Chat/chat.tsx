@@ -43,7 +43,7 @@ export default class Chat extends React.Component<ChatProps, ChatState> {
     }
 
     handleNewMessage(newMessage: messageParams) {
-        this.setState({messages: [...this.state.messages, newMessage]});
+        this.setState((state) => ({messages: [...state.messages, newMessage]}));
     }
 
     renderMessages() {
@@ -83,10 +83,10 @@ export default class Chat extends React.Component<ChatProps, ChatState> {
             timestamp: new Date(Date.now()).toISOString(),
         };
 
-        this.setState({
-            messages: [...this.state.messages, message],
+        this.setState((state) => ({
+            messages: [...state.messages, message],
             value: '',
-        });
+        }));
 
         this.props.socket.emit('send chat msg', message);
         console.log('chat msg emitted');
