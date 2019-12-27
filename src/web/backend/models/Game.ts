@@ -28,14 +28,18 @@ export class Dixit {
                     const cardQuantity = cardDeck.length;
                     const index = Math.floor(Math.random() * cardQuantity);
                     const currentCard = cardDeck[index];
-                    player.cards.push(currentCard);
-                    cardDeck.splice(index, 1);
+                    if(currentCard) {
+                        player.cards.push(currentCard);
+                        cardDeck.splice(index, 1);
+                    }
                 }
             } else { const cardQuantity = cardDeck.length;
                     const index = Math.floor(Math.random() * cardQuantity);
                     const currentCard = cardDeck[index];
-                    player.cards.push(currentCard);
-                    cardDeck.splice(index, 1);
+                    if(currentCard) {
+                        player.cards.push(currentCard);
+                        cardDeck.splice(index, 1);
+                    }
             }
             return player;
         });

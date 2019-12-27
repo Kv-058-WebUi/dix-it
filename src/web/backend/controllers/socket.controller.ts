@@ -38,9 +38,10 @@ const games: Array<Game> = [];
 
 async function getDefaultGame(): Promise<Game> {
     return new Promise((resolve, reject) => {
-        setTimeout(function () {
+        const gameResolverTimer = setTimeout(function () {
             if (games.length) {
                 resolve(games[0]);
+                clearTimeout(gameResolverTimer);
             }
         }, 100);
     });
