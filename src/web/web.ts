@@ -27,6 +27,7 @@ class App {
 
     // Static files configuration
     this.app.use("/assets", express.static(path.join(__dirname, "frontend")));
+    this.app.use("/images", express.static('public/images'));
 
     // Controllers
     this.app.use('/api', new RoomController().router);
