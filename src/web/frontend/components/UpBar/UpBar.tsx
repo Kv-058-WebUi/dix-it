@@ -1,5 +1,5 @@
 import React from 'react';
-import './Upbar.scss';
+import './UpBar.scss';
 import LinearDeterminate from './TimerBar/TimerBar'
 import {WordBar, wordParams} from './WordBar/WordBar';
 
