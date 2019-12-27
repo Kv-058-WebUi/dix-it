@@ -10,7 +10,7 @@ type HandCardState = {
 };
 
 type HandProps = {
-    card: CardType, 
+    card: CardType,
     pushCard: PushCardFn,
     isCardPushed: boolean
 };
