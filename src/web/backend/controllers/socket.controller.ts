@@ -7,7 +7,6 @@ import { Player } from "../entities/Player";
 import { RoomStatus } from "../entities/RoomStatus";
 import welcomeDict from '../helpers/chat-welcome-dictionary'; 
 import { ROOM_STATUSES } from "./room.controller";
-
 interface Message {
     id: number,
     creator: string,
@@ -73,6 +72,8 @@ export default class SocketController {
     private userConnection(client: SocketIO.Socket) {
         console.log('a user connected');
 
+        client.on('REQUEST_PLAYERS', updatePlayers);
+
         client.on('game page open', async (user: JwtPayload | null) => {
             console.log('Game page open!! BE');
 
@@ -134,6 +135,7 @@ export default class SocketController {
                     client.emit('user entered', user);
                     client.broadcast.to(game.room.name).emit('user entered', user);
                     client.broadcast.to(game.room.name).emit('new chat msg', message);
+                    updatePlayers();
                 }
             }
         });
@@ -154,12 +156,14 @@ export default class SocketController {
             if (!gamePlayer) {
                 return;
             }
+            game.players = game.players.filter(player => player !== gamePlayer);
 
             let message = generateChatBotMessage(gamePlayer.player, 'bye');
             game.chat.push(message);
             client.broadcast.to(game.room.name).emit('new chat msg', message);
             client.emit('user left', gamePlayer.jwtData);
             client.broadcast.to(game.room.name).emit('user left', gamePlayer.jwtData);
+            updatePlayers();
         });
         client.on('send chat msg', chatMessage);
         client.on('New Word From StoryTeller', newWord);
@@ -194,6 +198,22 @@ export default class SocketController {
             let game = await getDefaultGame();
             client.broadcast.to(game.room.name).emit('New Word From StoryTeller', word);
         }
+
+        async function updatePlayers () {
+            const game = await getDefaultGame();
+            const payload = {
+                players: game.players.map((player) => {
+                    return {
+                        name: player.player.nickname,
+                        score: player.points,
+                        img: '/images/avatars/'+player.jwtData.profile_picture
+                    }
+                })
+            };
+            client.broadcast.to(game.room.name).emit('UPDATE_PLAYERS', payload);
+            client.emit('UPDATE_PLAYERS', payload);
+        }
+
         // async function syncTimers (timerState: number) {
         //     // console.log('timer restarted');
         //     // console.log(timerState);      

@@ -10,13 +10,12 @@ import {
     Route,
 } from "react-router-dom";
 import "./sass/main.scss";
-import io from "socket.io-client"
 
 import {Provider} from 'react-redux'
 import store from './redux/store/store'
+import socket from "./socket";
 
 const App = () => {
-    const socket = io(process.env.SERVER_URL+':'+process.env.SERVER_PORT);
     return (
         <Provider store={store}>
             <UserProvider>
@@ -24,7 +23,7 @@ const App = () => {
                     <Switch>
                         <Route path="/game">
                             <UserProvider.context.Consumer>{context => (
-                                <GamePage socket={ socket } user={ context.user }/>
+                                context.user && <GamePage socket={ socket } user={ context.user }/>
                             )}</UserProvider.context.Consumer>
                         </Route>
                         <Route path="/lobby">
