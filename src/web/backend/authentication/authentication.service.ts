@@ -137,6 +137,23 @@ class AuthenticationService {
     public async verify(user_id: DixitUser['user_id']) {
         this.userRepository.update({ user_id }, { email_confirmed: true });
     }
+
+    public async getUserRolesById(user_id: DixitUser['user_id']) {
+        const user = await this.userRepository.findOne({user_id});
+        let roles: string[] = [];
+
+        if (!user) {
+            roles.push('guest');
+        } else {
+            if(user.nickname == 'Destin') {
+                //hardcoded admin
+                roles.push('admin');
+            }
+            roles.push('user');
+        }
+
+        return roles;
+    }
 }
 
 export default AuthenticationService;
