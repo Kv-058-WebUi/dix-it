@@ -51,6 +51,7 @@ class GamePage extends React.Component<any> {
     };
 
     render() {
+        let sortedList = this.sortBy('score');
         return (
             <div className={'game-root'}>
                 <header>
@@ -58,11 +59,11 @@ class GamePage extends React.Component<any> {
                         <img className='game-logo' src={require('../Header/LOGO.png')} alt='logo'/>
                     </Link>
                     {this.props.isModalShown ? (
-                        <GameOverForm players={this.state.sortedList}/>
+                        <GameOverForm players={sortedList}/>
                     ) : <button onClick={this.props.showWinner}>Win the game</button>}
                 </header>
                 <GameBoard socket={ this.props.socket }/>
-                <GameSidePanel players={this.state.sortedList} socket={this.props.socket} user={this.props.user}/>
+                <GameSidePanel players={sortedList} socket={this.props.socket} user={this.props.user}/>
                 <footer>
                     <GameSettings/>
                 </footer>
