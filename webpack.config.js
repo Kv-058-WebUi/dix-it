@@ -35,7 +35,7 @@ module.exports = {
         historyApiFallback: true,
         proxy: {
             '/api': process.env.SERVER_URL+':'+process.env.SERVER_PORT,
-            '/admin': 'http://localhost:4200'
+            '/ng': 'http://localhost:4200',
         }
     },
 

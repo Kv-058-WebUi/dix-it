@@ -39,7 +39,7 @@
             "outputPath": "../dist/admin",
             "index": "src/index.html",
             "main": "src/main.ts",
-            "deployUrl": "admin/",
+            "deployUrl": "ng/",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "aot": false,
