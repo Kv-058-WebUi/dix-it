@@ -6,7 +6,6 @@ import './header.scss';
 import AuthWindow from '../AuthWindow/AuthWindow';
 import UserNav from './UserNav/UserNav';
 import UserProvider from '../UserProvider/UserProvider';
-import ModalWindow from '../ModalWindow/ModalWindow';
 
 type HeaderProps = {
     onlineCount: number
@@ -14,7 +13,6 @@ type HeaderProps = {
 type HeaderState = {
     showRules: boolean,
     showAuthForm: boolean,
-    allowCardSuggestion: boolean
 };
 
 export default class Header extends Component<HeaderProps, HeaderState> {
@@ -24,7 +22,6 @@ export default class Header extends Component<HeaderProps, HeaderState> {
         this.state = {
             showRules: false,
             showAuthForm: false,
-            allowCardSuggestion: false,
         };
     }
 
