@@ -1,5 +1,5 @@
 import React, { Component, useContext } from 'react';
-import { Link, Redirect } from "react-router-dom";
+import { Link} from "react-router-dom";
 import Rules from '../Rules/Rules';
 // import ModalWindow from "./ModalWindow";
 import './header.scss';
@@ -12,7 +12,7 @@ type HeaderProps = {
 };
 type HeaderState = {
     showRules: boolean,
-    showAuthForm: boolean
+    showAuthForm: boolean,
 };
 
 export default class Header extends Component<HeaderProps, HeaderState> {
@@ -21,7 +21,7 @@ export default class Header extends Component<HeaderProps, HeaderState> {
 
         this.state = {
             showRules: false,
-            showAuthForm: false
+            showAuthForm: false,
         };
     }
 
@@ -58,6 +58,15 @@ export default class Header extends Component<HeaderProps, HeaderState> {
                                 : ''}
                         </React.Fragment>
                     )}</UserProvider.context.Consumer>
+                    { <UserProvider.context.Consumer>
+                        {context => (
+                            (!context.user || !context.user.authenticated) ? '' : (
+                                <a
+                                href='#' onClick={() => window.location.href = '/ng/upload'}>Suggest a card
+                                </a>
+                            )
+                        )}
+                    </UserProvider.context.Consumer>}
                     <a href='mailto:name@email.com'>Contact Us</a>
                     <a href='#' onClick={this.handleHelpClick}><img className='help' src={require('./help.png')} alt='rules' /></a>
                 </div>
