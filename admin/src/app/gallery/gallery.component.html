@@ -1,0 +1,6 @@
+<!-- <img src="/admin/assets/img/card_1.png"> -->
+<img *ngFor="let card of cards" 
+    src="/admin/assets/img/{{card.path_url}}" 
+    width="100px" 
+    height="140px"
+    class="gallery-card">
