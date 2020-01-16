@@ -1,6 +1,27 @@
-<!-- <img src="/admin/assets/img/card_1.png"> -->
-<img *ngFor="let card of cards" 
-    src="/admin/assets/img/{{card.path_url}}" 
-    width="100px" 
-    height="140px"
-    class="gallery-card">
+<!-- <div class="gallery-container">
+    <img *ngFor="let card of cards" 
+        src="/ng/assets/img/{{card.path_url}}" 
+        class="gallery-card">
+</div> -->
+
+<div class="gallery-container">
+    <cdk-virtual-scroll-viewport itemSize="36" class="scroll-container">
+        <mat-grid-list cols="7" rowHeight="145px">
+            <mat-grid-tile *cdkVirtualFor="let card of cards">
+                <img src="/ng/assets/img/{{card.path_url}}"
+                class="gallery-card">
+            </mat-grid-tile>
+        </mat-grid-list>
+    </cdk-virtual-scroll-viewport>
+    <p class="scroll-message">Scroll to see more</p>
+</div>
+
+<!-- 
+<cdk-virtual-scroll-viewport itemSize="36" class="gallery-container">
+    <img *cdkVirtualFor="let card of cards" 
+        src="/ng/assets/img/{{card.path_url}}" 
+        class="gallery-card">
+</cdk-virtual-scroll-viewport> -->
+
+    
+

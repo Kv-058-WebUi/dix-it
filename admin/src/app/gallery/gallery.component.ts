@@ -8,6 +8,8 @@ import { CARDS } from '../cardDeck';
 })
 export class GalleryComponent implements OnInit {
   cards = CARDS;
+  
+  
   constructor() { }
 
   ngOnInit() {

@@ -39,7 +39,7 @@
             "outputPath": "../dist/admin",
             "index": "src/index.html",
             "main": "src/main.ts",
-            "deployUrl": "admin/",
+            "deployUrl": "ng/",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "aot": false,
@@ -48,6 +48,7 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss"
             ],
             "scripts": []
@@ -102,6 +103,7 @@
           }
         }
       }
-    }},
+    }
+  },
   "defaultProject": "admin"
 }
