@@ -1,0 +1,24 @@
+<div class="userController_container">
+    <table>
+        <thead>
+            <tr>
+                <th>Users</th>
+                <th>Email</th>
+                <th>Created</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor='let user of users$ | async'>
+                <td>{{ user.nickname }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.created_at }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="settings_icons_container">
+        <fa-icon 
+        [icon]="faCog"
+        *ngFor = 'let user of users$ | async'
+        ></fa-icon>
+    </div>
+</div>
