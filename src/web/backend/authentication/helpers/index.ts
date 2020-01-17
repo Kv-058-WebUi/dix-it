@@ -13,7 +13,8 @@ export type JwtPayload = {
   profile_picture: DixitUser['profile_picture'],
   nickname: DixitUser['nickname'],
   player_id: Player['player_id'],
-  authenticated: boolean
+  authenticated: boolean,
+  roles: string[]
 }
 
 export const urlFileSaver = (url: string, filePath: string): Promise<void>  => {

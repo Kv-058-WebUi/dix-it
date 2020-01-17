@@ -15,6 +15,7 @@ import { CardsCreatingMigration1577107758080 as CardsCreatingMigration } from ".
 import { RoomStatusesMigration1577366149533 as roomStatusMigration } from './migrations/1577369835936-roomStatusMigration';
 import {Card} from "./web/backend/entities/Card";
 import { AddCardsCreatingMigration1577368445530  as AddCardsCreatingMigration} from './migrations/1577368445530-AddCardsCreatingMigration';
+import { ReviewCard } from './web/backend/entities/ReviewCard';
 
 async function main() {
     await web.start(SERVER_PORT);
@@ -34,7 +35,7 @@ const options: ConnectionOptions = {
     cli: {
         migrationsDir: "migrations"
     },
-    entities: [DixitUser, Card, Player, Room, RoomStatus, RelationshipStatus, Relationship, RoomPlayer]
+    entities: [DixitUser, Card, Player, Room, RoomStatus, RelationshipStatus, Relationship, RoomPlayer, ReviewCard]
 };
 
 createConnection(options)
