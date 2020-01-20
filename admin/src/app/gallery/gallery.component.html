@@ -2,7 +2,7 @@
     <cdk-virtual-scroll-viewport (scroll)="isScroll = true" itemSize="36" class="scroll-container">
         <mat-grid-list cols="7" rowHeight="145px">
                 <mat-grid-tile *cdkVirtualFor="let card of cards">
-                <img [src]="'/ng/assets/img/' + card.card_path"
+                <img [src]="'images/cards/' + card.card_path"
                 class="gallery-card">
             </mat-grid-tile>
         </mat-grid-list>
