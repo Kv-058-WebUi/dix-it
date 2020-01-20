@@ -1,24 +1,90 @@
-table {
-    border-collapse: collapse;
-}
-  
-table, th, td {
-    border: 1px solid black;
-}
-td {
-    padding: 5px
-}
-.userController_container {
+.user-controller {
     display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    .settings_icons_container {
+    flex-direction: column;
+    position: relative;
+    .user-controller__header {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        div {
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 20px;
+            line-height: 25px;
+            display: flex;
+            align-items: center;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.6);
+        }
+    }
+    .user-controller__table-row {
+        display: flex;
+        flex-direction: row;
+        div {
+            width: 306.67px;
+            height: 46.76px;
+            background: #BDC3D1;
+            text-align: center;
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 15px;
+            margin: 0px 3px 3px 0px;
+            line-height: 20px;
+            align-items: center;
+            text-transform: uppercase;
+            color: #000000;
+            &:first-child {
+                border-radius: 12px 0px 0px 12px;
+            }
+            &:last-child {
+                border-radius: 0px 12px 12px 0px;
+            }
+        }        
+    }
+    .user-controller__table {
         display: flex;
         flex-direction: column;
-        margin: 25px 5px 5px;
-        fa-icon {
-            margin: 4px;
+        .user-controller__table-row-wrapper {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            .user-controller__icons {
+                color: #FFFFFF;
+                margin: 11px 0px 0px 10px;
+                fa-icon {
+                    cursor: pointer;
+                }
+            }
+
+        }
+    }
+    .user-controller__footer {
+        position: absolute;
+        top: 280%;
+        left: 80%;
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 20px;
+        line-height: 25px;
+        display: flex;
+        align-items: center;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.6);
+        span {
+            font-size: 25px;
+        }
+        span + p {
             cursor: pointer;
         }
     }
+}
+mat-spinner {
+    position: absolute !important;
+    left: 43.06006%;
+    top: 43%;
+    transform: translate(-50%, -50%);
 }

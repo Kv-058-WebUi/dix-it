@@ -5,7 +5,8 @@ import { Observable} from 'rxjs';
 export type UserType = {
   nickname: string,
   email: string,
-  created_at: Date
+  created_at: Date,
+  user_id: number
 }
 
 @Injectable({
@@ -21,6 +22,12 @@ export class UserControllerService {
 
   getUsers(): Observable<UserType[]> {
     return this.http.get<UserType[]>(this.usersUrl)
+  }
+  banUser(id:number) {
+    return this.http.delete(`${this.usersUrl}/${id}`)
+    .subscribe((res) => {
+      console.log('done Ban');
+    })
   }
 }
 

@@ -1,24 +1,39 @@
-<div class="userController_container">
-    <table>
-        <thead>
-            <tr>
-                <th>Users</th>
-                <th>Email</th>
-                <th>Created</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor='let user of users$ | async'>
-                <td>{{ user.nickname }}</td>
-                <td>{{ user.email }}</td>
-                <td>{{ user.created_at }}</td>
-            </tr>
-        </tbody>
-    </table>
-    <div class="settings_icons_container">
-        <fa-icon 
-        [icon]="faCog"
-        *ngFor = 'let user of users$ | async'
-        ></fa-icon>
+<div class="user-controller">
+        <ng-template #loading>
+            <mat-spinner></mat-spinner>
+        </ng-template>
+    <div class="user-controller__header">
+        <div><p>User</p></div>
+        <div><p>Email</p></div>
+        <div><p>Created</p></div>
+        <div><p>Is Banned</p></div>
     </div>
+    <div 
+    class="user-controller__table"
+    *ngIf = '!showSpinner; else loading'
+    >
+        <div 
+        class="user-controller__table-row-wrapper"
+        *ngFor='let user of users'
+        >
+            <div class="user-controller__table-row">
+                <div><p>{{ user.nickname }}</p></div>
+                <div><p>{{ user.email }}</p></div>
+                <div><p>{{ user.created_at }}</p></div>
+                <div><p>{{ user.is_banned }}</p></div>
+            </div>
+            <div class="user-controller__icons">
+                <fa-icon
+                (click) = 'openDialogAndRememberUser(user)'
+                [icon]="faCog"
+                transform='shrink-40'
+                ></fa-icon>
+            </div>
+        </div>
+    </div>
+    <div class="user-controller__footer">
+        <p><span>+</span>  Create new</p>
+    </div>   
 </div>
+
+

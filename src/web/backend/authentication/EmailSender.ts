@@ -69,6 +69,19 @@ export default class EmailSender {
             }
         });
     }
+    public sendBanNotification(user: DixitUser) {
+        const mailOptions = {
+            from: EMAIL_USERNAME,
+            to: user.email,
+            subject: "Dixit - You get banned",
+            html: `<h1>Hello, ${user.nickname}</h1>
+            <br/>
+            <p>Know your place trash!</p>
+            <p>For more information contact us</p>
+            `
+        };
+        this.transporter.sendMail(mailOptions)
+    }
 }
 
 

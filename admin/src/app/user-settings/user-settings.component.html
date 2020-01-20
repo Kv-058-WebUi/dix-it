@@ -1,0 +1,13 @@
+<form action="post" (ngSubmit)='updateUser(updateForm)' #updateForm='ngForm' class="user-settings">
+    <div class="form-group">
+        <label for="userForm">Name</label>
+        <input ngModel name="firstName"
+        id="userForm" type="text" 
+        #firstName='ngModel' class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="comment">Ban reason</label>
+        <textarea ngModel name="email" id="comment" placeholder="Ban reson" cols="30" rows="10" class="form-control"></textarea>
+    </div>
+    <button class="btn btn-primary" type="submit">Submit</button>
+</form>

@@ -57,4 +57,8 @@ export class DixitUser {
         default: false
     })
     email_confirmed!: boolean;
+    @Column ({
+        default: false,
+    })
+    is_banned!: boolean
 }

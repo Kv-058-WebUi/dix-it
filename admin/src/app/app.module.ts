@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {MatDialogModule} from '@angular/material/dialog';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { HttpClientModule }    from '@angular/common/http';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
@@ -10,13 +11,16 @@ import { UploadCardComponent } from './upload-card/upload-card.component';
 import { UserControllerComponent } from './user-controller/user-controller.component';
 import { AdminComponent } from './admin/admin.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { UserSettingsComponent } from './user-settings/user-settings.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     UploadCardComponent,
     UserControllerComponent,
-    AdminComponent
+    AdminComponent,
+    UserSettingsComponent
   ],
   imports: [
     BrowserModule,
@@ -24,10 +28,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BrowserAnimationsModule,
     MatDialogModule,
     HttpClientModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    FormsModule,                            
+    ReactiveFormsModule, 
+    MatProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [UserControllerComponent]
+  entryComponents: [
+    UserControllerComponent,
+    UserSettingsComponent
+  ]
 })
 export class AppModule { }
