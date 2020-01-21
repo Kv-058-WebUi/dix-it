@@ -22,7 +22,7 @@ export default class RoomController implements Controller{
     constructor() {
         this.initializeRoutes();
     }
-    
+
     private initializeRoutes() {
         this.router.get(this.path, this.getAllRooms);
         this.router.post(this.path, this.createRoom);
@@ -42,8 +42,8 @@ export default class RoomController implements Controller{
                     status: 2,
                     room_code
                 }; //Data from createRoom form
-                // const status = "find by id"       
-                const newRoom = this.roomRepository.create(postData);       
+                // const status = "find by id"
+                const newRoom = this.roomRepository.create(postData);
                 await this.roomRepository.save(newRoom);
                 response.send(newRoom);
             } else {

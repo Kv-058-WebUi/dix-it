@@ -1,1 +1,16 @@
 <p>upload-card works!</p>
+<div class="cropp-wrapper">
+    <ngx-img (onSelect)="onSelect($event)" (onReset)="reset()" [config]="{ crop: [ { ratio: .72857 } ] }"></ngx-img>
+
+    <div *ngIf="imgSrc.length" class="container mt-3">
+        <h5>Preview</h5>
+        <div class="row">
+            <div *ngFor="let img of imgSrc" class="col">
+                <img #result class="img-fluid" [src]="img">
+            </div>
+        </div>
+    </div>
+
+    <button type="button" (click)="test()">test</button>
+
+</div>

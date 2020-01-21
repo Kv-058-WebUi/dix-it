@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { NgxImgModule } from 'ngx-img';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -25,7 +26,8 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserAnimationsModule,
     MatGridListModule,
     ScrollingModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxImgModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
