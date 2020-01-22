@@ -24,7 +24,7 @@ const appRoutes: Routes = [
     UploadCardComponent,
     AdminComponent,
     ReviewCardsListComponent,
-    ReviewCardComponent
+    ReviewCardComponent,
     GalleryComponent
   ],
   imports: [
