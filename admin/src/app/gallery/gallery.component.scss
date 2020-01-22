@@ -1,0 +1,24 @@
+.gallery-container {
+    width: 50vw;
+    margin: 50px auto;
+    background-color: rgba(26, 38, 54, 0.7);
+    border-radius: 5px;
+}
+.scroll-container {
+    width: 45vw;
+    height: 400px;
+    padding: 20px;
+    overflow: scroll;
+    margin: auto;
+}
+.gallery-card {
+    border-radius: 15px;
+    height: 140px;
+    width: 100px;
+}
+.scroll-message {
+    text-align: center;
+    padding: 5px 0;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 20px;
+}

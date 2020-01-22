@@ -76,7 +76,8 @@ class AuthenticationController implements Controller {
             user_id: user.user_id,
             profile_picture: user.profile_picture,
             nickname: user.nickname,
-            player_id: player.player_id
+            player_id: player.player_id,
+            roles: await this.authenticationService.getUserRolesById(user.user_id)
         };
 
         return jwt.sign(payload, JWT_SECRET);
@@ -176,7 +177,8 @@ class AuthenticationController implements Controller {
                     nickname: player.nickname,
                     user_id: undefined,
                     player_id: player.player_id,
-                    profile_picture: 'anonymous_user.png'
+                    profile_picture: 'anonymous_user.png',
+                    roles: ['guest']
                 }
             }
             const token = jwt.sign(payload, JWT_SECRET);
