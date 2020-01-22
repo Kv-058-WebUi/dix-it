@@ -1,5 +1,6 @@
 import * as express from 'express';
 import {getRepository} from 'typeorm';
+import bcryptjs from 'bcryptjs'
 import Controller from '../interfaces/controller.interface';
 import {DixitUser} from '../entities/User';
 import EmailSender from '../authentication/EmailSender';
@@ -15,8 +16,9 @@ export class UserController implements Controller {
 
     private initializeRoutes() {
         this.router.get(this.path, this.getAllUsers);
-        this.router.delete(`${this.path}/:id`, this.banUser)
+        this.router.put(`${this.path}/:id/ban`, this.banUser)
         this.router.put(`${this.path}/:id`, this.updateUser)
+        this.router.get(`${this.path}/:id/dropPass`, this.dropPass)
     }
 
     private getAllUsers = async (request: express.Request, response: express.Response) => {
@@ -37,7 +39,7 @@ export class UserController implements Controller {
         response.status(200).end();
         const user = await this.userRepository
         .findOne({where: {user_id: id}}) as DixitUser
-        // EmailSender.getTransporterInstance().sendBanNotification(user);
+        EmailSender.getTransporterInstance().sendBanNotification(user, request.body.banReason);
     }
     private updateUser = async (request: express.Request, response: express.Response, next: express.NextFunction) => {
         const id = request.params.id
@@ -45,11 +47,35 @@ export class UserController implements Controller {
         .createQueryBuilder()
         .update(DixitUser)
         .set({ 
-            nickname: request.body.firstName, 
+            nickname: request.body.nickname, 
             email: request.body.email,
         })
         .where("user_id = :id", { id: id })
         .execute();
         response.status(200).end()
+    }
+    private dropPass = async (request: express.Request, response: express.Response, next: express.NextFunction) => {
+        const id = request.params.id;
+        let password = '!1A';
+        let chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+        let string_length = 8;
+        for (var i=0; i<string_length; i++) {
+            let rnum = Math.floor(Math.random() * chars.length);
+            password += chars.substring(rnum,rnum+1);
+        }
+        const salt = await bcryptjs.genSalt(10);
+        const hashedPassword = await bcryptjs.hash(password, salt);
+        await this.userRepository
+        .createQueryBuilder()
+        .update(DixitUser)
+        .set({
+            password: hashedPassword
+        })
+        .where("user_id = :id", { id: id })
+        .execute();
+        response.status(200).end()
+        const user = await this.userRepository
+        .findOne({where: {user_id: id}}) as DixitUser
+        EmailSender.getTransporterInstance().sendNewPassword(user, password);
     }
 }

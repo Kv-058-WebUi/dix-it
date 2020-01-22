@@ -1,13 +1,37 @@
-<form action="post" (ngSubmit)='updateUser(updateForm)' #updateForm='ngForm' class="user-settings">
-    <div class="form-group">
-        <label for="userForm">Name</label>
-        <input ngModel name="firstName"
-        id="userForm" type="text" 
-        #firstName='ngModel' class="form-control">
+<div class="user-settings">
+    <div class="user-settings__title">
+        <p>User: {{ data.nickname }}</p>
     </div>
-    <div class="form-group">
-        <label for="comment">Ban reason</label>
-        <textarea ngModel name="email" id="comment" placeholder="Ban reson" cols="30" rows="10" class="form-control"></textarea>
+    <div class="user-settings__forms">
+        <form action="post" (ngSubmit)='updateUser(updateForm)' #updateForm='ngForm' class="user-settings__update-form">
+            <div class="user-settings__form-group">
+                <label for="userForm">Nickname</label>
+                <input ngModel name="nickname"
+                id="userForm" type="text"
+                autocomplete="off" 
+                #nickname='ngModel' class="user-settings__input">
+            </div>
+            <div class="user-settings__form-group">
+                <label for="userForm">Email</label>
+                <input ngModel name="email"
+                id="email" type="text"
+                autocomplete="off" 
+                #email='ngModel' class="user-settings__input">
+            </div>
+            <button mat-button color='primary'>Submit</button>
+        </form>
+        <form action="post" class="user-settings__ban-form">
+            <div class="user-settings__form-group">
+                <label for="comment">Ban reason</label>
+                    <textarea
+                    ngModel name="banReason" 
+                    #banReason
+                    rows="7" cols="30"
+                    id="comment" placeholder="Ban reson...." 
+                    class="user-settings__textarea"></textarea>
+            </div>
+            <button (click) = 'banUser(banReason.value)' mat-button color='warn'>BAN!</button>
+        </form>
     </div>
-    <button class="btn btn-primary" type="submit">Submit</button>
-</form>
+    <button class="user-settings__dp-button" (click)='dropPassword()' mat-button color='accent'>Drop password</button>
+</div>

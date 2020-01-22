@@ -23,11 +23,22 @@ export class UserSettingsService {
           'Allow': 'GET, POST, PUT'
         }}
       )
-      console.log('reqbody',requestBody)
-      console.log(req);
     return req
-    .subscribe((req) => {
-      console.log('get Modified', req);
+    .subscribe((res) => {
     });
+  }
+
+  dropPassword(id: number) {
+    return this.http.get(`${this.url}/${id}/dropPass`)
+    .subscribe(res => {
+      console.log('password was dropped');
+    })
+  }
+
+  banUser(id:number, banReason) {
+    return this.http.put(`${this.url}/${id}/ban`, {banReason: banReason})
+    .subscribe((res) => {
+      console.log('done Ban');
+    })
   }
 }

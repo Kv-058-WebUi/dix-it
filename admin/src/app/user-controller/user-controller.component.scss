@@ -1,7 +1,7 @@
 .user-controller {
     display: flex;
     flex-direction: column;
-    position: relative;
+    height: 100%;
     .user-controller__header {
         display: flex;
         flex-direction: row;
@@ -44,9 +44,14 @@
             }
         }        
     }
+    .user-controller__table-wrapper {
+        display: flex;
+        flex-grow: 1;
+    }
     .user-controller__table {
         display: flex;
         flex-direction: column;
+        
         .user-controller__table-row-wrapper {
             display: flex;
             flex-direction: row;
@@ -62,9 +67,6 @@
         }
     }
     .user-controller__footer {
-        position: absolute;
-        top: 280%;
-        left: 80%;
         font-family: Roboto;
         font-style: normal;
         font-weight: bold;
@@ -74,11 +76,12 @@
         align-items: center;
         text-transform: uppercase;
         color: rgba(255, 255, 255, 0.6);
-        span {
-            font-size: 25px;
-        }
-        span + p {
-            cursor: pointer;
+        align-self: flex-end;
+        .user-controller__create-new {
+            button{
+                font-size: 25px;
+                padding: 7px 15px;
+            }
         }
     }
 }

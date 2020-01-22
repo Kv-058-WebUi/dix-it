@@ -23,12 +23,6 @@ export class UserControllerService {
   getUsers(): Observable<UserType[]> {
     return this.http.get<UserType[]>(this.usersUrl)
   }
-  banUser(id:number) {
-    return this.http.delete(`${this.usersUrl}/${id}`)
-    .subscribe((res) => {
-      console.log('done Ban');
-    })
-  }
 }
 
 

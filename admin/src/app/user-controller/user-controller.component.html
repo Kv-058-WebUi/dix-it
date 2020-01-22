@@ -8,31 +8,35 @@
         <div><p>Created</p></div>
         <div><p>Is Banned</p></div>
     </div>
-    <div 
-    class="user-controller__table"
-    *ngIf = '!showSpinner; else loading'
-    >
+    <div class="user-controller__table-wrapper">
         <div 
-        class="user-controller__table-row-wrapper"
-        *ngFor='let user of users'
+        class="user-controller__table"
+        *ngIf = '!showSpinner; else loading'
         >
-            <div class="user-controller__table-row">
-                <div><p>{{ user.nickname }}</p></div>
-                <div><p>{{ user.email }}</p></div>
-                <div><p>{{ user.created_at }}</p></div>
-                <div><p>{{ user.is_banned }}</p></div>
-            </div>
-            <div class="user-controller__icons">
-                <fa-icon
-                (click) = 'openDialogAndRememberUser(user)'
-                [icon]="faCog"
-                transform='shrink-40'
-                ></fa-icon>
+            <div 
+            class="user-controller__table-row-wrapper"
+            *ngFor='let user of users'
+            >
+                <div class="user-controller__table-row">
+                    <div><p>{{ user.nickname }}</p></div>
+                    <div><p>{{ user.email }}</p></div>
+                    <div><p>{{ user.created_at }}</p></div>
+                    <div><p>{{ user.is_banned }}</p></div>
+                </div>
+                <div class="user-controller__icons">
+                    <fa-icon
+                    (click) = 'openDialogAndRememberUser(user)'
+                    [icon]="faCog"
+                    transform='shrink-40'
+                    ></fa-icon>
+                </div>
             </div>
         </div>
     </div>
     <div class="user-controller__footer">
-        <p><span>+</span>  Create new</p>
+        <div class="user-controller__create-new">
+            <button mat-button color='accent' (click)='openCreateUserDialog'> + Create new</button>
+        </div>
     </div>   
 </div>
 

@@ -69,7 +69,7 @@ export default class EmailSender {
             }
         });
     }
-    public sendBanNotification(user: DixitUser) {
+    public sendBanNotification(user: DixitUser, banReason: string) {
         const mailOptions = {
             from: EMAIL_USERNAME,
             to: user.email,
@@ -77,8 +77,21 @@ export default class EmailSender {
             html: `<h1>Hello, ${user.nickname}</h1>
             <br/>
             <p>Know your place trash!</p>
-            <p>For more information contact us</p>
-            `
+            <p>For more information <a href='mailto:name@email.com'>Contact Us</a></p>
+            <p>${banReason}</p>`
+        };
+        this.transporter.sendMail(mailOptions)
+    }
+    public sendNewPassword(user: DixitUser, password: string) {
+        const mailOptions = {
+            from: EMAIL_USERNAME,
+            to: user.email,
+            subject: "Dixit - Password reset",
+            html: `<h1>Hello, ${user.nickname}</h1>
+            <br/>
+            <p>We are glad to tell you that your password was successfully dropped</p>
+            <p>Here is your new password</p>
+            <p>${password}</p>`
         };
         this.transporter.sendMail(mailOptions)
     }

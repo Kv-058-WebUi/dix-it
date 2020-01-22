@@ -14,7 +14,7 @@ export class AdminComponent {
 
   openDialog() {
     const dialogRef = this.dialog.open(UserControllerComponent, {
-      panelClass: 'user-controller__modal'
+      panelClass: 'user-controller__modal',
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);

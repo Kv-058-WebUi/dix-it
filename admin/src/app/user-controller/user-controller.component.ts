@@ -6,6 +6,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {faCog} from '@fortawesome/free-solid-svg-icons';
 import { ViewEncapsulation } from '@angular/core';
 import { UserSettingsComponent } from '../user-settings/user-settings.component';
+import { CreateNewUserComponent } from '../create-new-user/create-new-user.component';
 
 
 @Component({
@@ -28,11 +29,6 @@ export class UserControllerComponent implements OnInit {
 
   showSpinner = false;
 
-  banUser(user: UserType) {
-    const {user_id} = user
-    this.userControllerService.banUser(user_id)
-  }
-
   getCurrentUser(user: UserType) {
     return user;
   }
@@ -48,13 +44,23 @@ export class UserControllerComponent implements OnInit {
 
   openDialogAndRememberUser(user: UserType) {
     const dialogRef = this.dialog.open(UserSettingsComponent, {
-      panelClass: 'user-controller__modal-settings',
+      panelClass: 'user-controller__modal',
       height: '400px',
       width: '600px',
       data: user
     });
     dialogRef.afterClosed().subscribe(result => {
-      
+      this.getUsers();
+    });
+  }
+  openCreateUserDialog() {
+    const dialogRef = this.dialog.open(CreateNewUserComponent, {
+      panelClass: 'user-controller__modal',
+      height: '400px',
+      width: '600px',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.getUsers();
     });
   }
 

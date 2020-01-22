@@ -1,7 +1,8 @@
 import { Component, OnInit, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { UserSettingsService } from './user-settings.service';
-import { NgForm } from '@angular/forms';
+import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
+import {ErrorStateMatcher} from '@angular/material/core';
 
 @Component({
   selector: 'app-user-settings',
@@ -14,15 +15,25 @@ export class UserSettingsComponent implements OnInit {
     public userSettingsService: UserSettingsService
     ) { }
 
-  public body = ''  
+  emailFormControl = new FormControl('', [
+    Validators.required,
+    Validators.email,
+  ]);  
     
-  updateUser(form: NgForm) {
+  public updateUser(form: NgForm) {
     console.log(form.value);
     this.userSettingsService.updateUser(this.data, form.value)
   }
 
+  public dropPassword() {
+    this.userSettingsService.dropPassword(this.data.user_id)
+  }
+
+  public banUser(banReason) {
+    this.userSettingsService.banUser(this.data.user_id, banReason)
+  }
+
   ngOnInit() {
-    console.log(this.data);
   }
 
 }
