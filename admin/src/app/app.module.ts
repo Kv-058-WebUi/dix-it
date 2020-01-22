@@ -8,7 +8,6 @@ import { GalleryComponent } from './gallery/gallery.component';
 import { UploadCardComponent } from './upload-card/upload-card.component';
 import { AdminComponent } from './admin/admin.component';
 import { ReviewCardsListComponent } from './review-cards-list/review-cards-list.component';
-import { ReviewCardComponent } from './review-card/review-card.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { ScrollingModule } from '@angular/cdk/scrolling';
@@ -24,7 +23,6 @@ const appRoutes: Routes = [
     UploadCardComponent,
     AdminComponent,
     ReviewCardsListComponent,
-    ReviewCardComponent,
     GalleryComponent
   ],
   imports: [

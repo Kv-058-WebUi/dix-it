@@ -1,16 +1,26 @@
 import { Component, OnInit } from '@angular/core';
-import { REVIEWCARDS } from '../mock-review-cards';
+import { ReviewCardsService } from '../review-cards-list.service';
 
+export class ReviewCards {
+  card_id: number;
+  card_path: string;
+}
 @Component({
   selector: 'app-review-cards-list',
   templateUrl: './review-cards-list.component.html',
   styleUrls: ['./review-cards-list.component.scss']
 })
 export class ReviewCardsListComponent implements OnInit {
-  reviewCards = REVIEWCARDS;
-  constructor() { }
+  reviewCards: ReviewCards[];
+  constructor(private reviewCardsService: ReviewCardsService) { }
 
   ngOnInit() {
+    this.getReviewCards();
+  }
+
+  getReviewCards(): void {
+    this.reviewCardsService.getReviewCards()
+        .subscribe(reviewCards => this.reviewCards = reviewCards);
   }
 
 }
