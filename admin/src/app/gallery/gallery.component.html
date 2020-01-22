@@ -1,9 +1,9 @@
 <div class="gallery-container">
     <cdk-virtual-scroll-viewport (scroll)="isScroll = true" itemSize="36" class="scroll-container">
-        <mat-grid-list cols="7" rowHeight="145px">
+        <mat-grid-list (mouseover)="hover = true" (mouseout)="hover = true" cols="7" rowHeight="145px">
                 <mat-grid-tile *cdkVirtualFor="let card of cards">
-                <img [src]="'images/cards/' + card.card_path"
-                class="gallery-card">
+                <span><span *ngIf="hover">X</span><img [src]="'images/cards/' + card.card_path"
+                class="gallery-card"></span>
             </mat-grid-tile>
         </mat-grid-list>
     </cdk-virtual-scroll-viewport>
