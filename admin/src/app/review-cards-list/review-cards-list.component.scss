@@ -1,0 +1,26 @@
+.review-card {
+    &__wrapper {
+        display: block;
+        max-width: 70vw;
+        padding: 36px 50px 25px;
+        background-color: rgba(26,38,54,0.7);
+        border-radius: 10px;
+    }
+    &__list {
+        display: flex;
+        overflow-x: scroll;
+        &::-webkit-scrollbar {
+            width: 10px;
+          }
+          
+          /* Track */
+          &::-webkit-scrollbar-track {
+            background: #f1f1f1;
+          }
+          
+          /* Handle */
+          &::-webkit-scrollbar-thumb {
+            background: #1A2636;
+          }
+    }
+}
