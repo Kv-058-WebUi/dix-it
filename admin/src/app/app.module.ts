@@ -10,6 +10,8 @@ import { AdminComponent } from './admin/admin.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { HttpClientModule } from '@angular/common/http';
+import {MatTabsModule} from '@angular/material/tabs';
+
 
 
 @NgModule({
@@ -25,7 +27,8 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserAnimationsModule,
     MatGridListModule,
     ScrollingModule,
-    HttpClientModule
+    HttpClientModule,
+    MatTabsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
