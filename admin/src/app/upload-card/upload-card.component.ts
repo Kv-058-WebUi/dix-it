@@ -1,11 +1,12 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import { UploadCardServiceService } from './upload-card-service.service';
-import { ImageCroppedEvent } from 'ngx-image-cropper';
+import {Component, ElementRef, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
+import {UploadCardServiceService} from './upload-card-service.service';
+import {ImageCroppedEvent} from 'ngx-image-cropper';
 
 @Component({
   selector: 'app-upload-card',
   templateUrl: './upload-card.component.html',
-  styleUrls: ['./upload-card.component.scss']
+  styleUrls: ['./upload-card.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class UploadCardComponent implements OnInit {
 
@@ -32,6 +33,8 @@ export class UploadCardComponent implements OnInit {
   imageConfirmed = false;
 
   fileChangeEvent(event: any): void {
+    this.imageError = false;
+    this.imageConfirmed = false;
     this.imageChangedEvent = event;
     this.cropperView = true;
   }

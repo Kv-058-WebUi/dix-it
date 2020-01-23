@@ -10,7 +10,7 @@ interface response {
     data: any
 }
 
-export default class ReviewCardController implements Controller {
+export default class UploadCardController implements Controller {
 
     private reviewCards = getRepository(ReviewCard);
 

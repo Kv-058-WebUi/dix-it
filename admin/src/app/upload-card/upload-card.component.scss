@@ -1,7 +1,99 @@
 .cropp-wrapper {
-  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  padding: 18px 50px;
+  width: 100vw;
+  height: 100vh;
+  box-sizing: border-box;
 }
 
-.img-fluid {
-  min-width: 102px;
+.cropper-title {
+  text-align: center;
+  color: #fff;
+}
+
+.cropp-inner {
+  display: flex;
+  justify-content: space-between;
+  max-height: 75vh;
+}
+
+.cropper-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.cropper-btn__add-img {
+  display: inline-block;
+  background: transparent;
+}
+
+.cropp-inner > .image-cropper > div, .cropp-inner > .image-cropper {
+  display: inline-flex;
+  width: auto;
+  //align-self: flex-start;
+}
+
+.cropp-inner > .image-cropper > div {
+  max-height: 100%;
+}
+
+.cropp-inner > .image-cropper {
+  max-width: 65vw;
+}
+
+.cropp-inner .overlay {
+  max-width: 100%;
+}
+
+.cropper-buttons__inner {
+  display: flex;
+  flex-direction: column;
+  align-self: flex-start;
+  margin: 0 30px;
+  max-width: 194px;
+}
+
+.cropper-buttons__inner-inner {
+  display: flex;
+}
+
+.cropper-btn {
+  display: inline-block;
+  background: rgba(26, 38, 54, 0.7);
+  border-radius: 10px;
+  padding: 6px 12px;
+  border: none;
+  font-weight: 900;
+  font-size: 20px;
+  line-height: 1;
+  font-family: 'Roboto', sans-serif;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 10px;
+  &.zoom-out {
+    margin-right: 14px;
+  }
+  &.upload {
+    background: linear-gradient(90deg, #F27A54 0%, #A154F2 100%);
+    color: #fff;
+    font-size: 24px;
+    text-transform: uppercase;
+  }
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.cropper-text {
+  display: inline-block;
+  max-width: 100%;
+  font-size: 14px;
+  font-weight: 900;
+  font-family: 'Roboto', sans-serif;
+  &.error {
+    color: #C32424;
+  }
+  &.success {
+    color: #71E41F;
+  }
 }
