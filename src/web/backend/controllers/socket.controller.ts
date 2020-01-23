@@ -429,7 +429,7 @@ export default class SocketController {
         this.socket.to(game.room.room_code).emit(reduxActions.STOP_TIMER);
         this.socket.to(game.room.room_code).emit(reduxActions.SET_VOTES, { votes });
 
-        if (votedPlayersCounter || game.roundCards.length === 1) {
+        if (votedPlayersCounter == 0 || game.roundCards.length === 1) {
             if (game.storyteller) {
                 game.storyteller.points += 1;
             }
