@@ -1,13 +1,18 @@
 import GameBoard from "../GameBoard/GameBoard";
-import React, {useState, useEffect} from "react";
-import {Link} from "react-router-dom";
+import React from "react";
+import { Link } from "react-router-dom";
 import GameSettings from "./gamesettings";
 import GameSidePanel from "./gameSidePanel";
 import GameOverForm from "../GameOverForm/GameOverForm";
 import { UserData } from "../UserProvider/UserProvider";
 import {connect} from "react-redux";
 import {gamePageStore} from "../../redux/actions/setStore";
-import {showWinner} from "../../redux/actions/showWinnerModal";
+import {joinRoom} from "../../redux/actions/joinRoom";
+import JoinRoomPopup from "../JoinRoomPopup/JoinRoomPopup";
+import { CombinedStateInterface } from "../../redux/reducer/combineReducer";
+import { ROOM_STATUSES, JwtPayload, RoomData } from "../../../common/helpers";
+import { leaveRoom } from "../../redux/actions/leaveRoom";
+import { GamePlayer } from "../../redux/reducer/gamePageReducer";
 
 
 export interface GamePageProps {
@@ -25,6 +30,7 @@ class GamePage extends React.Component<any> {
 
     public state: any = {
         sortedList: [],
+        isJoinRoomModalShown: true
     };
 
     compareBy(key: any) {
@@ -50,17 +56,25 @@ class GamePage extends React.Component<any> {
         })
     };
 
+    onJoinModalUpdate(isClosed: boolean, room: RoomData | undefined) {
+        this.setState({isJoinRoomModalShown: !isClosed});
+        if(isClosed && room) {
+            this.props.joinRoom(room, this.props.user);
+        }
+    }
+
     render() {
-        let sortedList = this.sortBy('score');
+        let sortedList = this.sortBy('score').sort(this.compareBy('inGame'));
         return (
+            this.state.isJoinRoomModalShown ? <JoinRoomPopup onJoinModalUpdate={this.onJoinModalUpdate.bind(this)}/> : 
             <div className={'game-root'}>
                 <header>
-                    <Link to='/'>
+                    <Link to='/' onClick={this.props.leaveRoom}>
                         <img className='game-logo' src={require('../Header/LOGO.png')} alt='logo'/>
                     </Link>
                     {this.props.isModalShown ? (
                         <GameOverForm players={sortedList}/>
-                    ) : <button onClick={this.props.showWinner}>Win the game</button>}
+                    ) : ''}
                 </header>
                 <GameBoard socket={ this.props.socket }/>
                 <GameSidePanel players={sortedList} socket={this.props.socket} user={this.props.user}/>
@@ -72,17 +86,21 @@ class GamePage extends React.Component<any> {
     }
 }
 
-function mapStateToProps(state: any) {
+function mapStateToProps(state: CombinedStateInterface) {
     return {
-        players: state.gamePageStore.gamePage.gamePlayers,
-        isModalShown: state.gamePageStore.gamePage.isModalShown,
-        setModalShown: state.gamePageStore.gamePage.setModalShown
+        players: state.gamePageStore.gamePage.gamePlayers.map(player => ({
+            ...player,
+            currentPlayer: state.gamePageStore.player_id,
+            storyteller_id: state.gamePageStore.storyteller ? state.gamePageStore.storyteller.player_id : undefined
+        })),
+        isModalShown: state.gamePageStore.gameStatus == ROOM_STATUSES.FINISHED,
     }
 }
 
 const mapDispatchToProps = (dispatch: any) => ({
     gamePageStore: () => dispatch(gamePageStore()),
-    showWinner: () => dispatch(showWinner())
+    leaveRoom: () => dispatch(leaveRoom()),
+    joinRoom: (room: RoomData, user: JwtPayload) => dispatch(joinRoom(room, user)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(GamePage)

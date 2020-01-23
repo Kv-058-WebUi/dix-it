@@ -12,7 +12,7 @@ type HandCardState = {
 type HandProps = {
     card: CardType,
     pushCard: PushCardFn,
-    isCardPushed: boolean
+    canSubmitCard: boolean
 };
 
 export default class HandCard extends Component <HandProps, HandCardState> {
@@ -35,10 +35,10 @@ export default class HandCard extends Component <HandProps, HandCardState> {
     };
 
     render() {
-        const { pushCard, card, isCardPushed } = this.props;
+        const { pushCard, card, canSubmitCard } = this.props;
         const blurClass = classNames({
             'border-blur': this.state.showSubmitButton,
-            'blur-disabled': isCardPushed
+            'blur-disabled': !canSubmitCard
         });
         return (
             <div>
@@ -47,15 +47,14 @@ export default class HandCard extends Component <HandProps, HandCardState> {
                         <div className='hand-card'>
                             <img className={blurClass}
                                  onClick={this.handleCardClick}
-                                 src={`images/cards/${card.card_path}`}
+                                 src={`/images/cards/${card.card_path}`}
                             />
                         </div>
 
-                        {isCardPushed ? '' :
-                             this.state.showSubmitButton ?
-                                <Submit pushCard={pushCard}
-                                        card={card}
-                                /> : ''
+                        {
+                            canSubmitCard && this.state.showSubmitButton
+                                ? <Submit pushCard={pushCard} card={card} />
+                                : ''
                         }
                     </div>
                 : '' }

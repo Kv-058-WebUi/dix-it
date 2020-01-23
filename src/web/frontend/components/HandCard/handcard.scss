@@ -9,21 +9,25 @@
     position: absolute;
     width: 100px;
     height: 140px;
+    overflow: hidden;
     left: 0;
     top: 0;
     margin: 10px;
     border-radius: 15px;
     background-size: cover;
 
+    transform-origin: 50% 50%;
+    transition: .3s;
+
+    &:hover {
+      transform: scale(1.8);
+      z-index: 2;
+    }
+
     img {
       position: relative;
-      transform-origin: 50% 50%;
-      transition: .3s;
-
-      &:hover {
-        transform: scale(1.8);
-        z-index: 2;
-      }
+      min-width: 100%;
+      min-height: 100%;
     }
   }
 }
