@@ -465,7 +465,7 @@ export default class SocketController {
         const playersWithNoCards = game.players.filter(player => player.cards.length === 0);
         const isEnoughCards = game.deck.length >= game.players.length;
         const isWinner = game.players.some(player => player.points >= 30);
-        const isGameOver = isWinner || (playersWithNoCards && !isEnoughCards);
+        const isGameOver = isWinner || (playersWithNoCards.length > 0 && !isEnoughCards);
 
         setTimeout(() => {
             if (isGameOver) {
