@@ -12,6 +12,8 @@
     margin: auto;
 }
 .gallery-card {
+    position: relative;
+    z-index: 0;
     border-radius: 15px;
     height: 140px;
     width: 100px;
@@ -22,4 +24,13 @@
     color: rgba(255, 255, 255, 0.5);
     font-size: 20px;
     font-weight: 500;
+}
+.delete {
+    position: absolute;
+    z-index: 1;
+    top: 5px;
+    right: 3px;
+    background: none;
+    border: none;
+    color: red;
 }
