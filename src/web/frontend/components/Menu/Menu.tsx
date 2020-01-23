@@ -29,7 +29,7 @@ export default class Menu extends Component<any, MenuState> {
         return (
             <React.Fragment>
                 <div className='menu'>
-                    <button className='button'><Link to='/game'>Play</Link></button>
+                    <Link to='/game'><button className='button'>Play</button></Link>
                     <ul className='links'>
                         <li><Link to='/lobby'>Join the game</Link></li>
                         <UserProvider.context.Consumer>
