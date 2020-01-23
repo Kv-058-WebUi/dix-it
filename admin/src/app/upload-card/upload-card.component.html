@@ -1,16 +1,48 @@
-<p>upload-card works!</p>
+<h2>Upload Card</h2>
 <div class="cropp-wrapper">
-    <ngx-img (onSelect)="onSelect($event)" (onReset)="reset()" [config]="{ crop: [ { ratio: .72857 } ] }"></ngx-img>
 
-    <div *ngIf="imgSrc.length" class="container mt-3">
-        <h5>Preview</h5>
-        <div class="row">
-            <div *ngFor="let img of imgSrc" class="col">
-                <img #result class="img-fluid" [src]="img">
-            </div>
-        </div>
+    <input type="file" (change)="fileChangeEvent($event)" placeholder="Choose an image"/>
+    <br />
+
+    <div class="cropp-inner" *ngIf="cropperView">
+
+        <button (click)="resetImage()">Reset image</button>
+        <br />
+        <button (click)="zoomOut()">Zoom -</button> <button (click)="zoomIn()">Zoom +</button>
+
+        <image-cropper
+                [imageChangedEvent]="imageChangedEvent"
+                [maintainAspectRatio]="true"
+                [containWithinAspectRatio]="containWithinAspectRatio"
+                [aspectRatio]="51 / 70"
+                [resizeToWidth]="102"
+                [resizeToHeight]="140"
+                [cropperMinWidth]="102"
+                [cropperMinHeight]="140"
+                [onlyScaleDown]="true"
+                [roundCropper]="false"
+                [imageQuality]="100"
+                [canvasRotation]="canvasRotation"
+                [transform]="transform"
+                [alignImage]="'left'"
+                [style.display]="showCropper ? null : 'none'"
+                format="png"
+                (imageCropped)="imageCropped($event)"
+                (imageLoaded)="imageLoaded()"
+                (cropperReady)="cropperReady($event)"
+                (loadImageFailed)="loadImageFailed()"
+        ></image-cropper>
+
+        <img #result [src]="croppedImage" [width]="181.8" [height]="252"/>
+
+
+        <button type="button" (click)="test()">test</button>
+
+        <p *ngIf="imageError">Please choose an image with next sizes: width - 102px, height - 140px!</p>
+
+        <p *ngIf="imageConfirmed">Картинка была отправлена</p>
+
     </div>
 
-    <button type="button" (click)="test()">test</button>
 
 </div>

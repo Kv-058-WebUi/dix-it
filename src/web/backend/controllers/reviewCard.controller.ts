@@ -3,7 +3,6 @@ import Controller from '../interfaces/controller.interface';
 import fs from 'fs';
 import * as mime from 'mime';
 import {getRepository} from "typeorm";
-import {Room} from "../entities/Room";
 import {ReviewCard} from "../entities/ReviewCard";
 
 interface response {
@@ -44,7 +43,7 @@ export default class ReviewCardController implements Controller {
         let imageBuffer = decodedImg.data;
         let type = decodedImg.type;
         let extension = mime.getExtension(type);
-        let fileName = "image." + extension;
+        let fileName = req.body.name + '.' + extension;
         try {
             fs.writeFileSync("./public/images/cards/" + fileName, imageBuffer, 'utf8');
 
