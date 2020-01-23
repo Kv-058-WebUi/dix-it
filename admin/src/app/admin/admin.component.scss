@@ -1,9 +1,51 @@
-.user-controller__modal .mat-dialog-container  {
-    background: rgba(26, 38, 54, 0.7);
-    border-radius: 15px;
-    width: 1325px;
-    height: 725px;
-    max-width: 1325px;
-    max-height: 725px;
-    position: relative;
+img {
+    margin: 18px 50px;
 }
+
+  :host {
+    >.container {
+        max-width: 1264px;
+        width: 100%;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        background: none;
+    }
+    /deep/ {
+        .mat-tab-group {
+            flex-direction: row;
+        }
+        .mat-tab-labels {
+            flex-direction: column;
+        }
+        .mat-ink-bar {
+            display: none;
+        }
+        .mat-tab-label {
+            background-color: rgba(26, 38, 54, .5);
+            border-radius: 5px;
+            margin: 3px;
+            width: 200px;
+        }
+        .mat-tab-label-content {
+            font-size: 20px;
+            color: rgba(255, 255, 255, .7);
+        }
+        .mat-tab-list {
+            margin: 20px;
+        }
+        .mat-tab-label-active{
+            background-color: rgba(26, 38, 54, .8);
+            opacity: 1 !important;
+        }
+    }
+}
+
+.container {
+    position: relative;
+    width: 100%;
+    flex: 1 0 auto;
+    margin: 0 auto;
+    text-align: left;
+}
+

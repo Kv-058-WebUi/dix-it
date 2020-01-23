@@ -1,1 +1,23 @@
-<p>create-new-user works!</p>
+<div class="create-user">
+    <form action="post" class="create-user__form" (ngSubmit)='createUser(createUserForm)' #createUserForm='ngForm'>
+        <div class="create-user__form-group">
+            <label for="nickname">Nickname</label>
+            <input ngModel name="nickname"
+            type="text" id="nickname"
+            class="create-user__input"
+            autocomplete="off"
+            #nickname='ngModel'
+            >
+        </div>
+        <div class="create-user__form-group">
+            <label for="email">Email</label>
+            <input ngModel name='email'
+            type="email" id="email" 
+            class="create-user__input"
+            #email = 'ngModel'
+            autocomplete='off'
+            >
+        </div>
+        <button mat-button color='action'>Create user</button>
+    </form>
+</div>

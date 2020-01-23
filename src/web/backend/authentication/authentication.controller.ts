@@ -12,6 +12,7 @@ import { DixitUser } from '../entities/User';
 import EmailSender from "./EmailSender";
 import passport from 'passport';
 import { Profile } from "passport-google-oauth20";
+import { generate as generatePassword } from 'generate-password';
 import { LoginUserData, JwtPayload } from './helpers';
 import EmailNotConfirmedException from '../exceptions/EmailNotConfirmedException';
 import { Player } from '../entities/Player';
@@ -76,7 +77,8 @@ class AuthenticationController implements Controller {
             user_id: user.user_id,
             profile_picture: user.profile_picture,
             nickname: user.nickname,
-            player_id: player.player_id
+            player_id: player.player_id,
+            roles: await this.authenticationService.getUserRolesById(user.user_id)
         };
 
         return jwt.sign(payload, JWT_SECRET);
@@ -99,23 +101,42 @@ class AuthenticationController implements Controller {
     }
 
     private registration = async (request: express.Request, response: express.Response, next: express.NextFunction) => {
-        const userData: CreateUserDto = request.body;
-        let user: any;
-        try {
-            user = await this.authenticationService.register(userData);
-        } catch (e) {
-            if (e instanceof UserWithThatEmailAlreadyExistsException) {
-                response.send({ "status": "error", "reason": "Email already exists" });
-                return;
-            }
-            if (e instanceof UserWithThatNicknameAlreadyExistsException) {
-                response.send({ "status": "error", "reason": "Nickname already exists" });
-                return;
-            }
+        const uData = request.body;
+        if(!request.body.password) {
+            uData.password = generatePassword({
+                length: 10,
+                numbers: true,
+                symbols: true,
+                uppercase:	false,
+                excludeSimilarCharacters: true,
+                exclude: '*}{[]|:;/.><,`~',
+                strict: true
+            });
         }
-        const token = await this.createToken(user);
-        response.send({ "status": "success", "jwt_token": token });
-        EmailSender.getTransporterInstance().sendConfirmationEmailToUser(userData.email, userData.nickname, token);
+        console.log('STRANGE data',uData);
+
+            const userData: CreateUserDto = uData;
+            let user: any;
+            try {
+                user = await this.authenticationService.register(userData);
+            } catch (e) {
+                if (e instanceof UserWithThatEmailAlreadyExistsException) {
+                    response.send({ "status": "error", "reason": "Email already exists" });
+                    return;
+                }
+                if (e instanceof UserWithThatNicknameAlreadyExistsException) {
+                    response.send({ "status": "error", "reason": "Nickname already exists" });
+                    return;
+                }
+            }
+            
+            
+            const token = await this.createToken(user);
+
+            
+                        
+            response.send({ "status": "success", "jwt_token": token });
+            EmailSender.getTransporterInstance().sendConfirmationEmailToUser(userData.email, userData.nickname, token);
     }
 
     private login = async (request: express.Request, response: express.Response, next: express.NextFunction) => {
@@ -176,7 +197,8 @@ class AuthenticationController implements Controller {
                     nickname: player.nickname,
                     user_id: undefined,
                     player_id: player.player_id,
-                    profile_picture: 'anonymous_user.png'
+                    profile_picture: 'anonymous_user.png',
+                    roles: ['guest']
                 }
             }
             const token = jwt.sign(payload, JWT_SECRET);

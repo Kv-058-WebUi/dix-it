@@ -37,7 +37,6 @@ class AuthenticationService {
         const defaultImage = 'anonymous_user.png';
         const image = `${name}.png`;
         const filePath = path.resolve(`public/images/avatars/${name}.png`);
-
         return new Promise((resolve, reject) => {
             urlFileSaver(url, filePath)
                 .then(()=>{resolve(image)})
@@ -136,6 +135,23 @@ class AuthenticationService {
 
     public async verify(user_id: DixitUser['user_id']) {
         this.userRepository.update({ user_id }, { email_confirmed: true });
+    }
+
+    public async getUserRolesById(user_id: DixitUser['user_id']) {
+        const user = await this.userRepository.findOne({user_id});
+        let roles: string[] = [];
+
+        if (!user) {
+            roles.push('guest');
+        } else {
+            if(user.nickname == 'Ricardos') {
+                //hardcoded admin
+                roles.push('admin');
+            }
+            roles.push('user');
+        }
+
+        return roles;
     }
 }
 

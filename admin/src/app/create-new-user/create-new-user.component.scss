@@ -1,0 +1,50 @@
+.create-user {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    .create-user__form {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    .create-user__form-group {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        textarea {
+            resize: none;
+            background: #FFFFFF;
+            border-radius: 20px;
+            outline: none;
+            font: 500 14px Montserrat, sans-serif;
+            padding: 2px 15px;
+            margin-bottom: 25px;
+        }
+        .create-user__input {
+            background: #FFFFFF;
+            border-radius: 20px;
+            outline: none;
+            margin-bottom: 25px;
+            padding: 0 15px;
+            height: 30px;
+            font: 500 17px Montserrat, sans-serif;
+        }
+    }
+}
+.create-user label, p{
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 25px;
+    display: flex;
+    align-items: center;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 2px;
+}
+.create-user button {
+    font-size: 25px;
+    padding: 7px 15px;
+    border: 1px solid;
+}

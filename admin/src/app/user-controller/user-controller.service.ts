@@ -13,7 +13,6 @@ export type UserType = {
   providedIn: 'root'
 })
 export class UserControllerService {
-
   constructor(
     private http: HttpClient
   ) {  }

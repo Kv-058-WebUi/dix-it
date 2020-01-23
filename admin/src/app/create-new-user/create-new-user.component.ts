@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CreateNewUserService } from './create-new-user.service';
 
 @Component({
   selector: 'app-create-new-user',
@@ -7,11 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreateNewUserComponent implements OnInit {
 
-  constructor() {  }
+  constructor(
+    public createNewUserService: CreateNewUserService
+  ) {  }
 
-
+  public createUser(form) {
+    this.createNewUserService.createUser(form.value);
+  }
 
   ngOnInit() {
+
   }
 
 }

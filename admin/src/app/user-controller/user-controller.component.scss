@@ -1,11 +1,22 @@
+.user-controller__modal .mat-dialog-container  {
+    background: rgba(26, 38, 54, 0.7);
+    border-radius: 15px;
+    position: relative;
+}
 .user-controller {
     display: flex;
     flex-direction: column;
     height: 100%;
+    background: rgba(26, 38, 54, 0.7);
+    border-radius: 15px;
+    padding: 0px 20px;
+    height: 725px;
+    width: 850px;
+    max-width: 1325px;
+    max-height: 725px;
     .user-controller__header {
         display: flex;
         flex-direction: row;
-        justify-content: space-around;
         align-items: center;
         div {
             font-family: Roboto;
@@ -13,15 +24,30 @@
             font-weight: bold;
             font-size: 20px;
             line-height: 25px;
+            width: 306.67px;
             display: flex;
             align-items: center;
+            justify-content: center;
             text-transform: uppercase;
             color: rgba(255, 255, 255, 0.6);
+        }
+        .user-controller__created-title,
+        .user-controller__banned-title {
+            width: 150px;
+        }
+        .user-controller__nickname-title {
+            width: 200px;
         }
     }
     .user-controller__table-row {
         display: flex;
         flex-direction: row;
+        .user-controller__created-at, .user-controller__is-banned {
+            width: 150px; 
+        }
+        .user-controller__nickname {
+            width: 200px;
+        }
         div {
             width: 306.67px;
             height: 46.76px;
@@ -81,6 +107,7 @@
             button{
                 font-size: 25px;
                 padding: 7px 15px;
+                margin: 0px 10px 10px 0px;
             }
         }
     }

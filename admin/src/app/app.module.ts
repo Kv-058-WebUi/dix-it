@@ -8,14 +8,20 @@ import {MatInputModule} from '@angular/material/input';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { GalleryComponent } from './gallery/gallery.component';
 import { UploadCardComponent } from './upload-card/upload-card.component';
 import { UserControllerComponent } from './user-controller/user-controller.component';
 import { AdminComponent } from './admin/admin.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UserSettingsComponent } from './user-settings/user-settings.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
 import { CreateNewUserComponent } from './create-new-user/create-new-user.component'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { ScrollingModule } from '@angular/cdk/scrolling';
+import {MatTabsModule} from '@angular/material/tabs';
+
+
 
 @NgModule({
   declarations: [
@@ -24,7 +30,10 @@ import { CreateNewUserComponent } from './create-new-user/create-new-user.compon
     UserControllerComponent,
     AdminComponent,
     UserSettingsComponent,
-    CreateNewUserComponent
+    CreateNewUserComponent,
+    GalleryComponent,
+    UploadCardComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +46,11 @@ import { CreateNewUserComponent } from './create-new-user/create-new-user.compon
     ReactiveFormsModule, 
     MatProgressSpinnerModule,
     MatButtonModule,
-    MatInputModule
+    MatInputModule,
+    MatGridListModule,
+    ScrollingModule,
+    HttpClientModule,
+    MatTabsModule
   ],
   providers: [],
   bootstrap: [AppComponent],

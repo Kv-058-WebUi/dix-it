@@ -6,6 +6,7 @@ import { AdminComponent } from './admin/admin.component';
 
 
 const routes: Routes = [
+  {path: '', redirectTo: '/admin', pathMatch: 'full'},
   {path: 'upload', component: UploadCardComponent},
   {path: 'admin', component: AdminComponent}
 ];
