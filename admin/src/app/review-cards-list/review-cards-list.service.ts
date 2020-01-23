@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { ReviewCards } from './review-cards-list/review-cards-list.component'
+import { ReviewCards } from './review-cards-list.component'
 
 
 @Injectable({
@@ -14,5 +14,10 @@ export class ReviewCardsService {
 
   getReviewCards(): Observable<ReviewCards[]> {
     return this.http.get<ReviewCards[]>(this.cardsUrl)
+  }
+
+  deleteReviewCard(card) {
+    return this.http.delete(`${this.cardsUrl}/${card.card_id}`)
+     
   }
 }

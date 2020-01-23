@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ReviewCardsService } from '../review-cards-list.service';
+import { ReviewCardsService } from './review-cards-list.service';
 
 export class ReviewCards {
   card_id: number;
@@ -21,6 +21,13 @@ export class ReviewCardsListComponent implements OnInit {
   getReviewCards(): void {
     this.reviewCardsService.getReviewCards()
         .subscribe(reviewCards => this.reviewCards = reviewCards);
+  }
+
+  deleteReviewCard(card): void {
+    this.reviewCardsService.deleteReviewCard(card).subscribe(res => {
+            let index = this.reviewCards.findIndex(c => c === card);
+            this.reviewCards.splice(index, 1);
+    });
   }
 
 }
