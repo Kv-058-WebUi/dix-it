@@ -233,6 +233,8 @@ export default class SocketController {
                 });
             }
         }
+        
+        this.games = this.games.filter(item => item !== game);
     }
 
     private onRequestPlayers(client: SocketIO.Socket) {
