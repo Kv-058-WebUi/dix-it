@@ -1,0 +1,18 @@
+
+.call-to-action {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: 40px;
+  left: 37.5%;
+  transform: translateX(-50%);
+  
+  .call-to-action_text {
+    font-family: Montserrat;
+    font-style: normal;
+    font-size: 36px;
+    color: white;
+    text-transform: uppercase;
+  }
+}

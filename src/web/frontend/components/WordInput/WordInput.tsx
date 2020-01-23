@@ -1,13 +1,10 @@
 import ModalWindow from "../ModalWindow/ModalWindow";
 import React, {useEffect} from "react";
 import './wordinput.scss';
-import {OnWordInput, RestartTimer, Visibility} from '../GameBoard/GameBoard';
+import {OnWordInput, Visibility} from '../GameBoard/GameBoard';
 
 interface wordInputInterface {
-    socket: SocketIOClient.Socket,
     onWordInput: OnWordInput,
-    restartTimer: RestartTimer,
-    visibility: Visibility
 }
 
 const WordInput = (props: wordInputInterface) => {
@@ -18,9 +15,6 @@ const WordInput = (props: wordInputInterface) => {
             const input = document.querySelector('.wordInput') as HTMLInputElement;
             if(input.value != '') {
                 props.onWordInput(input.value);
-                props.socket.emit('New Word From StoryTeller', input.value);
-                props.restartTimer();
-                props.visibility(false);
             }
         }
     };
