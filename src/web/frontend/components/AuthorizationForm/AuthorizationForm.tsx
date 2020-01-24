@@ -81,7 +81,7 @@ class AuthorizationForm extends React.Component<AuthFormProps, AuthFormState> {
                 </div>
                 <div className="AuthorizationForm-Error">{this.state.error}</div>
                 <a href='#'>
-                    <div className='AuthorizationForm-ForgotPassword'>Forgot password?</div>
+                    {/* <div className='AuthorizationForm-ForgotPassword'>Forgot password?</div> */}
                 </a>
                 <div className="AuthorizationForm-ButtonContainer">
                     <Button className={classes.button} type='submit'>

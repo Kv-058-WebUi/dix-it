@@ -1,3 +1,5 @@
+import { INIT_STORE } from '../constants';
+
 export const gamePageStore = () => ({
-    type: 'SET_STORE'
+    type: INIT_STORE
 });

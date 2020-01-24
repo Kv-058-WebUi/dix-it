@@ -3,6 +3,7 @@ import socketMiddleware from '../middlewares/socketMiddleware';
 import combineReducer from '../reducer/combineReducer'
 import thunk from "redux-thunk";
 import { requestPlayers } from '../actions/requestPlayers';
+import { reloadPlayer } from '../actions/reloadPlayer';
 
 declare global {
     interface Window {
@@ -22,6 +23,7 @@ const store = createStore(
     )
 );
 
+store.dispatch(reloadPlayer());
 store.dispatch(requestPlayers());
 
 export default store;

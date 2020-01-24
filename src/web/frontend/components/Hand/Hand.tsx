@@ -3,17 +3,19 @@ import HandCard from "../HandCard/HandCard";
 import {CardType} from '../GameBoard/GameBoard';
 import './hand.scss';
 import { PushCardFn } from '../Submit/Submit';
+import { connect } from 'react-redux';
+import { CombinedStateInterface } from '../../redux/reducer/combineReducer';
 
 
 type HandProps = {
     cards: CardType[], 
     pushCard: PushCardFn,
-    isCardPushed: boolean
+    canSubmitCard: boolean
 };
 
-export default class Hand extends Component <HandProps> {
+class Hand extends Component <HandProps> {
     render() {
-        const { pushCard, cards, isCardPushed } = this.props;
+        const { pushCard, cards, canSubmitCard } = this.props;
         return (
             <div className='field-hand'>
                 {cards.map((card:CardType, index:number) => {
@@ -22,7 +24,7 @@ export default class Hand extends Component <HandProps> {
                             key={index}
                             card={card}
                             pushCard={pushCard}
-                            isCardPushed={isCardPushed}
+                            canSubmitCard={canSubmitCard}
                         />
                     );
                 })}
@@ -30,3 +32,10 @@ export default class Hand extends Component <HandProps> {
         );
     }
 }
+
+const mapStateToProps = (state: CombinedStateInterface) => ({
+    cards: state.gamePageStore.handCards,
+    canSubmitCard: state.gamePageStore.canSubmitCard
+});
+
+export default connect(mapStateToProps)(Hand)

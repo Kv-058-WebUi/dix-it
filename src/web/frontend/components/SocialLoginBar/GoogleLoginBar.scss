@@ -1,0 +1,27 @@
+.GoogleLoginBar {
+  border: 1px solid #4285f4;
+  border-radius: 5px;
+  overflow: hidden;
+  background-color: #4285f4;
+  text-align: center;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  // justify-content: space-between;
+
+  img {
+    background-color: #fff;
+    height: 50px;
+    width: 50px;
+    padding: 10px;
+  }
+
+  .label {
+    font-family: Roboto;
+    font-size: 18px;
+    padding: 0 10px;
+    flex: auto;
+    text-align: center;
+  }
+}
