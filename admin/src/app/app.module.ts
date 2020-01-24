@@ -12,13 +12,15 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 import { HttpClientModule } from '@angular/common/http';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatTooltipModule} from '@angular/material';
+import { ForbiddenComponent } from './forbidden/forbidden.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     GalleryComponent,
     UploadCardComponent,
-    AdminComponent
+    AdminComponent,
+    ForbiddenComponent
   ],
   imports: [
     BrowserModule,

@@ -19,9 +19,7 @@ export class GalleryService {
 
   deleteCard (card: Card | number): any {
     const id = typeof card === 'number' ? card : card.card_id;
-    const url = `${this.cardsUrl}/${id}`;
-  
-    return this.http.delete<Card>(url);
-    
+    const url = `${this.cardsUrl}/${id}`;  
+    return this.http.delete<Card>(url);   
   }
 }
