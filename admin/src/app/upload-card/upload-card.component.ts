@@ -49,6 +49,12 @@ export class UploadCardComponent implements OnInit {
     console.log('Image loaded');
   }
 
+  rerenderCropper() {
+    this.showCropper = false;
+    this.croppedImage = '';
+    this.cropperView = false;
+  }
+
   cropperReady(sourceImageDimensions) {
     console.log('Cropper ready', sourceImageDimensions);
   }
