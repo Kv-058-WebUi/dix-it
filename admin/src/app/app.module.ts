@@ -1,5 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { ImageCropperModule } from 'ngx-image-cropper';
+import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -28,7 +30,9 @@ import {MatTabsModule} from '@angular/material/tabs';
     MatGridListModule,
     ScrollingModule,
     HttpClientModule,
-    MatTabsModule
+    MatTabsModule,
+    ImageCropperModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

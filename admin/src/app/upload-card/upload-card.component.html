@@ -1,2 +1,73 @@
-<a href='/'><img src="/ng/assets/img/LOGO.png" alt='logo'/></a>
-<p>upload-card works!</p>
+
+<div class="cropp-wrapper">
+
+    <a class="cropp-wrapper__title" href='/'><img src="/ng/assets/img/LOGO.png" alt='logo'/></a>
+
+    <h2 class="cropper-title">Upload Card</h2>
+
+    <div class="cropp-inner" >
+
+        <div class="image-cropper__wrapper">
+
+            <div class="cropper-buttons" *ngIf="!cropperView">
+
+                <input type="file" name="file" id="file" (change)="fileChangeEvent($event)" placeholder="Choose an image"/>
+                <label for="file">Choose a file</label>
+
+            </div>
+
+            <image-cropper
+                    *ngIf="cropperView"
+                    class="image-cropper"
+                    [imageChangedEvent]="imageChangedEvent"
+                    [maintainAspectRatio]="true"
+                    [containWithinAspectRatio]="containWithinAspectRatio"
+                    [aspectRatio]="51 / 70"
+                    [resizeToWidth]="102"
+                    [resizeToHeight]="140"
+                    [cropperMinWidth]="1"
+                    [cropperMinHeight]="1"
+                    [onlyScaleDown]="true"
+                    [roundCropper]="false"
+                    [imageQuality]="100"
+                    [canvasRotation]="canvasRotation"
+                    [transform]="transform"
+                    [alignImage]="'left'"
+                    [style.display]="showCropper ? null : 'none'"
+                    format="png"
+                    (imageCropped)="imageCropped($event)"
+                    (imageLoaded)="imageLoaded()"
+                    (cropperReady)="cropperReady($event)"
+                    (loadImageFailed)="loadImageFailed()"
+            ></image-cropper>
+
+        </div>
+
+        <div *ngIf="cropperView" class="cropper-buttons__inner">
+
+            <div class="cropper-buttons__inner-inner">
+                <button (click)="zoomOut()" class="cropper-btn zoom-out" type="button">Zoom -</button>
+                <button (click)="zoomIn()" class="cropper-btn zoom-in" type="button">Zoom +</button>
+            </div>
+
+            <button (click)="resetImage()" class="cropper-btn reset" type="button">Reset image</button>
+
+            <button type="button" (click)="test()" class="cropper-btn upload">Upload</button>
+
+            <button type="button" (click)="rerenderCropper()" class="cropper-btn restart">Restart</button>
+
+            <p class="cropper-text error" *ngIf="imageError">Please choose an image with next sizes:<br/>width - 102px<br/>height - 140px!</p>
+
+            <p class="cropper-text success" *ngIf="imageConfirmed">Image has been uploaded</p>
+
+        </div>
+
+        <div *ngIf="cropperView" class="cropp-result__wrapper">
+            <h4 class="cropp-result__title">Image preview</h4>
+            <img class="cropp-result" #result [src]="croppedImage" [width]="181.8" [height]="252"/>
+        </div>
+
+    </div>
+
+
+</div>
