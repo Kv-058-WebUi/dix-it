@@ -11,8 +11,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { HttpClientModule } from '@angular/common/http';
 import {MatTabsModule} from '@angular/material/tabs';
-
-
+import {MatTooltipModule} from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -28,7 +27,8 @@ import {MatTabsModule} from '@angular/material/tabs';
     MatGridListModule,
     ScrollingModule,
     HttpClientModule,
-    MatTabsModule
+    MatTabsModule,
+    MatTooltipModule
   ],
   providers: [],
   bootstrap: [AppComponent]

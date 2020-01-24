@@ -16,4 +16,12 @@ export class GalleryService {
   getCards(): Observable<Card[]> {
     return this.http.get<Card[]>(this.cardsUrl)
   }
+
+  deleteCard (card: Card | number): any {
+    const id = typeof card === 'number' ? card : card.card_id;
+    const url = `${this.cardsUrl}/${id}`;
+  
+    return this.http.delete<Card>(url);
+    
+  }
 }

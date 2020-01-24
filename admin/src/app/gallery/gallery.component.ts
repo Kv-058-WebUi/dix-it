@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { GalleryService } from '../gallery.service';
 
 export class Card {
-  path_id: number;
-  path_url: string;
+  card_id: number;
+  card_url: string;
 }
 @Component({
   selector: 'app-gallery',
@@ -22,6 +22,11 @@ export class GalleryComponent implements OnInit {
   getCards(): void {
     this.galleryService.getCards()
         .subscribe(cards => this.cards = cards);
+  }
+
+  delete(card: Card): void {
+    this.cards = this.cards.filter(c => c !== card);
+    this.galleryService.deleteCard(card).subscribe();
   }
   
   isScroll: boolean = false;
