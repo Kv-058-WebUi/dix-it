@@ -1,5 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { ImageCropperModule } from 'ngx-image-cropper';
+import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -13,6 +15,7 @@ import { HttpClientModule } from '@angular/common/http';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatTooltipModule} from '@angular/material';
 import { ForbiddenComponent } from './forbidden/forbidden.component';
+
 
 @NgModule({
   declarations: [
@@ -30,7 +33,9 @@ import { ForbiddenComponent } from './forbidden/forbidden.component';
     ScrollingModule,
     HttpClientModule,
     MatTabsModule,
-    MatTooltipModule
+    MatTooltipModule,
+    ImageCropperModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

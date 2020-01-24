@@ -3,13 +3,10 @@ import { makeStyles, Theme, createStyles, createMuiTheme } from '@material-ui/co
 import LinearProgress from '@material-ui/core/LinearProgress';
 import './TimeBar.scss'
 import { MuiThemeProvider } from '@material-ui/core/styles';
-import {TimerPlusPlus, RestartTimer} from '../../GameBoard/GameBoard';
+import { turnTimeMs } from '../../../../common/helpers';
 
 interface timerInterface {
   timerState: number,
-  restartTimer: RestartTimer,
-  timerPlusPlus: TimerPlusPlus,
-  socket: SocketIOClient.Socket
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -46,28 +43,38 @@ const myTheme = createMuiTheme({
     }
   });
 export default function LinearDeterminate(props: timerInterface) {
+  const [completed, setCompleted] = React.useState(0);
   const classes = useStyles();
-  let {timerState} = props;
-  // props.socket.emit('Synchronize timer', timerState)
-  if(timerState === 100) {
-    props.restartTimer()
-  }
+  const interval = 500;
+  const step = 100 / (turnTimeMs / interval);
+  
   React.useEffect(() => {
-    function progress() {
-      const diff = 0.1 * 10;
-      return props.timerPlusPlus(diff);
+    if(props.timerState === 100) {
+      setCompleted(0);
+    } else if(props.timerState === 0) {
+      function progress() {
+          setCompleted(oldCompleted => {
+            if (oldCompleted === 100) {
+              clearInterval(timer);
+              return 100;
+            }
+            return Math.min(oldCompleted + step, 100);
+          });
+      };
+
+      const timer = setInterval(progress, 500);
+      
+      return () => {
+        clearInterval(timer);
+      };
     }
-    const timer = setInterval(progress, 500);
-    return () => {
-      clearInterval(timer);
-    };
-  }, []);
+  },[props.timerState]);
 
 
   return (
     <div className={classes.root}>
         <MuiThemeProvider theme={myTheme}>
-         <LinearProgress variant="determinate" value={timerState} color="secondary" /></MuiThemeProvider>
+         <LinearProgress variant="determinate" value={completed} color="secondary" /></MuiThemeProvider>
     </div>
   );
 }

@@ -21,7 +21,7 @@ const App = () => {
             <UserProvider>
                 <Router>
                     <Switch>
-                        <Route path="/game">
+                        <Route path="/game/:room_code">
                             <UserProvider.context.Consumer>{context => (
                                 context.user && <GamePage socket={ socket } user={ context.user }/>
                             )}</UserProvider.context.Consumer>

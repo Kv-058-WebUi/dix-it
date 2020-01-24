@@ -7,6 +7,7 @@ import { AuthGuard } from './auth/auth.guard';
 import { ForbiddenComponent } from './forbidden/forbidden.component';
 
 const routes: Routes = [
+  {path: '', redirectTo: '/admin', pathMatch: 'full'},
   {path: 'upload', component: UploadCardComponent},
   {path: 'admin', component: AdminComponent, canActivate: [AuthGuard]},
   {path: 'forbidden', component: ForbiddenComponent}
