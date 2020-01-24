@@ -56,15 +56,6 @@ class Header extends Component<HeaderProps, HeaderState> {
                                 : ''}
                         </React.Fragment>
                     )}</UserProvider.context.Consumer>
-                    { <UserProvider.context.Consumer>
-                        {context => (
-                            (!context.user || !context.user.authenticated) ? '' : (
-                                <a
-                                href='#' onClick={() => window.location.href = '/ng/upload'}>Suggest a card
-                                </a>
-                            )
-                        )}
-                    </UserProvider.context.Consumer>}
                     <a href='mailto:name@email.com'>Contact Us</a>
                     <a href='#' onClick={this.handleHelpClick}><img className='help' src={require('./help.png')} alt='rules' /></a>
                 </div>

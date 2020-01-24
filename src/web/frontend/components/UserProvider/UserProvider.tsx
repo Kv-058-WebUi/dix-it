@@ -14,7 +14,7 @@ export type UserData = {
   profile_picture: DixitUser['profile_picture']
 }
 
-type ContextData = {
+export type ContextData = {
   user: UserData | null,
   updateContext: () => void
 }
