@@ -41,4 +41,11 @@ flex-direction: column;
         justify-content: space-between;
         align-items: center;
     }
+
+    .PlayerListElement {
+        .player-mark,
+        .storyteller-mark {
+            display: none;
+        }
+    }
 }
