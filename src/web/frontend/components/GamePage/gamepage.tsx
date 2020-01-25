@@ -56,7 +56,7 @@ class GamePage extends React.Component<any> {
         })
     };
 
-    onJoinModalUpdate(isClosed: boolean, room: RoomData | undefined) {
+    onJoinModalUpdate(isClosed: boolean, room: RoomData) {
         this.setState({isJoinRoomModalShown: !isClosed});
         if(isClosed && room) {
             this.props.joinRoom(room, this.props.user);

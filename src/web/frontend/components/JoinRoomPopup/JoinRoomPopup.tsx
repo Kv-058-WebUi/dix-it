@@ -54,8 +54,8 @@ export default function JoinRoomPopup(props: JoinRoomPopupProps) {
       .then((response) => {
         if (response.data.error) {
           setError(response.data.error);
-        } else {
-          props.onJoinModalUpdate(true,  roomData);
+        } else if(roomData) {
+            props.onJoinModalUpdate(true, roomData);
         }
       }).catch((error) => {
         console.log(error);
