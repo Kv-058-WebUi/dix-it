@@ -28,8 +28,35 @@ header {
 
 .field-box {
   grid-area: desc;
+  .card {
+    margin: 0;
+  }
 }
 
 .Wordclass {
   grid-area: word;
+}
+.start-game-button-wrapper {
+  grid-area: hand;
+  position: relative;
+}
+.start-game-button {
+  font-family: Montserrat Alternates;
+  font-style: normal;
+  font-size: 36px;
+  color: white;
+  width: 330px;
+  height: 100px;
+  background: linear-gradient(90deg, #F27A54 0%, #A154F2 100%);
+  border-radius: 50px;
+  text-transform: uppercase;
+  transition: border, box-shadow .3s;
+  position: absolute;
+  bottom: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: pointer;
+  &:hover {
+      box-shadow: 0px 0px 30px #EC7760;
+  }
 }

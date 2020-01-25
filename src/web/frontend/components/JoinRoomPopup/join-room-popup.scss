@@ -1,0 +1,77 @@
+.join-room-popup {
+    &__text-field {
+        width: 100%;
+        height: 50px;
+        min-height: 50px;
+        margin-bottom: 30px;
+        padding: 0 15px;
+        background: #FFFFFF;
+        border-radius: 20px;
+        outline: none;
+        transition: 0.3s;
+        font: 500 24px Montserrat, sans-serif;
+        &:focus {
+            box-shadow: 0px 0px 15px #EC7760;
+        }
+    }
+    &__label {
+        display: block;
+        margin-bottom: 20px;
+        color: #E5E5E5;
+        font: 700 24px Montserrat, sans-serif;
+        &.disabled {
+            color: #6A727C;
+        }
+    }
+    &__line-wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+        .join-room-popup__label {
+            margin-bottom: 0;
+        }
+    }
+    &__unautorized-text {
+        display: block;
+        padding: 20px;
+        text-align: center;
+        color: #E5E5E5;
+        font: 700 24px Montserrat, sans-serif;
+    }
+    &__btn {
+        display: block;
+        align-self: center;
+        margin: 20px auto;
+        max-width: 178px;
+        padding: 10px 35px;
+        background: linear-gradient(90deg, #F27A54 0%, #A154F2 100%);
+        border-radius: 50px;
+        color: #ffffff;
+        font: 400 14px Montserrat, sans-serif;
+        text-transform: uppercase;
+        text-align: center;
+        transition: 0.3s;
+        cursor: pointer;
+        &:hover {
+            box-shadow: 0px 0px 30px #EC7760;
+        }
+    }
+    
+    &__error {
+        color: #f44336;
+        font-family: Roboto, sans-serif;
+        font-size: 15px;
+        margin: 5px 0;
+        min-height: 15px;
+        text-align: center;
+    }
+
+    &__room-name {
+        text-align: center;
+        color: #fff;
+        font: 700 28px "Montserrat Alternates", sans-serif;
+        margin: 5px 0;
+        text-transform: uppercase;
+    }
+}

@@ -1,6 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ImageCropperModule } from 'ngx-image-cropper';
+import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -13,7 +15,8 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { HttpClientModule } from '@angular/common/http';
 import {MatTabsModule} from '@angular/material/tabs';
-
+import {MatTooltipModule} from '@angular/material';
+import { ForbiddenComponent } from './forbidden/forbidden.component';
 
 const appRoutes: Routes = [
   { path: '', component: AdminComponent },
@@ -25,7 +28,8 @@ const appRoutes: Routes = [
     UploadCardComponent,
     AdminComponent,
     ReviewCardsListComponent,
-    GalleryComponent
+    GalleryComponent,
+    ForbiddenComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +42,10 @@ const appRoutes: Routes = [
     MatGridListModule,
     ScrollingModule,
     HttpClientModule,
-    MatTabsModule
+    MatTabsModule,
+    MatTooltipModule,
+    ImageCropperModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
