@@ -2,7 +2,7 @@ import SocketIO from "socket.io";
 import { JwtPayload } from "../authentication/helpers";
 import { RoomPlayer } from "../entities/RoomPlayers";
 import { Room } from "../entities/Room";
-import { getRepository, In } from "typeorm";
+import { getRepository, In, Not } from "typeorm";
 import { RoomStatus } from "../entities/RoomStatus";
 import welcomeDict from '../helpers/chat-welcome-dictionary';
 import { Card } from "../entities/Card";
@@ -43,6 +43,7 @@ interface Game {
     deck: Array<Card>,
     room: Room,
     players: Array<GamePlayer>,
+    playerColors: Array<string>,
     chat: Array<Message>,
     storyteller?: GamePlayer,
 }
@@ -69,7 +70,7 @@ function mapPlayer(player: GamePlayer) {
     }
 }
 
-const PLayerColors: Array<string> = [
+const PlayerColors: Array<string> = [
     'red',
     'blue',
     'teal',
@@ -79,6 +80,7 @@ const PLayerColors: Array<string> = [
     'green'
 ];
 
+const defaultPlayerColor = 'darkgrey';
 const delayBetweenRoundsMs = 6000;
 
 export default class SocketController {
@@ -144,7 +146,8 @@ export default class SocketController {
                     deck,
                     roundCards: [],
                     players: [],
-                    chat: []
+                    chat: [],
+                    playerColors: PlayerColors
                 };
                 this.games.push(game);
             } else {
@@ -179,13 +182,13 @@ export default class SocketController {
             }
 
             if (!isInGame) {
-                const player = {
+                const player: GamePlayer = {
                     points: 0,
                     cards: [],
                     jwtData: payload.user,
                     socketId: client.id,
                     inGame: true,
-                    color: PLayerColors[game.players.length]
+                    color: game.playerColors.shift() || defaultPlayerColor
                 };
                 const joinMessage = this.generateChatBotMessage(player, 'welcome');
 
@@ -216,6 +219,10 @@ export default class SocketController {
 
             if (gamePlayer) {
                 const message = this.generateChatBotMessage(gamePlayer, 'bye');
+
+                if(gamePlayer.color != defaultPlayerColor) {
+                    game.playerColors.unshift(gamePlayer.color);
+                }
 
                 game.players = game.players.filter(player => player !== gamePlayer);
                 gamePlayer.inGame = false;
@@ -509,9 +516,19 @@ export default class SocketController {
         }
     }
 
+    private async cleanupDeadRooms() {
+        const finishedStatus = await getRoomStatusRecordByCode(ROOM_STATUSES.FINISHED);
+        const deadRooms = await getRepository(Room).find({ where: { status: Not(finishedStatus.code) }});
+        const deadRoomsIds = deadRooms.map(room => room.room_id);
+
+        if(deadRoomsIds.length > 0) {
+            await getRepository(RoomPlayer).delete({ room_id: In(deadRoomsIds) });
+            await getRepository(Room).delete({ room_id: In(deadRoomsIds) });
+        }
+    }
+
     public initializeSocket(socket: SocketIO.Server) {
         this.socket = socket;
-        let context = this;
         
         socket.on('connection', (client: SocketIO.Socket) => {
             console.log('a user connected');
@@ -526,9 +543,13 @@ export default class SocketController {
             client.on(reduxActions.START_GAME, (payload) => { this.onStartGame(client) });
             client.on(reduxActions.LEAVE_ROOM, (payload) => { this.onLeaveGame(client) });
             client.on('send chat msg', (payload) => { this.onChatMessage(client, payload) });
-
+            
             this.onlineUsersCounter++;
             this.updateUsersCounter();
+            
         });
+
+        //clean up not finished rooms on start up
+        this.cleanupDeadRooms();
     }
 }

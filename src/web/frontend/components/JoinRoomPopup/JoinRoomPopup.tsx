@@ -88,7 +88,9 @@ export default function JoinRoomPopup(props: JoinRoomPopupProps) {
         error ?
         <React.Fragment> 
           <div className="join-room-popup__error">{error}</div>
-          <button onClick={()=>{location.href='/lobby'}} className='join-room-popup__btn'>Go to Lobby</button>
+          <div className="join-room-popup_btn-wrap">
+            <button onClick={()=>{location.href='/lobby'}} className='join-room-popup__btn'>Go to Lobby</button>
+          </div>
         </React.Fragment>
         : '')
       }
