@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ReviewCardsService } from './review-cards-list.service';
+import { Card } from '../gallery/gallery.component'
+
 
 export class ReviewCards {
   card_id: number;
@@ -12,22 +14,33 @@ export class ReviewCards {
 })
 export class ReviewCardsListComponent implements OnInit {
   reviewCards: ReviewCards[];
+  cards: Card[];
   constructor(private reviewCardsService: ReviewCardsService) { }
-
+  
   ngOnInit() {
     this.getReviewCards();
   }
 
   getReviewCards(): void {
     this.reviewCardsService.getReviewCards()
-        .subscribe(reviewCards => this.reviewCards = reviewCards);
+      .subscribe(reviewCards => this.reviewCards = reviewCards);
   }
 
-  deleteReviewCard(card): void {
-    this.reviewCardsService.deleteReviewCard(card).subscribe(res => {
-            let index = this.reviewCards.findIndex(c => c === card);
-            this.reviewCards.splice(index, 1);
+  deleteReviewCardFromDB(card): void {
+    this.reviewCardsService.deleteReviewCardFromDB(card).subscribe(res => {
+      let index = this.reviewCards.findIndex(c => c === card);
+      this.reviewCards.splice(index, 1);
     });
+  }
+
+  rejectCard(card: ReviewCards): void {
+    this.reviewCards = this.reviewCards.filter(c => c !== card);
+    this.reviewCardsService.rejectCard(card).subscribe();
+  }
+
+  addReviewCardToCards(card): void {
+    this.deleteReviewCardFromDB(card);
+    this.reviewCardsService.addReviewCardToCards(card).subscribe();
   }
 
 }
