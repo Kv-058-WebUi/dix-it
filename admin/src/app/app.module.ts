@@ -13,7 +13,8 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { HttpClientModule } from '@angular/common/http';
 import {MatTabsModule} from '@angular/material/tabs';
-
+import {MatTooltipModule} from '@angular/material';
+import { ForbiddenComponent } from './forbidden/forbidden.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import {MatTabsModule} from '@angular/material/tabs';
     AppComponent,
     GalleryComponent,
     UploadCardComponent,
-    AdminComponent
+    AdminComponent,
+    ForbiddenComponent
   ],
   imports: [
     BrowserModule,
@@ -31,6 +33,7 @@ import {MatTabsModule} from '@angular/material/tabs';
     ScrollingModule,
     HttpClientModule,
     MatTabsModule,
+    MatTooltipModule,
     ImageCropperModule,
     FormsModule
   ],
