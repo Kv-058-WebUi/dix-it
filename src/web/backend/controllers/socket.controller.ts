@@ -147,12 +147,30 @@ export default class SocketController {
                     chat: []
                 };
                 this.games.push(game);
+            } else {
+                return;
             }
+        }
+
+        if(game.players.length == game.room.max_players) {
+            return;
         }
 
         if (game && payload.user) {
             const gamePlayer = game.players.find(player => player.jwtData.player_id == payload.user?.player_id);
             const isInGame = gamePlayer !== undefined;
+
+            const playerRecord = await getRepository(Player).findOne({ player_id: payload.user.player_id });
+
+            if (!playerRecord) {
+                return;
+            }
+            
+            await getRepository(RoomPlayer).insert({
+                player_id: playerRecord,
+                room_id: game.room.room_id,
+                points: 0
+            });
 
             if (gamePlayer && gamePlayer.socketId != client.id) {
                 gamePlayer.socketId = client.id;
@@ -190,7 +208,7 @@ export default class SocketController {
         this.onLeaveGame(client);
     }
 
-    private onLeaveGame(client: SocketIO.Socket) {
+    private async onLeaveGame(client: SocketIO.Socket) {
         const game = this.getGameByClient(client);
 
         if (game) {
@@ -205,6 +223,12 @@ export default class SocketController {
                 this.socket.to(game.room.room_code).emit('new chat msg', message);
                 this.updatePlayers(game);
 
+                const playerRecord = await getRepository(Player).findOne({ player_id: gamePlayer.jwtData.player_id });
+
+                if (playerRecord) {
+                    await getRepository(RoomPlayer).delete({ player_id: playerRecord, room_id: game.room.room_id });
+                }
+
                 const activePlayers = game.players.filter(player => player.inGame);
 
                 if (activePlayers.length < 3 && game.room.status.code == ROOM_STATUSES.STARTED) {
@@ -215,7 +239,7 @@ export default class SocketController {
     }
 
     private async endGame(game: Game) {
-        const roomPLayerRepository = getRepository(RoomPlayer);
+        const roomPlayerRepository = getRepository(RoomPlayer);
 
         this.socket.to(game.room.room_code).emit(reduxActions.GAME_OVER);
 
@@ -224,11 +248,12 @@ export default class SocketController {
 
         for (const player of game.players) {
             const playerRecord = await getRepository(Player).findOne({ player_id: player.jwtData.player_id });
-
+            
             if (playerRecord) {
-                await roomPLayerRepository.insert({
+                await roomPlayerRepository.update({
                     player_id: playerRecord,
-                    room_id: game.room.room_id,
+                    room_id: game.room.room_id
+                }, {
                     points: player.points
                 });
             }

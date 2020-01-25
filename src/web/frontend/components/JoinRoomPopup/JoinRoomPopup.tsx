@@ -78,8 +78,10 @@ export default function JoinRoomPopup(props: JoinRoomPopupProps) {
           <label className={'join-room-popup__label'} htmlFor='room-password'>Password:</label>
           <input onChange={handlePassword} value={password} required type='password' className='join-room-popup__text-field' id='room-password' />
           <div className="join-room-popup__error">{error}</div>
-          <input type="submit" name="#room_code" id="Submit" value="Join Room" className='join-room-popup__btn' />
-          <Link to='/lobby'><button className='join-room-popup__btn'>Go to Lobby</button></Link>
+          <div className="join-room-popup_btn-wrap">
+            <input type="submit" name="#room_code" id="Submit" value="Join Room" className='join-room-popup__btn' />
+            <Link to='/lobby'><button className='join-room-popup__btn'>Go to Lobby</button></Link>
+          </div>
         </form>
       </React.Fragment>
       : (
