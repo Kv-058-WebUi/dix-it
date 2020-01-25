@@ -30,6 +30,8 @@ export default function JoinRoomPopup(props: JoinRoomPopupProps) {
 
           if(resData.status_code !== waitingStatus) {
             setError('Game already started.');
+          } else if(resData.active_players == resData.max_players) {
+            setError('Room is filled.');
           } else {
             setRoomData(resData);
 
