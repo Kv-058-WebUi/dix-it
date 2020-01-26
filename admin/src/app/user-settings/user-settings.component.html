@@ -1,37 +1,67 @@
-<div class="user-settings">
-    <div class="user-settings__title">
-        <p>User: {{ data.nickname }}</p>
-    </div>
-    <div class="user-settings__forms">
-        <form action="post" (ngSubmit)='updateUser(updateForm)' #updateForm='ngForm' class="user-settings__update-form">
+<main class="user-settings">
+    <figure class="user-settings__avatar">
+        <img [src]="'images/avatars/' + data.profile_picture" alt="">
+        <figcaption class="user-settings__figcaption">
+            <fa-icon
+            [icon]='faCalendar'
+            ></fa-icon>
+            <p><span> Joined </span> {{data.created_at}} </p>
+        </figcaption>  
+    </figure>
+    <section class="user-settings__section">
+        <div class="user-settings__title-buttons">
+            <button 
+            *ngIf='data.is_banned === true'
+            class="user-settings__unban-button"
+            (click)='unbanUser()'
+            matDialogClose
+            >unban</button>
+            <button (click)='dropPassword()' matDialogClose>reset password</button>
+        </div>
+        <form action="put" #updateForm='ngForm' class="user-settings__update-form">
             <div class="user-settings__form-group">
-                <label for="userForm">Nickname</label>
-                <input ngModel name="nickname"
-                id="userForm" type="text"
-                autocomplete="off" 
-                #nickname='ngModel' class="user-settings__input">
+                <label for="nickname">nickname</label>
+                <input ngModel name='nickname'
+                [(ngModel)]='data.nickname' required
+                class="user-settings__input"
+                id='nickname' #nickname='ngModel'
+                minlength="1"
+                type="text">
+                <div *ngIf='updateForm.submitted'>
+                    <div *ngIf='nickname.errors'>Pidoras</div>
+                </div>
+                <label for="email">email</label>
+                <input ngModel name='email'
+                required
+                [(ngModel)]='data.email'
+                class="user-settings__input"
+                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" 
+                id='email' #email='ngModel'
+                type="text">
             </div>
-            <div class="user-settings__form-group">
-                <label for="userForm">Email</label>
-                <input ngModel name="email"
-                id="email" type="text"
-                autocomplete="off" 
-                #email='ngModel' class="user-settings__input">
+            <div class="user-settings__submit">
+                <button (click)='updateUser(updateForm)' [disabled]='!updateForm.valid' matDialogClose>Save</button>
+                <button class="user-settings__cancel" matDialogClose >Cancel</button>
             </div>
-            <button mat-button color='primary'>Submit</button>
         </form>
-        <form action="post" class="user-settings__ban-form">
+        <form action="put" #banForm='ngForm' *ngIf='!data.is_banned' class="user-settings__ban-form">
             <div class="user-settings__form-group">
-                <label for="comment">Ban reason</label>
-                    <textarea
-                    ngModel name="banReason" 
-                    #banReason
-                    rows="7" cols="30"
-                    id="comment" placeholder="Ban reson...." 
-                    class="user-settings__textarea"></textarea>
+                <label for="banReason">Ban User</label>
+                <textarea required
+                class="user-settings__ban-reason" 
+                placeholder="Reason..." 
+                name="banReason" 
+                id="banReason" cols="30" rows="3"
+                ngModel #banReason='ngModel'
+                ></textarea>
+                <button class="user-settings__ban-button"
+                (click)='banUser(banForm.value.banReason)'
+                matDialogClose
+                [disabled]='!banForm.valid'
+                >
+                    Ban
+                </button>
             </div>
-            <button (click) = 'banUser(banReason.value)' mat-button color='warn'>BAN!</button>
         </form>
-    </div>
-    <button class="user-settings__dp-button" (click)='dropPassword()' mat-button color='accent'>Drop password</button>
-</div>
+    </section>
+</main>

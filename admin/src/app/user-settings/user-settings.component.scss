@@ -1,66 +1,129 @@
 .user-settings {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: space-around;
-    .user-settings__forms {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
+    height: 100%;
+}
+.user-settings__avatar {
+    margin: 0;
+    flex-grow: 1;
+    padding: 0px 33px 0px 0px;
+}
+.user-settings__avatar img {
+    width: 198px;
+    height: 198px;
+    border-radius: 15px;
+}
+.user-settings__figcaption {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    fa-icon {
+        color: #A8A3A9;
     }
-    .user-settings__title {
-        margin-bottom: 15px;
-        align-self: center;
-        p{
-            margin-top: 0;
-        }
+    p{
+        color: #FFFFFF;
     }
-    .user-settings__form-group {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-        textarea {
-            resize: none;
-            background: #FFFFFF;
-            border-radius: 20px;
-            outline: none;
-            font: 500 14px Montserrat, sans-serif;
-            padding: 2px 15px;
-            margin-bottom: 25px;
-        }
-        .user-settings__input {
-            background: #FFFFFF;
-            border-radius: 20px;
-            outline: none;
-            margin-bottom: 25px;
-            padding: 0 15px;
-            height: 30px;
-            font: 500 17px Montserrat, sans-serif;
-        }
+    span, p {
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 17px;
+        line-height: 24px;
     }
-    .user-settings__ban-form {
-        display: flex;
-        align-items: flex-end;
-        flex-direction: column;
-    }
-    .user-settings__dp-button {
-        width: 40%;
-        align-self: center;
+    span {
+        color: #919396;
     }
 }
-.user-settings label, p{
+.user-settings__form-group {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+.user-settings__input {
+    background: #FFFFFF;
+    border-radius: 20px;
+    outline: none;
+    padding: 0 15px;
     font-family: Roboto;
     font-style: normal;
-    font-weight: bold;
-    font-size: 20px;
-    line-height: 25px;
+    height: 50px;
+    width: 424px;
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 35px;
+    margin-bottom: 15px;
+}
+.user-settings__title-buttons {
+    display: flex;
+    justify-content: space-between;
+}
+.user-settings__form-group label {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 35px;
     display: flex;
     align-items: center;
-    text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.6);
+    text-transform: capitalize;
+    color: #FFFFFF;
     margin-bottom: 2px;
 }
 .user-settings button {
-    font-size: 25px;
+    border-radius: 12px;
+    font-size: 24px;
+    line-height: 28px;
+    height: 47px;
     padding: 7px 15px;
-    border: 1px solid;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+.user-settings__unban-button {
+    background-color: #00A86B;
+    color: #FFFFFF;
+    border: none;
+}
+.user-settings__ban-button {
+    width: 95px;
+    height: 47px;
+    background: #C32424;
+    color: #FFFFFF;
+    border: none;
+}
+.user-settings__cancel {
+    border: 3px solid #FBFBFB;
+    box-sizing: border-box;
+    background: rgba(26, 38, 54, 0.7);
+    color: #FFFFFF;
+}
+.user-settings__update-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 30px 0;
+}
+.user-settings__section {
+    display: flex;
+    flex-direction: column;
+}
+.user-settings__ban-reason {
+    border-radius: 12px;
+    outline: none;
+    resize: none;
+    padding: 0px 5px;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 35px;
+    width: 444px;
+    margin-bottom: 21px;
+}
+.user-settings__submit {
+    button{
+        margin-right: 20px;
+    }
 }

@@ -14,6 +14,7 @@ export type JwtPayload = {
   nickname: DixitUser['nickname'],
   player_id: Player['player_id'],
   authenticated: boolean,
+  is_banned: DixitUser['is_banned'],
   roles: string[]
 }
 

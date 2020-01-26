@@ -78,6 +78,7 @@ class AuthenticationController implements Controller {
             profile_picture: user.profile_picture,
             nickname: user.nickname,
             player_id: player.player_id,
+            is_banned: user.is_banned,
             roles: await this.authenticationService.getUserRolesById(user.user_id)
         };
 
@@ -113,30 +114,23 @@ class AuthenticationController implements Controller {
                 strict: true
             });
         }
-        console.log('STRANGE data',uData);
-
-            const userData: CreateUserDto = uData;
-            let user: any;
-            try {
-                user = await this.authenticationService.register(userData);
-            } catch (e) {
-                if (e instanceof UserWithThatEmailAlreadyExistsException) {
-                    response.send({ "status": "error", "reason": "Email already exists" });
-                    return;
-                }
-                if (e instanceof UserWithThatNicknameAlreadyExistsException) {
-                    response.send({ "status": "error", "reason": "Nickname already exists" });
-                    return;
-                }
+        const userData: CreateUserDto = uData;
+        let user: any;
+        try {
+            user = await this.authenticationService.register(userData);
+        } catch (e) {
+            if (e instanceof UserWithThatEmailAlreadyExistsException) {
+                response.send({ "status": "error", "reason": "Email already exists" });
+                return;
             }
-            
-            
-            const token = await this.createToken(user);
-
-            
-                        
-            response.send({ "status": "success", "jwt_token": token });
-            EmailSender.getTransporterInstance().sendConfirmationEmailToUser(userData.email, userData.nickname, token);
+            if (e instanceof UserWithThatNicknameAlreadyExistsException) {
+                response.send({ "status": "error", "reason": "Nickname already exists" });
+                return;
+            }
+        }
+        const token = await this.createToken(user);         
+        response.send({ "status": "success", "jwt_token": token });
+        EmailSender.getTransporterInstance().sendConfirmationEmailToUser(userData.email, userData.nickname, token);
     }
 
     private login = async (request: express.Request, response: express.Response, next: express.NextFunction) => {
@@ -198,6 +192,7 @@ class AuthenticationController implements Controller {
                     user_id: undefined,
                     player_id: player.player_id,
                     profile_picture: 'anonymous_user.png',
+                    is_banned: false,
                     roles: ['guest']
                 }
             }

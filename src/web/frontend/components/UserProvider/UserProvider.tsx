@@ -11,6 +11,7 @@ export type UserData = {
   nickname: DixitUser['nickname'],
   user_id?: DixitUser['user_id'],
   player_id: Player['player_id'],
+  is_banned: boolean,
   profile_picture: DixitUser['profile_picture']
 }
 

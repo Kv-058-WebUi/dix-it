@@ -4,6 +4,7 @@ import bcryptjs from 'bcryptjs'
 import Controller from '../interfaces/controller.interface';
 import {DixitUser} from '../entities/User';
 import EmailSender from '../authentication/EmailSender';
+import { fstat } from 'fs';
 
 export class UserController implements Controller {
     public path = '/users';
@@ -16,9 +17,10 @@ export class UserController implements Controller {
 
     private initializeRoutes() {
         this.router.get(this.path, this.getAllUsers);
-        this.router.put(`${this.path}/:id/ban`, this.banUser)
-        this.router.put(`${this.path}/:id`, this.updateUser)
-        this.router.get(`${this.path}/:id/dropPass`, this.dropPass)
+        this.router.put(`${this.path}/:id/ban`, this.banUser);
+        this.router.put(`${this.path}/:id/unban`, this.unbanUser);
+        this.router.put(`${this.path}/:id`, this.updateUser);
+        this.router.get(`${this.path}/:id/dropPass`, this.dropPass);
     }
 
     private getAllUsers = async (request: express.Request, response: express.Response) => {
@@ -33,7 +35,7 @@ export class UserController implements Controller {
         await this.userRepository
         .createQueryBuilder()
         .update(DixitUser)
-        .set({ is_banned: false })
+        .set({ is_banned: true })
         .where("user_id = :id", { id: id })
         .execute();
         response.status(200).end();
@@ -41,18 +43,41 @@ export class UserController implements Controller {
         .findOne({where: {user_id: id}}) as DixitUser
         EmailSender.getTransporterInstance().sendBanNotification(user, request.body.banReason);
     }
-    private updateUser = async (request: express.Request, response: express.Response, next: express.NextFunction) => {
-        const id = request.params.id
+
+    private unbanUser = async (request: express.Request, response: express.Response, next: express.NextFunction) => {
+        const id = request.params.id;
         await this.userRepository
         .createQueryBuilder()
         .update(DixitUser)
-        .set({ 
-            nickname: request.body.nickname, 
-            email: request.body.email,
-        })
+        .set({ is_banned: false })
         .where("user_id = :id", { id: id })
         .execute();
-        response.status(200).end()
+        response.status(200).end();
+        const user = await this.userRepository
+        .findOne({where: {user_id: id}}) as DixitUser
+        EmailSender.getTransporterInstance().sendBanNotification(user, undefined);
+    }
+
+    private updateUser = async (request: express.Request, response: express.Response, next: express.NextFunction) => {
+        const id = request.params.id;
+        try {
+            await this.userRepository
+            .createQueryBuilder()
+            .update(DixitUser)
+            .set({ 
+                nickname: request.body.nickname, 
+                email: request.body.email,
+            })
+            .where("user_id = :id", { id: id })
+            .execute();
+            response.status(200).end()
+        }
+        catch(error) {
+            response.send({
+                error: 'Something went wrong!'
+            })
+            console.log(error);
+        }      
     }
     private dropPass = async (request: express.Request, response: express.Response, next: express.NextFunction) => {
         const id = request.params.id;

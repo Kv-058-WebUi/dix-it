@@ -10,7 +10,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { GalleryComponent } from './gallery/gallery.component';
 import { UploadCardComponent } from './upload-card/upload-card.component';
-import { UserControllerComponent } from './user-controller/user-controller.component';
+import { UserControllerComponent, BanForm } from './user-controller/user-controller.component';
 import { AdminComponent } from './admin/admin.component';
 import { UserSettingsComponent } from './user-settings/user-settings.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -33,7 +33,8 @@ import {MatTabsModule} from '@angular/material/tabs';
     CreateNewUserComponent,
     GalleryComponent,
     UploadCardComponent,
-    AdminComponent
+    AdminComponent,
+    BanForm
   ],
   imports: [
     BrowserModule,
@@ -57,7 +58,8 @@ import {MatTabsModule} from '@angular/material/tabs';
   entryComponents: [
     UserControllerComponent,
     UserSettingsComponent,
-    CreateNewUserComponent
+    CreateNewUserComponent,
+    BanForm
   ]
 })
 export class AppModule { }

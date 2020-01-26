@@ -95,17 +95,32 @@ export default class EmailSender {
             }
         });
     }
-    public sendBanNotification(user: DixitUser, banReason: string) {
-        const mailOptions = {
-            from: EMAIL_USERNAME,
-            to: user.email,
-            subject: "Dixit - You get banned",
-            html: `<h1>Hello, ${user.nickname}</h1>
-            <br/>
-            <p>Know your place trash!</p>
-            <p>For more information <a href='mailto:name@email.com'>Contact Us</a></p>
-            <p>${banReason}</p>`
-        };
+    public sendBanNotification(user: DixitUser, banReason?: string) {
+        let mailOptions
+        if (banReason) {
+            mailOptions = {
+                from: EMAIL_USERNAME,
+                to: user.email,
+                subject: "Dixit - You got banned",
+                html: `<h1>Hello, ${user.nickname}</h1>
+                <br/>
+                <p>You were banned because were misbehaved</p>
+                <p>Have any questions? <a href='mailto:dixit.webui@gmail.com'>Contact Us</a>!</p>
+                <p>Ban reason:</p>
+                <p>${banReason}</p>`
+            };
+        }
+        else if(banReason === undefined) {
+            mailOptions = {
+                from: EMAIL_USERNAME,
+                to: user.email,
+                subject: "Dixit - You got unbanned",
+                html: `<h1>Hello, ${user.nickname}</h1>
+                <br/>
+                <p>Your account was successfully unbanned!</p>
+                <p>Good luck have fun!</p>`
+            };
+        }
         this.transporter.sendMail(mailOptions)
     }
     public sendNewPassword(user: DixitUser, password: string) {

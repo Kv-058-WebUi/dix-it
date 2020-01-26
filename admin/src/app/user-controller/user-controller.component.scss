@@ -1,7 +1,11 @@
 .user-controller__modal .mat-dialog-container  {
-    background: rgba(26, 38, 54, 0.7);
+    background: rgba(26, 38, 54, 0.9);
     border-radius: 15px;
     position: relative;
+    box-shadow: 0px 0px 20px #BDC3D1;
+}
+.user-controller__modal .mat-tab-body-content {
+    overflow: hidden;
 }
 .user-controller {
     display: flex;
@@ -11,7 +15,7 @@
     border-radius: 15px;
     padding: 0px 20px;
     height: 725px;
-    width: 850px;
+    width: 875px;
     max-width: 1325px;
     max-height: 725px;
     .user-controller__header {
@@ -72,24 +76,30 @@
     }
     .user-controller__table-wrapper {
         display: flex;
+        height: 595px;
         flex-grow: 1;
+        overflow-y: auto;
+        overflow-x: hidden;
     }
     .user-controller__table {
         display: flex;
         flex-direction: column;
-        
+        padding-right: 20px;
         .user-controller__table-row-wrapper {
             display: flex;
             flex-direction: row;
             justify-content: center;
             .user-controller__icons {
                 color: #FFFFFF;
-                margin: 11px 0px 0px 10px;
+                margin-left: 10px;
+                margin-bottom: 5px;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-around;
                 fa-icon {
                     cursor: pointer;
                 }
             }
-
         }
     }
     .user-controller__footer {
@@ -107,7 +117,7 @@
             button{
                 font-size: 25px;
                 padding: 7px 15px;
-                margin: 0px 10px 10px 0px;
+                margin: 5px 15px 5px 0px;
             }
         }
     }

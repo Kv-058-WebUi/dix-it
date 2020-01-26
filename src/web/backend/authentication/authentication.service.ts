@@ -145,7 +145,6 @@ class AuthenticationService {
             roles.push('guest');
         } else {
             if(user.nickname == 'Ricardos') {
-                //hardcoded admin
                 roles.push('admin');
             }
             roles.push('user');
