@@ -14,6 +14,7 @@ export type UserData = {
   lastonline: DixitUser['lastonline'],
   created_at: DixitUser['created_at'],
   player_id: Player['player_id'],
+  is_banned: boolean,
   profile_picture: DixitUser['profile_picture']
 }
 

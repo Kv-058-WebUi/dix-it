@@ -1,0 +1,29 @@
+<div class="create-user">
+    <form action="post" class="create-user__form" #createUserForm='ngForm'>
+        <div class="create-user__form-group">
+            <label for="nickname">Nickname</label>
+            <input ngModel name="nickname"
+            required
+            type="text" id="nickname"
+            class="create-user__input"
+            autocomplete="off"
+            #nickname='ngModel'
+            >
+        </div>
+        <div class="create-user__form-group">
+            <label for="email">Email</label>
+            <input ngModel name='email'
+            required
+            type="email" id="email" 
+            class="create-user__input"
+            #email = 'ngModel'
+            autocomplete='off'
+            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" 
+            >
+        </div>
+        <div class="create-user__submit">
+            <button (click)='createUser(createUserForm)' matDialogClose [disabled]='!createUserForm.valid'>Create user</button>
+            <button matDialogClose class="create-user__cancel-button" matDialogClose>Cancel</button>
+        </div>
+    </form>
+</div>

@@ -37,7 +37,6 @@ class AuthenticationService {
         const defaultImage = 'anonymous_user.png';
         const image = `${name}.png`;
         const filePath = path.resolve(`public/images/avatars/${name}.png`);
-
         return new Promise((resolve, reject) => {
             urlFileSaver(url, filePath)
                 .then(()=>{resolve(image)})
@@ -146,7 +145,6 @@ class AuthenticationService {
             roles.push('guest');
         } else {
             if(user.nickname == 'Ricardos') {
-                //hardcoded admin
                 roles.push('admin');
             }
             roles.push('user');
