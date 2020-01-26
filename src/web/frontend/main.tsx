@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import MainPage from './components/MainPage/MainPage';
 import Lobby from './components/Lobby/Lobby';
 import GamePage from "./components/GamePage/gamepage";
+import UserProfile from "./components/UserProfile/UserProfile"
 import UserProvider from './components/UserProvider/UserProvider';
 import {
     BrowserRouter as Router,
@@ -28,6 +29,9 @@ const App = () => {
                         </Route>
                         <Route path="/lobby">
                             <Lobby />
+                        </Route>
+                        <Route path="/profile">
+                            <UserProfile />
                         </Route>
                         <Route path="/">
                             <MainPage />
