@@ -9,6 +9,7 @@ import ModalWindow from "../ModalWindow/ModalWindow";
 import './create-room-popup.scss';
 import axios from "axios";
 import UserProvider from '../UserProvider/UserProvider';
+import { RoomData } from '../../../common/helpers';
 
 export default function CreateRoomPopup() {
 
@@ -110,7 +111,8 @@ export default function CreateRoomPopup() {
       is_private: !disabled,
       password: password,
     }).then((response) => {
-      location.href = '/game';
+      const roomData = response.data as RoomData;
+      location.href = '/game/' + roomData.room_code;
       console.log(response)
     }).catch((error) => {
       console.log('error');
