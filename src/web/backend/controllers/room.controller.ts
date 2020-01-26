@@ -1,5 +1,5 @@
 import * as express from 'express';
-import { getRepository, getConnection } from 'typeorm';
+import { getRepository, getConnection, In } from 'typeorm';
 import Controller from '../interfaces/controller.interface';
 import { Room } from '../entities/Room';
 import CreateRoomDto from '../dto/room.dto';
@@ -11,7 +11,7 @@ import { RoomPlayer } from '../entities/RoomPlayers';
 import { Player } from '../entities/Player';
 import { uniqueNamesGenerator, Config as NamesConfig, adjectives, colors } from 'unique-names-generator';
 import countries from '../helpers/countries-dictionary';
-import { ROOM_STATUSES } from '../../common/helpers/';
+import { ROOM_STATUSES, RoomData } from '../../common/helpers/';
 
 export default class RoomController implements Controller {
     public path = '/rooms';
@@ -89,8 +89,19 @@ export default class RoomController implements Controller {
             if (!err && !info) {
                 const rooms = await this.roomRepository.find({ where: { status: 2, is_private: false } });
                 let room_code: string;
+                let availableRooms: Room[] = [];
 
                 if(rooms.length > 0) {
+                    const roomIds = rooms.map(room => room.room_id);
+                    const roomsPlayers = await getRepository(RoomPlayer).find({ where: { room_id: In(roomIds) } });
+
+                    availableRooms = rooms.filter(room => {
+                        let roomPLayers = roomsPlayers.filter(roomPlayer => roomPlayer.room_id == room.room_id);
+                        return roomPLayers.length < room.max_players;
+                    });
+                }
+
+                if(availableRooms.length > 0) {
                     const roomIndex = Math.floor(Math.random() * rooms.length);
                     room_code = rooms[roomIndex].room_code;
                 } else {
@@ -151,10 +162,13 @@ export default class RoomController implements Controller {
             return;
         }
 
-        const roomData = {
+        const roomPlayers = await getRepository(RoomPlayer).find({ where: { room_id: room.room_id } });
+
+        const roomData : RoomData = {
             room_code: room.room_code,
             name: room.name,
             max_players: room.max_players,
+            active_players: roomPlayers.length,
             is_private: room.is_private,
             creator: {
                 player_id: room.creator_id.player_id,

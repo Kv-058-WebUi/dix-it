@@ -16,6 +16,7 @@ import { UserSettingsComponent } from './user-settings/user-settings.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
 import { CreateNewUserComponent } from './create-new-user/create-new-user.component'
+import { ReviewCardsListComponent } from './review-cards-list/review-cards-list.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { ScrollingModule } from '@angular/cdk/scrolling';
@@ -27,6 +28,7 @@ import { ForbiddenComponent } from './forbidden/forbidden.component';
 @NgModule({
   declarations: [
     AppComponent,
+    userControllerGUI
     UploadCardComponent,
     UserControllerComponent,
     AdminComponent,
@@ -35,6 +37,8 @@ import { ForbiddenComponent } from './forbidden/forbidden.component';
     GalleryComponent,
     UploadCardComponent,
     AdminComponent,
+    ReviewCardsListComponent,
+    GalleryComponent,
     ForbiddenComponent
   ],
   imports: [
