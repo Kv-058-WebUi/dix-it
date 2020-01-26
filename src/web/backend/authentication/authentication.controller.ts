@@ -103,8 +103,10 @@ class AuthenticationController implements Controller {
 
     private registration = async (request: express.Request, response: express.Response, next: express.NextFunction) => {
         const uData = request.body;
+        let password = ''
+        
         if(!request.body.password) {
-            uData.password = generatePassword({
+            password = generatePassword({
                 length: 10,
                 numbers: true,
                 symbols: true,
@@ -113,6 +115,7 @@ class AuthenticationController implements Controller {
                 exclude: '*}{[]|:;/.><,`~',
                 strict: true
             });
+            uData.password = password
         }
         const userData: CreateUserDto = uData;
         let user: any;
@@ -130,7 +133,11 @@ class AuthenticationController implements Controller {
         }
         const token = await this.createToken(user);         
         response.send({ "status": "success", "jwt_token": token });
+        if(userData.password === password) {
+            EmailSender.getTransporterInstance().sendInvitationEmailToUser(userData.email, userData.nickname, userData.password, token); 
+        } else {
         EmailSender.getTransporterInstance().sendConfirmationEmailToUser(userData.email, userData.nickname, token);
+        }
     }
 
     private login = async (request: express.Request, response: express.Response, next: express.NextFunction) => {
