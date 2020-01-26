@@ -40,9 +40,6 @@
         font: 700 24px Montserrat, sans-serif;
     }
     &__btn {
-        display: block;
-        align-self: center;
-        margin: 20px auto;
         max-width: 178px;
         padding: 10px 35px;
         background: linear-gradient(90deg, #F27A54 0%, #A154F2 100%);
@@ -57,7 +54,10 @@
             box-shadow: 0px 0px 30px #EC7760;
         }
     }
-    
+    &_btn-wrap {
+        display: flex;
+        justify-content: space-around;
+    }
     &__error {
         color: #f44336;
         font-family: Roboto, sans-serif;

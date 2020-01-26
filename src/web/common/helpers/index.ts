@@ -25,6 +25,7 @@ export type RoomData = {
   name: string,
   room_code: string,
   max_players: number,
+  active_players: number,
   is_private: boolean,
   creator: {
     player_id: number,

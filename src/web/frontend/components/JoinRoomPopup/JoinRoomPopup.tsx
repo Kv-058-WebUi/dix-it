@@ -30,6 +30,8 @@ export default function JoinRoomPopup(props: JoinRoomPopupProps) {
 
           if(resData.status_code !== waitingStatus) {
             setError('Game already started.');
+          } else if(resData.active_players == resData.max_players) {
+            setError('Room is filled.');
           } else {
             setRoomData(resData);
 
@@ -54,8 +56,8 @@ export default function JoinRoomPopup(props: JoinRoomPopupProps) {
       .then((response) => {
         if (response.data.error) {
           setError(response.data.error);
-        } else {
-          props.onJoinModalUpdate(true,  roomData);
+        } else if(roomData) {
+            props.onJoinModalUpdate(true, roomData);
         }
       }).catch((error) => {
         console.log(error);
@@ -76,15 +78,19 @@ export default function JoinRoomPopup(props: JoinRoomPopupProps) {
           <label className={'join-room-popup__label'} htmlFor='room-password'>Password:</label>
           <input onChange={handlePassword} value={password} required type='password' className='join-room-popup__text-field' id='room-password' />
           <div className="join-room-popup__error">{error}</div>
-          <input type="submit" name="#room_code" id="Submit" value="Join Room" className='join-room-popup__btn' />
-          <Link to='/lobby'><button className='join-room-popup__btn'>Go to Lobby</button></Link>
+          <div className="join-room-popup_btn-wrap">
+            <input type="submit" name="#room_code" id="Submit" value="Join Room" className='join-room-popup__btn' />
+            <Link to='/lobby'><button className='join-room-popup__btn'>Go to Lobby</button></Link>
+          </div>
         </form>
       </React.Fragment>
       : (
         error ?
         <React.Fragment> 
           <div className="join-room-popup__error">{error}</div>
-          <button onClick={()=>{location.href='/lobby'}} className='join-room-popup__btn'>Go to Lobby</button>
+          <div className="join-room-popup_btn-wrap">
+            <button onClick={()=>{location.href='/lobby'}} className='join-room-popup__btn'>Go to Lobby</button>
+          </div>
         </React.Fragment>
         : '')
       }
