@@ -75,8 +75,8 @@ class AuthenticationController implements Controller {
         }
         const payload: JwtPayload = {
             email: user.email,
-            created_at: user.created_at.toISOString(),
-            lastonline: user.lastonline.toISOString(),
+            created_at: new Date(user.created_at).toISOString(),
+            lastonline: new Date(user.lastonline).toISOString(),
             authenticated: true,
             user_id: user.user_id,
             profile_picture: user.profile_picture,
@@ -152,6 +152,7 @@ class AuthenticationController implements Controller {
             response.send({ "jwt_token": token });
         } catch (error) {
             let message = 'Oh, noes! Something went wrong.';
+            message = error.name + error.message
 
             console.log(error);
             if (error instanceof UserInvalidPasswordException ||
