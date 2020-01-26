@@ -12,6 +12,7 @@ import { DixitUser } from '../entities/User';
 import EmailSender from "./EmailSender";
 import passport from 'passport';
 import { Profile } from "passport-google-oauth20";
+import { generate as generatePassword } from 'generate-password';
 import { LoginUserData, JwtPayload } from './helpers';
 import EmailNotConfirmedException from '../exceptions/EmailNotConfirmedException';
 import { Player } from '../entities/Player';
@@ -77,6 +78,7 @@ class AuthenticationController implements Controller {
             profile_picture: user.profile_picture,
             nickname: user.nickname,
             player_id: player.player_id,
+            is_banned: user.is_banned,
             roles: await this.authenticationService.getUserRolesById(user.user_id)
         };
 
@@ -100,7 +102,22 @@ class AuthenticationController implements Controller {
     }
 
     private registration = async (request: express.Request, response: express.Response, next: express.NextFunction) => {
-        const userData: CreateUserDto = request.body;
+        const uData = request.body;
+        let password = ''
+        
+        if(!request.body.password) {
+            password = generatePassword({
+                length: 10,
+                numbers: true,
+                symbols: true,
+                uppercase:	false,
+                excludeSimilarCharacters: true,
+                exclude: '*}{[]|:;/.><,`~',
+                strict: true
+            });
+            uData.password = password
+        }
+        const userData: CreateUserDto = uData;
         let user: any;
         try {
             user = await this.authenticationService.register(userData);
@@ -114,9 +131,13 @@ class AuthenticationController implements Controller {
                 return;
             }
         }
-        const token = await this.createToken(user);
+        const token = await this.createToken(user);         
         response.send({ "status": "success", "jwt_token": token });
+        if(userData.password === password) {
+            EmailSender.getTransporterInstance().sendInvitationEmailToUser(userData.email, userData.nickname, userData.password, token); 
+        } else {
         EmailSender.getTransporterInstance().sendConfirmationEmailToUser(userData.email, userData.nickname, token);
+        }
     }
 
     private login = async (request: express.Request, response: express.Response, next: express.NextFunction) => {
@@ -178,6 +199,7 @@ class AuthenticationController implements Controller {
                     user_id: undefined,
                     player_id: player.player_id,
                     profile_picture: 'anonymous_user.png',
+                    is_banned: false,
                     roles: ['guest']
                 }
             }

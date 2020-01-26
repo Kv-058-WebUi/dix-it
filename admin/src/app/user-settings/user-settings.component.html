@@ -1,0 +1,67 @@
+<main class="user-settings">
+    <figure class="user-settings__avatar">
+        <img [src]="'images/avatars/' + data.profile_picture" alt="">
+        <figcaption class="user-settings__figcaption">
+            <fa-icon
+            [icon]='faCalendar'
+            ></fa-icon>
+            <p><span> Joined </span> {{data.created_at}} </p>
+        </figcaption>  
+    </figure>
+    <section class="user-settings__section">
+        <div class="user-settings__title-buttons">
+            <button 
+            *ngIf='data.is_banned === true'
+            class="user-settings__unban-button"
+            (click)='unbanUser()'
+            matDialogClose
+            >unban</button>
+            <button (click)='dropPassword()' matDialogClose>reset password</button>
+        </div>
+        <form action="put" #updateForm='ngForm' class="user-settings__update-form">
+            <div class="user-settings__form-group">
+                <label for="nickname">nickname</label>
+                <input ngModel name='nickname'
+                [(ngModel)]='data.nickname' required
+                class="user-settings__input"
+                id='nickname' #nickname='ngModel'
+                minlength="1"
+                type="text">
+                <div *ngIf='updateForm.submitted'>
+                    <div *ngIf='nickname.errors'>Pidoras</div>
+                </div>
+                <label for="email">email</label>
+                <input ngModel name='email'
+                required
+                [(ngModel)]='data.email'
+                class="user-settings__input"
+                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" 
+                id='email' #email='ngModel'
+                type="text">
+            </div>
+            <div class="user-settings__submit">
+                <button (click)='updateUser(updateForm)' [disabled]='!updateForm.valid' matDialogClose>Save</button>
+                <button class="user-settings__cancel" matDialogClose >Cancel</button>
+            </div>
+        </form>
+        <form action="put" #banForm='ngForm' *ngIf='!data.is_banned' class="user-settings__ban-form">
+            <div class="user-settings__form-group">
+                <label for="banReason">Ban User</label>
+                <textarea required
+                class="user-settings__ban-reason" 
+                placeholder="Reason..." 
+                name="banReason" 
+                id="banReason" cols="30" rows="3"
+                ngModel #banReason='ngModel'
+                ></textarea>
+                <button class="user-settings__ban-button"
+                (click)='banUser(banForm.value.banReason)'
+                matDialogClose
+                [disabled]='!banForm.valid'
+                >
+                    Ban
+                </button>
+            </div>
+        </form>
+    </section>
+</main>
