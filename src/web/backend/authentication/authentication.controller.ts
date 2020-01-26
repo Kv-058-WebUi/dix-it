@@ -102,7 +102,7 @@ class AuthenticationController implements Controller {
             next();
         }
         
-        response.redirect(`${CLIENT_URL}:${CLIENT_PORT}/`);
+        response.redirect(`${CLIENT_URL}`);
     }
 
     private registration = async (request: express.Request, response: express.Response, next: express.NextFunction) => {
