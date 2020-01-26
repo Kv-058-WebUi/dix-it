@@ -13,11 +13,12 @@ import EmailSender from "./EmailSender";
 import passport from 'passport';
 import { Profile } from "passport-google-oauth20";
 import { generate as generatePassword } from 'generate-password';
-import { LoginUserData, JwtPayload } from './helpers';
+import { LoginUserData } from './helpers';
 import EmailNotConfirmedException from '../exceptions/EmailNotConfirmedException';
 import { Player } from '../entities/Player';
 import { getRepository } from 'typeorm';
 import { uniqueNamesGenerator, Config as NamesConfig, adjectives, animals } from 'unique-names-generator';
+import { JwtPayload } from '../../common/helpers';
 
 
 class AuthenticationController implements Controller {
@@ -69,10 +70,13 @@ class AuthenticationController implements Controller {
     private async createToken(user: DixitUser) {
         let player = await getRepository(Player).findOne({user_id: user});
         if(!player) {
-            player = await getRepository(Player).create({user_id: user, nickname: user.nickname});
+            player = getRepository(Player).create({user_id: user, nickname: user.nickname});
             await getRepository(Player).save(player);
         }
         const payload: JwtPayload = {
+            email: user.email,
+            created_at: user.created_at.toISOString(),
+            lastonline: user.lastonline.toISOString(),
             authenticated: true,
             user_id: user.user_id,
             profile_picture: user.profile_picture,
@@ -186,7 +190,20 @@ class AuthenticationController implements Controller {
         passport.authenticate('jwt', { session: false }, async (err, user, info) => {
             let payload : JwtPayload;
             if (!err && !info) {
+                const userRepository = getRepository(DixitUser);
+                const currentDate = new Date();
+
                 payload = user;
+                payload.lastonline = currentDate.toISOString();
+                
+                userRepository
+                    .findOne({ user_id: user.user_id })
+                    .then(userRecord => {
+                        if (userRecord) {
+                            userRecord.lastonline = currentDate;
+                            userRepository.save(userRecord);
+                        }
+                    })
             } else {
                 //create new identity for guest user
                 const playerRepository = getRepository(Player);
@@ -200,6 +217,9 @@ class AuthenticationController implements Controller {
                     player_id: player.player_id,
                     profile_picture: 'anonymous_user.png',
                     is_banned: false,
+                    lastonline: (new  Date()).toISOString(),
+                    created_at: (new Date()).toISOString(),
+                    email: '',
                     roles: ['guest']
                 }
             }
