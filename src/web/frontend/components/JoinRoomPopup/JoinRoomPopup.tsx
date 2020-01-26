@@ -4,8 +4,10 @@ import './join-room-popup.scss';
 import axios from "axios";
 import { useParams, Link } from 'react-router-dom';
 import { RoomData } from '../../../common/helpers';
+import { UserData } from '../UserProvider/UserProvider';
 
 type JoinRoomPopupProps = {
+  user: UserData | null;
   onJoinModalUpdate: (isClosed: boolean, room: RoomData) => void;
 }
 
@@ -35,7 +37,8 @@ export default function JoinRoomPopup(props: JoinRoomPopupProps) {
           } else {
             setRoomData(resData);
 
-            if(resData.is_private === false) {
+            const isCreator = props.user && (resData.creator.player_id === props.user.player_id);
+            if(resData.is_private === false || isCreator) {
               props.onJoinModalUpdate(true, resData);
             }
           }
@@ -44,7 +47,7 @@ export default function JoinRoomPopup(props: JoinRoomPopupProps) {
         console.log(error);
         setError('Oh Noes! Something went wrong :(');
       });
-  }, []);
+  }, [props.user]);
 
   const handlePassword = (event: any) => {
     setPassword(event.target.value);
