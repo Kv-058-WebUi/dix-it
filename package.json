@@ -65,6 +65,7 @@
     "webpack-dev-server": "^3.9.0"
   },
   "dependencies": {
+    "@angular/cdk": "^8.2.3",
     "@material-ui/core": "^4.8.3",
     "@material-ui/icons": "^4.5.1",
     "@material-ui/styles": "^4.8.2",
@@ -85,6 +86,7 @@
     "classnames": "^2.2.6",
     "cookie": "^0.4.0",
     "cors": "^2.8.5",
+    "cropperjs": "^1.5.6",
     "dotenv": "^8.2.0",
     "dotenv-webpack": "^1.7.0",
     "ejs": "^2.7.1",
@@ -93,6 +95,8 @@
     "generate-password": "^1.4.2",
     "jsonwebtoken": "^8.5.1",
     "jwt-decode": "^2.2.0",
+    "mime": "^2.4.4",
+    "ngx-scroll-event": "^1.0.8",
     "nodemailer": "^6.4.1",
     "passport": "^0.4.0",
     "passport-google-oauth20": "^2.0.0",

@@ -1,0 +1,35 @@
+.gallery-container {
+    width: 50vw;
+    margin: 23px auto;
+    background-color: rgba(26, 38, 54, 0.7);
+    border-radius: 5px;
+}
+.scroll-container {
+    width: 45vw;
+    height: 400px;
+    padding: 20px;
+    overflow: scroll;
+    margin: auto;
+}
+.gallery-card {
+    position: relative;
+    z-index: 0;
+    border-radius: 15px;
+    height: 140px;
+    width: 100px;
+}
+.scroll-message {
+    text-align: center;
+    padding: 5px 0;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 20px;
+    font-weight: 500;
+}
+.delete {
+    position: absolute;
+    z-index: 1;
+    top: 5px;
+    right: 1px;
+    background: none;
+    border: none;
+}
