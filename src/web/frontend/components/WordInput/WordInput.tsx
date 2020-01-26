@@ -13,10 +13,15 @@ interface wordInputInterface {
 const WordInput = (props: wordInputInterface) => {
     const width = '400px';
     const height = '50px';
+    let word = '';
     const sendWordToParent = (e: any) => {
         if(e.key === 'Enter') {
             const input = document.querySelector('.wordInput') as HTMLInputElement;
             if(input.value != '') {
+                if (localStorage.getItem('word')!=null){
+                 word = localStorage.getItem('word');}
+                 word = word + ' ' + input.value;
+                 localStorage.setItem('word', word);
                 props.onWordInput(input.value);
                 props.socket.emit('New Word From StoryTeller', input.value);
                 props.restartTimer();

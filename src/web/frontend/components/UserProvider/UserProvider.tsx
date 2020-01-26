@@ -10,6 +10,9 @@ export type UserData = {
   authenticated: boolean,
   nickname: DixitUser['nickname'],
   user_id?: DixitUser['user_id'],
+  email: DixitUser['email'],
+  lastonline: DixitUser['lastonline'],
+  created_at: DixitUser['created_at'],
   player_id: Player['player_id'],
   profile_picture: DixitUser['profile_picture']
 }
@@ -19,11 +22,16 @@ type ContextData = {
   updateContext: () => void
 }
 
-let defaultUser: JwtPayload | null = null;
+let defaultUser: UserData | null = null;
 let token = localStorage.getItem('jwt_token');
 
 if(token) {
   defaultUser = jwt_decode(token);
+  if (defaultUser) {
+  defaultUser.email ='123@gmail.com'
+  defaultUser.created_at = new Date()
+  defaultUser.lastonline = new Date()
+  }
 }
 
 const contextProps: ContextData = {
@@ -49,10 +57,16 @@ const UserProvider = ({ children }: any) => {
     axios.post('/api/auth/user', null, { headers: {"Authorization" : `Bearer ${token}`} })
       .then(res => {
         const decoded: JwtPayload = jwt_decode(res.data.jwt_token);
+        const mapped : UserData = {
+          ...decoded,
+          created_at: new Date(),
+          lastonline: new Date(),
+          email:'123@gmail.com',
+};
 
-        if(decoded === defaultUser) {
-          return;
-        }
+        // if(decoded === defaultUser) {
+        //   return;
+        // }
 
         if (decoded.authenticated) {
           axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
@@ -60,7 +74,7 @@ const UserProvider = ({ children }: any) => {
           delete axios.defaults.headers.common["Authorization"];
           localStorage.setItem('jwt_token', res.data.jwt_token);
         }
-        setUser(decoded);
+        setUser(mapped);
       })
       .catch((error) => {
         console.log(error);
