@@ -2,12 +2,12 @@
     import UserProvider from '../../UserProvider/UserProvider';
     import path from 'path';
     import './UserProfileWindow.scss'
-    import ReactWordcloud from 'react-wordcloud'
+    import ReactWordcloud , {MinMaxPair, OptionsProp, Scale, Spiral} from 'react-wordcloud'
     import ReactTooltip from 'react-tooltip'
 
 
 
-    const options = {
+    const options: OptionsProp = {
         enableTooltip: false,
         deterministic: false,
         fontFamily: 'Roboto',
@@ -16,12 +16,12 @@
         fontWeight: 'normal',
         rotations: 3,
         rotationAngles: [-90, 90],
-        scale: 'sqrt',
-        spiral: 'archimedean',
+        scale: Scale.Sqrt,
+        spiral: Spiral.Archimedean,
         transitionDuration: 2000,
     };
 
-    const size = [1400,350]
+    const size:MinMaxPair = [1400,350]
     var localwords = localStorage.getItem('word');
     if (!localwords){localwords ='word word'}
     var arraywords = localwords.split(' ');
