@@ -41,6 +41,12 @@ class App {
     this.app.use('/api', new CardDeckController().router);
     this.app.use('/api', new ReviewCardsController().router);
     this.app.use('/api', new UploadCardController().router);
+
+    this.app.use("/ng", express.static(path.resolve(`${__dirname}/../admin`)));
+    this.app.get("/ng/*", (req, res) => {
+      res.sendFile(path.resolve(`${__dirname}/../admin/index.html`));
+    });
+
     this.app.get("/*", (req, res) => {
       res.render("index");
     });
