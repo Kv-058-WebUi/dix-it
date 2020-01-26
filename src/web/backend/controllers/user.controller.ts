@@ -4,7 +4,6 @@ import bcryptjs from 'bcryptjs'
 import Controller from '../interfaces/controller.interface';
 import {DixitUser} from '../entities/User';
 import EmailSender from '../authentication/EmailSender';
-import { fstat } from 'fs';
 
 export class UserController implements Controller {
     public path = '/users';

@@ -31,19 +31,19 @@ export class UserSettingsService {
   dropPassword(id: number) {
     return this.http.get(`${this.url}/${id}/dropPass`)
     .subscribe(res => {
-      console.log('password was dropped');
+  
     })
   }
   banUser(id:number, banReason) {
     return this.http.put(`${this.url}/${id}/ban`, {banReason: banReason})
     .subscribe((res) => {
-      console.log('done Ban');
+    
     })
   }
   unbanUser(id:number) {
     return this.http.put(`${this.url}/${id}/unban`, null)
     .subscribe((res) => {
-      console.log('undone Ban');
+      
     })
   }
 }

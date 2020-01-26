@@ -15,7 +15,7 @@ export class CreateNewUserService {
   public createUser(reqBody) {
     return this.http.post(this.url, reqBody)
     .subscribe(res => {
-      console.log('user has been created');
+
     })
   }
 }

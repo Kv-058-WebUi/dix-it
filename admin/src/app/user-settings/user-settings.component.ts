@@ -24,7 +24,6 @@ export class UserSettingsComponent implements OnInit {
   public faCalendar = faCalendarAlt
     
   public updateUser(form: NgForm) {
-    console.log(form.value);
     this.userSettingsService.updateUser(this.data, form.value)
   }
 

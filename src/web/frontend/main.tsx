@@ -25,7 +25,7 @@ const App = () => {
                                 (context.user && context.user.is_banned) ? <BannedScreen/> : (
                                 <Router>
                                     <Switch>
-                                        <Route path="/game">
+                                        <Route path="/game/:room_code">
                                                 {context.user ? <GamePage socket={ socket } user={ context.user }/> : ''}
                                         </Route>
                                         <Route path="/lobby">

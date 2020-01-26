@@ -1,28 +1,31 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import PushedCards from '../PushedCards/PushedCards';
 import Hand from '../Hand/Hand';
 import SettingsIcon from '@material-ui/icons/Settings';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
-import axios from 'axios';
 import UpBar from "../UpBar/UpBar";
-import { Card } from '@material-ui/core';
 import WordInput from '../WordInput/WordInput';
+import { submitWord } from '../../redux/actions/submitWord';
+import { submitCard } from '../../redux/actions/submitCard';
+import { startGame } from '../../redux/actions/startGame';
+import { connect } from 'react-redux';
+import { CombinedStateInterface } from '../../redux/reducer/combineReducer';
+import CallToAction from '../GamePage/CallToAction';
 
 type GameBoardProps = {
-    socket: SocketIOClient.Socket
+    socket: SocketIOClient.Socket,
+    canStartGame: boolean,
+    canSubmitWord: boolean,
+    submitWord: (word: string) => void,
+    submitCard: (card: CardType) => void,
+    startGame: () => void,
 };
 
 type GameBoardState = {
-    users: Users[],
-    cards: CardType[],
-    pushedCards: CardType[],
     showMenu: boolean,
     isCardPushed: boolean,
     isInputVisible: boolean,
-    word: string,
-    timerState: number
 };
 
 export type RestartTimer = () => void;
@@ -41,33 +44,14 @@ export interface CardType {
     card_path: string;
 }
 
-export default class GameBoard extends Component <GameBoardProps, GameBoardState> {
+class GameBoard extends Component <GameBoardProps, GameBoardState> {
     constructor(props: GameBoardProps) {
         super(props);
         this.state = {
-            users: [],
-            cards: [],
-            pushedCards: [],
             isInputVisible: false,
-            word: 'Choose your card',
             showMenu: false,
             isCardPushed: false,
-            timerState: 0
         };
-    }
-
-    componentWillMount() {
-        Promise.all([
-            axios.get('/api/demo/serve'),
-            axios.get('/api/demo/players'),
-        ]).then(([
-            cardsResp,
-            playersResp,
-        ]) => this.setState({
-            cards: cardsResp.data,
-            users: playersResp.data,
-        }));
-        this.props.socket.on('New Word From StoryTeller', this.handleWord);
     }
 
     toggleMenu() {
@@ -96,45 +80,16 @@ export default class GameBoard extends Component <GameBoardProps, GameBoardState
         }
     }
     handleWord = (wordValue: string) => {
-        this.setState({word: wordValue})
+        this.props.submitWord(wordValue);
     };
 
-    restartTimer = () => {
-        this.setState({timerState: 0});
-    }
-
-    timerPlusPlus = (diff: number) => {
-        let {timerState} = this.state
-        this.setState({
-            timerState: timerState + diff
-        })
-    }
+    handleStartGame = () => {
+        this.props.startGame();
+    };
 
     pushCardFn = (card: CardType) => {
-        const { pushedCards, isCardPushed } = this.state;
-        pushedCards.push(card);
-        this.setState({
-            pushedCards,
-            isCardPushed: true
-        });
-
-        const cardMessage: CardType = {
-            card_id: card.card_id,
-            card_path: card.card_path
-        };
-
-        this.props.socket.emit('send pushed card', cardMessage);
-        console.log('pushed card emitted');
-        this.setInputVisible(true);
-    }
-
-    componentDidMount = ()  => {
-        this.props.socket.on('new card', this.handleNewCard);
-    }
-
-    handleNewCard = (newCard: CardType) => {
-        console.log('recieved card on FE', newCard)
-        this.setState({ pushedCards: [...this.state.pushedCards, newCard] });
+        this.props.submitCard(card);
+        console.log(card, 'in component')
     }
 
     setInputVisible = (status: boolean) => {
@@ -142,40 +97,24 @@ export default class GameBoard extends Component <GameBoardProps, GameBoardState
     };
 
     render() {
-        const { users, isCardPushed, pushedCards, cards } = this.state;
         return (
             <React.Fragment>
-                    <UpBar word={this.state.word}
-                       socket = {this.props.socket}
-                       timerState = {this.state.timerState}
-                       timerPlusPlus = {this.timerPlusPlus}
-                       restartTimer = {this.restartTimer}
-                    />
-                    <PushedCards users={users} pushedCards={pushedCards} />
-
-                    { users.length ?
-                        <Hand cards={cards}
-                            pushCard={this.pushCardFn}
-                            isCardPushed={isCardPushed}/>
-                    : '' }
-
-                    { isCardPushed ?
-                         pushedCards.map((item:CardType, index:number) => {
-                            const cardID = item.card_id;
-                            cards.map((item:CardType, index:number) => {
-                                if (item.card_id === cardID) {
-                                    cards.splice(index, 1)
-                                }
-                            })
-                        })
-                    : '' }
+                <UpBar />
+                <PushedCards />
+                {
+                    this.props.canStartGame ?
+                    <div className="start-game-button-wrapper">
+                        <button className='start-game-button' onClick={this.handleStartGame}>Start Game</button>
+                    </div> :
+                    <React.Fragment>
+                        <Hand pushCard={this.pushCardFn}/> 
+                        <CallToAction />
+                    </React.Fragment>
+                }
 
                     {
-                   this.state.isInputVisible ? (<WordInput
-                       visibility={this.setInputVisible}
+                   this.props.canSubmitWord ? (<WordInput
                        onWordInput = {this.handleWord}
-                       socket = {this.props.socket}
-                       restartTimer = {this.restartTimer}
                    />) : null
                     }
 
@@ -189,3 +128,18 @@ export default class GameBoard extends Component <GameBoardProps, GameBoardState
         );
     }
 }
+
+function mapStateToProps(state: CombinedStateInterface) {
+    return {
+        canStartGame: state.gamePageStore.canStartGame,
+        canSubmitWord: state.gamePageStore.canSubmitWord,
+    }
+}
+
+const mapDispatchToProps = (dispatch: any) => ({
+    startGame: () => dispatch(startGame()),
+    submitWord: (word: string) => dispatch(submitWord(word)),
+    submitCard: (card: CardType) => dispatch(submitCard(card)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(GameBoard)
