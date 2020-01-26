@@ -6,6 +6,7 @@ import bodyParser from "body-parser";
 import { UserController } from "./backend/controllers/user.controller";
 import { DemoController } from "./backend/controllers/demo.controller";
 import { CardDeckController } from "./backend/controllers/cardDeck.controller";
+import UploadCardController from "./backend/controllers/uploadCard.controller";
 
 import cors from "cors";
 import io from "socket.io"
@@ -36,6 +37,7 @@ class App {
     this.app.use('/api', new UserController().router);
     this.app.use('/api', new DemoController().router);
     this.app.use('/api', new CardDeckController().router);
+    this.app.use('/api', new UploadCardController().router);
     this.app.get("/*", (req, res) => {
       res.render("index");
     });

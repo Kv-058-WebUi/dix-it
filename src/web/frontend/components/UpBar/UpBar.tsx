@@ -2,28 +2,27 @@ import React from 'react';
 import './UpBar.scss';
 import LinearDeterminate from './TimerBar/TimerBar'
 import {WordBar, wordParams} from './WordBar/WordBar';
+import { CombinedStateInterface } from '../../redux/reducer/combineReducer';
+import { connect } from 'react-redux';
 
-interface word {
-    word: string;
-  }
+class UpBar extends React.Component<any, any>  {
 
-
-export default class UpBar extends React.Component<any, word>  {
-
-    constructor(props: word) {
+    constructor(props: any) {
         super(props)
     }
 
     render() {
         return (
             <div className="Wordclass">
-                <WordBar word={this.props.word}/>
-                <LinearDeterminate socket = {this.props.socket}
-                timerState = {this.props.timerState}
-                timerPlusPlus = {this.props.timerPlusPlus}
-                restartTimer = {this.props.restartTimer}
-                />
+                <WordBar />
+                <LinearDeterminate timerState={this.props.timerState}/>
             </div>
             );
     }
 }
+
+const mapStateToProps = (state: CombinedStateInterface) => ({
+    timerState: state.gamePageStore.timer,
+});
+  
+export default connect(mapStateToProps)(UpBar)

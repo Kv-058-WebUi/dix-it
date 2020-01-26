@@ -6,6 +6,8 @@ import './header.scss';
 import AuthWindow from '../AuthWindow/AuthWindow';
 import UserNav from './UserNav/UserNav';
 import UserProvider from '../UserProvider/UserProvider';
+import { connect } from 'react-redux';
+import { CombinedStateInterface } from '../../redux/reducer/combineReducer';
 
 type HeaderProps = {
     onlineCount: number
@@ -15,7 +17,7 @@ type HeaderState = {
     showAuthForm: boolean,
 };
 
-export default class Header extends Component<HeaderProps, HeaderState> {
+class Header extends Component<HeaderProps, HeaderState> {
     constructor(props: HeaderProps) {
         super(props);
 
@@ -24,10 +26,6 @@ export default class Header extends Component<HeaderProps, HeaderState> {
             showAuthForm: false,
         };
     }
-
-    static defaultProps = {
-        onlineCount: 333
-    };
 
     handleHelpClick = () => this.setState({ showRules: true });
     handleAuthFormClick = () => this.setState({ showAuthForm: true });
@@ -58,15 +56,6 @@ export default class Header extends Component<HeaderProps, HeaderState> {
                                 : ''}
                         </React.Fragment>
                     )}</UserProvider.context.Consumer>
-                    { <UserProvider.context.Consumer>
-                        {context => (
-                            (!context.user || !context.user.authenticated) ? '' : (
-                                <a
-                                href='#' onClick={() => window.location.href = '/ng/upload'}>Suggest a card
-                                </a>
-                            )
-                        )}
-                    </UserProvider.context.Consumer>}
                     <a href='mailto:name@email.com'>Contact Us</a>
                     <a href='#' onClick={this.handleHelpClick}><img className='help' src={require('./help.png')} alt='rules' /></a>
                 </div>
@@ -84,3 +73,11 @@ export default class Header extends Component<HeaderProps, HeaderState> {
         );
     }
 };
+
+function mapStateToProps(state: CombinedStateInterface) {
+    return {
+        onlineCount: state.appStore.onlineUsersCounter,
+    }
+}
+
+export default connect(mapStateToProps)(Header)

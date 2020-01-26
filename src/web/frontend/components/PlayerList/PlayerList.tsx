@@ -4,7 +4,6 @@ import {PlayerListElement, pleParams} from './PlayerListElement/PlayerListElemen
 
 interface playerlistState {
     players: pleParams[];
-    sortedplayers: pleParams[];
 }
 
 export default class PlayerList extends React.Component<any, playerlistState> {
@@ -16,13 +15,11 @@ export default class PlayerList extends React.Component<any, playerlistState> {
     render() {
         return (
             <div className='PlayerPanel'>
-                {this.props.players.map((sortedplayer: any, index: any) => {
+                {this.props.players.map((sortedplayer: pleParams, index: any) => {
                     return (
                         <PlayerListElement
+                            {...sortedplayer}
                             key={index}
-                            img={sortedplayer.img}
-                            name={sortedplayer.name}
-                            score={sortedplayer.score}
                         />
                     )
                 })}

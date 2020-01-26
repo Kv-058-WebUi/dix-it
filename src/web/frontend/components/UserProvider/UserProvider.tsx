@@ -17,7 +17,7 @@ export type UserData = {
   profile_picture: DixitUser['profile_picture']
 }
 
-type ContextData = {
+export type ContextData = {
   user: UserData | null,
   updateContext: () => void
 }
@@ -64,6 +64,7 @@ const UserProvider = ({ children }: any) => {
           email:'123@gmail.com',
 };
 
+      
         // if(decoded === defaultUser) {
         //   return;
         // }
@@ -72,6 +73,7 @@ const UserProvider = ({ children }: any) => {
           axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
         } else {
           delete axios.defaults.headers.common["Authorization"];
+          axios.defaults.headers.common["Authorization"] = `Bearer ${res.data.jwt_token}`;
           localStorage.setItem('jwt_token', res.data.jwt_token);
         }
         setUser(mapped);

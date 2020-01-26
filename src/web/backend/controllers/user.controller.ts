@@ -22,12 +22,4 @@ export class UserController implements Controller {
             .getMany();
         response.send(users);
     };
-
-    private deleteUser = async (request: express.Request, response: express.Response, next: express.NextFunction) => {
-        const id = request.params.id;
-        const deleteResponse = await this.userRepository.delete(id);
-        if (deleteResponse.raw[1]) {
-          response.sendStatus(200);
-        }
-    }
 }
