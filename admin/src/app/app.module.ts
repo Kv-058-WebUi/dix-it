@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { FormsModule } from '@angular/forms';
 
@@ -18,9 +17,6 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatTooltipModule} from '@angular/material';
 import { ForbiddenComponent } from './forbidden/forbidden.component';
 
-const appRoutes: Routes = [
-  { path: '', component: AdminComponent },
-];
 
 @NgModule({
   declarations: [
@@ -34,10 +30,6 @@ const appRoutes: Routes = [
   imports: [
     BrowserModule,
     AppRoutingModule,
-    RouterModule.forRoot(
-      appRoutes,
-      { enableTracing: true }
-    ),
     BrowserAnimationsModule,
     MatGridListModule,
     ScrollingModule,
