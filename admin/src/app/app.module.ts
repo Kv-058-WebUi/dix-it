@@ -7,8 +7,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { GalleryComponent } from './gallery/gallery.component';
 import { UploadCardComponent } from './upload-card/upload-card.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AdminComponent } from './admin/admin.component';
+import { ReviewCardsListComponent } from './review-cards-list/review-cards-list.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { HttpClientModule } from '@angular/common/http';
@@ -20,9 +21,10 @@ import { ForbiddenComponent } from './forbidden/forbidden.component';
 @NgModule({
   declarations: [
     AppComponent,
-    GalleryComponent,
     UploadCardComponent,
     AdminComponent,
+    ReviewCardsListComponent,
+    GalleryComponent,
     ForbiddenComponent
   ],
   imports: [
