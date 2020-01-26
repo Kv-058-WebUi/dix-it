@@ -2,11 +2,16 @@ import React from 'react';
 import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import StyleIcon from '@material-ui/icons/Style';
 import { ContextData } from '../../../UserProvider/UserProvider';
 import { withStyles } from '@material-ui/styles';
 import { Theme } from '@material-ui/core';
+
 
 const PopoverButton = withStyles((theme: Theme) => ({
     root: {
@@ -39,6 +44,13 @@ const PopoverMenuItem = withStyles(theme => ({
     },
 }))(MenuItem);
 
+const PopoverIcon = withStyles(theme => ({
+    root: {
+        color: '#fff',
+        marginRight: '16px',
+        minWidth: 'auto',
+    },
+}))(ListItemIcon);
 
 interface UserPopoverProps {
     context: ContextData
@@ -95,12 +107,17 @@ function UserPopover(props: UserPopoverProps) {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
             >
-                <PopoverMenuItem onClick={handleLogout}>Log out</PopoverMenuItem>
-                <PopoverMenuItem onClick={handleSuggestCard}>Suggest a card</PopoverMenuItem>
+                <PopoverMenuItem onClick={handleLogout}>
+                    <PopoverIcon><ExitToAppIcon /></PopoverIcon>
+                    <ListItemText primary="Log out" />
+                </PopoverMenuItem>
+                <PopoverMenuItem onClick={handleSuggestCard}>
+                    <PopoverIcon><StyleIcon /></PopoverIcon>
+                    <ListItemText primary="Suggest a card" />
+                </PopoverMenuItem>
             </PopoverMenu>
         </React.Fragment>
     );
-
 };
 
 export default UserPopover;
