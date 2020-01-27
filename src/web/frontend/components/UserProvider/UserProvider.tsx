@@ -2,9 +2,9 @@ import React, { createContext, useState, useEffect } from "react";
 import jwt_decode from 'jwt-decode';
 import { DixitUser } from "../../../backend/entities/User";
 import { Player } from "../../../backend/entities/Player";
-import { JwtPayload } from '../../../backend/authentication/helpers';
 import axios from "axios";
 import cookie from "cookie";
+import { JwtPayload } from "../../../common/helpers";
 
 export type UserData = {
   authenticated: boolean,
@@ -27,12 +27,13 @@ let defaultUser: UserData | null = null;
 let token = localStorage.getItem('jwt_token');
 
 if(token) {
-  defaultUser = jwt_decode(token);
-  if (defaultUser) {
-  defaultUser.email ='123@gmail.com'
-  defaultUser.created_at = new Date()
-  defaultUser.lastonline = new Date()
-  }
+  let jwtData : JwtPayload = jwt_decode(token);
+  
+  defaultUser = {
+    ...jwtData,
+    created_at: new Date(jwtData.created_at),
+    lastonline: new Date(jwtData.lastonline),
+  };
 }
 
 const contextProps: ContextData = {
@@ -60,15 +61,13 @@ const UserProvider = ({ children }: any) => {
         const decoded: JwtPayload = jwt_decode(res.data.jwt_token);
         const mapped : UserData = {
           ...decoded,
-          created_at: new Date(),
+          created_at: new Date(decoded.created_at),
           lastonline: new Date(),
-          email:'123@gmail.com',
-};
-
+        };
       
-        // if(decoded === defaultUser) {
-        //   return;
-        // }
+        if(mapped === defaultUser) {
+          return;
+        }
 
         if (decoded.authenticated) {
           axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;

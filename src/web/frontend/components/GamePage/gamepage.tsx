@@ -66,7 +66,7 @@ class GamePage extends React.Component<any> {
     render() {
         let sortedList = this.sortBy('score').sort(this.compareBy('inGame'));
         return (
-            this.state.isJoinRoomModalShown ? <JoinRoomPopup onJoinModalUpdate={this.onJoinModalUpdate.bind(this)}/> : 
+            this.state.isJoinRoomModalShown ? <JoinRoomPopup user={this.props.user} onJoinModalUpdate={this.onJoinModalUpdate.bind(this)}/> : 
             <div className={'game-root'}>
                 <header>
                     <Link to='/' onClick={this.props.leaveRoom}>
@@ -94,6 +94,7 @@ function mapStateToProps(state: CombinedStateInterface) {
             storyteller_id: state.gamePageStore.storyteller ? state.gamePageStore.storyteller.player_id : undefined
         })),
         isModalShown: state.gamePageStore.gameStatus == ROOM_STATUSES.FINISHED,
+        player_id: state.gamePageStore.player_id
     }
 }
 

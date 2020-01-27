@@ -20,6 +20,7 @@ module.exports = {
         chunkFilename: '[name].chunk.js',
         path: __dirname + "/dist/web/frontend",
         publicPath: "/",
+        //publicPath: "/assets/", //prod
     },
 
     // Enable sourcemaps for debugging webpack's output.

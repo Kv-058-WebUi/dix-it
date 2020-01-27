@@ -8,9 +8,11 @@ import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import StyleIcon from '@material-ui/icons/Style';
+import PersonIcon from '@material-ui/icons/Person';
 import { ContextData } from '../../../UserProvider/UserProvider';
 import { withStyles } from '@material-ui/styles';
 import { Theme } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 
 
 const PopoverButton = withStyles((theme: Theme) => ({
@@ -96,24 +98,30 @@ function UserPopover(props: UserPopoverProps) {
                 anchorEl={anchorEl}
                 anchorOrigin={{
                     vertical: "bottom",
-                    horizontal: "center"
+                    horizontal: "right"
                 }}
                 transformOrigin={{
                     vertical: "top",
-                    horizontal: "center"
+                    horizontal: "right"
                 }}
                 getContentAnchorEl={null}
                 keepMounted
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
             >
-                <PopoverMenuItem onClick={handleLogout}>
-                    <PopoverIcon><ExitToAppIcon /></PopoverIcon>
-                    <ListItemText primary="Log out" />
-                </PopoverMenuItem>
+                <Link to='/profile'>
+                    <PopoverMenuItem>
+                        <PopoverIcon><PersonIcon /></PopoverIcon>
+                        <ListItemText primary="Profile" />
+                    </PopoverMenuItem>
+                </Link>
                 <PopoverMenuItem onClick={handleSuggestCard}>
                     <PopoverIcon><StyleIcon /></PopoverIcon>
                     <ListItemText primary="Suggest a card" />
+                </PopoverMenuItem>
+                <PopoverMenuItem onClick={handleLogout}>
+                    <PopoverIcon><ExitToAppIcon /></PopoverIcon>
+                    <ListItemText primary="Log out" />
                 </PopoverMenuItem>
             </PopoverMenu>
         </React.Fragment>

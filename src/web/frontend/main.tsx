@@ -21,25 +21,26 @@ const App = () => {
     return (
         <Provider store={store}>
             <UserProvider>
-                <UserProvider.context.Consumer>
-                            {context => (
-                                (context.user && context.user.is_banned) ? <BannedScreen/> : (
-                                <Router>
-                                    <Switch>
-                                        <Route path="/game/:room_code">
-                                                {context.user ? <GamePage socket={ socket } user={ context.user }/> : ''}
-                                        </Route>
-                                        <Route path="/lobby">
-                                            <Lobby />
-                                        </Route>
-                                        <Route path="/">
-                                            <MainPage />
-                                        </Route>
-                                    </Switch>
-                                </Router> 
-                                )
-                            )}
-                </UserProvider.context.Consumer>
+                <UserProvider.context.Consumer>{context => (
+                    (context.user && context.user.is_banned)
+                    ? <BannedScreen/>
+                    : (<Router>
+                        <Switch>
+                            <Route path="/game/:room_code">
+                                {context.user ? <GamePage socket={ socket } user={ context.user }/> : ''}
+                            </Route>
+                            <Route path="/lobby">
+                                <Lobby />
+                            </Route>
+                            <Route path="/profile">
+                                <UserProfile />
+                            </Route>
+                            <Route path="/">
+                                <MainPage />
+                            </Route>
+                        </Switch>
+                    </Router>)
+                )}</UserProvider.context.Consumer>
             </UserProvider>
         </Provider>
     );
