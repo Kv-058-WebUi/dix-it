@@ -7,17 +7,18 @@ import UserWithThatEmailAlreadyExistsException from "../exceptions/UserWithThatE
 import UserWithThatNicknameAlreadyExistsException from "../exceptions/UserWithThatNicknameAlreadyExistsException";
 import UserInvalidPasswordException from '../exceptions/UserInvalidPasswordException';
 import UserNotFoundException from '../exceptions/UserNotFoundException';
-import { JWT_SECRET, CLIENT_URL, CLIENT_PORT } from '../../../config';
+import { JWT_SECRET, CLIENT_URL, CLIENT_PORT, CURRENT_ENV, ENV_DEV } from '../../../config';
 import { DixitUser } from '../entities/User';
 import EmailSender from "./EmailSender";
 import passport from 'passport';
 import { Profile } from "passport-google-oauth20";
 import { generate as generatePassword } from 'generate-password';
-import { LoginUserData, JwtPayload } from './helpers';
+import { LoginUserData } from './helpers';
 import EmailNotConfirmedException from '../exceptions/EmailNotConfirmedException';
 import { Player } from '../entities/Player';
 import { getRepository } from 'typeorm';
 import { uniqueNamesGenerator, Config as NamesConfig, adjectives, animals } from 'unique-names-generator';
+import { JwtPayload } from '../../common/helpers';
 
 
 class AuthenticationController implements Controller {
@@ -69,10 +70,13 @@ class AuthenticationController implements Controller {
     private async createToken(user: DixitUser) {
         let player = await getRepository(Player).findOne({user_id: user});
         if(!player) {
-            player = await getRepository(Player).create({user_id: user, nickname: user.nickname});
+            player = getRepository(Player).create({user_id: user, nickname: user.nickname});
             await getRepository(Player).save(player);
         }
         const payload: JwtPayload = {
+            email: user.email,
+            created_at: new Date(user.created_at).toISOString(),
+            lastonline: new Date(user.lastonline).toISOString(),
             authenticated: true,
             user_id: user.user_id,
             profile_picture: user.profile_picture,
@@ -98,7 +102,7 @@ class AuthenticationController implements Controller {
             next();
         }
         
-        response.redirect(`${CLIENT_URL}:${CLIENT_PORT}/`);
+        response.redirect(`${CLIENT_URL}${CURRENT_ENV === ENV_DEV ? ':'+CLIENT_PORT: ''}`);
     }
 
     private registration = async (request: express.Request, response: express.Response, next: express.NextFunction) => {
@@ -148,6 +152,7 @@ class AuthenticationController implements Controller {
             response.send({ "jwt_token": token });
         } catch (error) {
             let message = 'Oh, noes! Something went wrong.';
+            message = error.name + error.message
 
             console.log(error);
             if (error instanceof UserInvalidPasswordException ||
@@ -186,7 +191,20 @@ class AuthenticationController implements Controller {
         passport.authenticate('jwt', { session: false }, async (err, user, info) => {
             let payload : JwtPayload;
             if (!err && !info) {
+                const userRepository = getRepository(DixitUser);
+                const currentDate = new Date();
+
                 payload = user;
+                payload.lastonline = currentDate.toISOString();
+                
+                userRepository
+                    .findOne({ user_id: user.user_id })
+                    .then(userRecord => {
+                        if (userRecord) {
+                            userRecord.lastonline = currentDate;
+                            userRepository.save(userRecord);
+                        }
+                    })
             } else {
                 //create new identity for guest user
                 const playerRepository = getRepository(Player);
@@ -200,6 +218,9 @@ class AuthenticationController implements Controller {
                     player_id: player.player_id,
                     profile_picture: 'anonymous_user.png',
                     is_banned: false,
+                    lastonline: (new  Date()).toISOString(),
+                    created_at: (new Date()).toISOString(),
+                    email: '',
                     roles: ['guest']
                 }
             }

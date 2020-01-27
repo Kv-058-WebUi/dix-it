@@ -18,7 +18,12 @@ export type JwtPayload = {
   profile_picture: DixitUser['profile_picture'],
   nickname: DixitUser['nickname'],
   player_id: Player['player_id'],
-  authenticated: boolean
+  authenticated: boolean,
+  is_banned: DixitUser['is_banned'],
+  email: DixitUser['email'],
+  created_at: string,
+  lastonline: string,
+  roles: string[]
 }
 
 export type RoomData = {

@@ -15,8 +15,10 @@ const WordInput = (props: wordInputInterface) => {
         if(e.key === 'Enter') {
             const input = document.querySelector('.wordInput') as HTMLInputElement;
             if(input.value != '') {
-                if (localStorage.getItem('word')!=null){
-                 word = localStorage.getItem('word');}
+                const localWord = localStorage.getItem('word');
+                if (localWord!=null){
+                 word = localWord;
+                }
                  word = word + ' ' + input.value;
                  localStorage.setItem('word', word);
                 props.onWordInput(input.value);

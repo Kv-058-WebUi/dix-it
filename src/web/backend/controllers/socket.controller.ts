@@ -1,5 +1,4 @@
 import SocketIO from "socket.io";
-import { JwtPayload } from "../authentication/helpers";
 import { RoomPlayer } from "../entities/RoomPlayers";
 import { Room } from "../entities/Room";
 import { getRepository, In, Not } from "typeorm";
@@ -8,7 +7,7 @@ import welcomeDict from '../helpers/chat-welcome-dictionary';
 import { Card } from "../entities/Card";
 import * as reduxActions from '../../frontend/redux/constants';
 import { Player } from "../entities/Player";
-import { ROOM_STATUSES, RoomData, turnTimeMs, shuffle } from "../../common/helpers";
+import { ROOM_STATUSES, RoomData, turnTimeMs, shuffle, JwtPayload } from "../../common/helpers";
 
 interface Message {
     id: number,

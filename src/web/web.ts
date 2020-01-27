@@ -14,6 +14,7 @@ import io from "socket.io"
 import SocketIO from "socket.io";
 import SocketController from "./backend/controllers/socket.controller";
 import passport from './backend/authentication/passport/passport';
+import { CURRENT_ENV, ENV_DEV, ENV_PROD } from "../config";
 
 class App {
   public app: express.Application;
@@ -40,6 +41,14 @@ class App {
     this.app.use('/api', new CardDeckController().router);
     this.app.use('/api', new ReviewCardsController().router);
     this.app.use('/api', new UploadCardController().router);
+
+    if(CURRENT_ENV === ENV_PROD) {
+      this.app.use("/images", express.static('public/images'));
+      this.app.use("/ng", express.static(path.resolve(`${__dirname}/../admin`)));
+      this.app.get("/ng/*", (req, res) => {
+        res.sendFile(path.resolve(`${__dirname}/../admin/index.html`));
+      });
+    }
     this.app.get("/*", (req, res) => {
       res.render("index");
     });

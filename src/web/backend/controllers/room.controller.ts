@@ -4,14 +4,13 @@ import Controller from '../interfaces/controller.interface';
 import { Room } from '../entities/Room';
 import CreateRoomDto from '../dto/room.dto';
 import { RoomStatus } from '../entities/RoomStatus';
-import { JwtPayload } from '../authentication/helpers';
 import passport from 'passport';
 import crypto from 'crypto';
 import { RoomPlayer } from '../entities/RoomPlayers';
 import { Player } from '../entities/Player';
 import { uniqueNamesGenerator, Config as NamesConfig, adjectives, colors } from 'unique-names-generator';
 import countries from '../helpers/countries-dictionary';
-import { ROOM_STATUSES, RoomData } from '../../common/helpers/';
+import { ROOM_STATUSES, RoomData, JwtPayload } from '../../common/helpers/';
 
 export default class RoomController implements Controller {
     public path = '/rooms';
