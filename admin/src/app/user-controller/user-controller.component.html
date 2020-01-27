@@ -1,0 +1,42 @@
+<div class="user-controller">
+        <ng-template #loading>
+            <mat-spinner></mat-spinner>
+        </ng-template>
+    <div class="user-controller__header">
+        <div class="user-controller__nickname-title"><p>User</p></div>
+        <div><p>Email</p></div>
+        <div class="user-controller__created-title"><p>Created</p></div>
+        <div class="user-controller__banned-title"><p>Is Banned</p></div>
+    </div>
+    <div class="user-controller__table-wrapper">
+        <div 
+        class="user-controller__table"
+        *ngIf = '!showSpinner; else loading'
+        >
+            <div 
+            class="user-controller__table-row-wrapper"
+            *ngFor='let user of users'
+            >
+                <div class="user-controller__table-row">
+                    <div class="user-controller__nickname"><p>{{ user.nickname }}</p></div>
+                    <div><p>{{ user.email }}</p></div>
+                    <div class="user-controller__created-at"><p>{{ user.created_at }}</p></div>
+                    <div class="user-controller__is-banned"><p>{{ user.is_banned }}</p></div>
+                </div>
+                <div class="user-controller__icons">
+                    <fa-icon
+                    (click) = 'openDialogAndRememberUser(user)'
+                    [icon]="faEdit"
+                    ></fa-icon>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="user-controller__footer">
+        <div class="user-controller__create-new">
+            <button mat-button color='accent' (click)='openCreateUserDialog()'> + Create new</button>
+        </div>
+    </div>   
+</div>
+
+

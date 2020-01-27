@@ -1,0 +1,62 @@
+.game-logo {
+  padding: 18px 50px;
+  display: block;
+}
+
+.game-root {
+  display: grid;
+  grid-template-columns: 75% 25%;
+  grid-template-rows: 5% 15% 40% 40%;
+  grid-template-areas: "header sidepanel"
+                        "word sidepanel"
+                        "desc sidepanel"
+                        "hand sidepanel";
+}
+
+.game-side-panel {
+  grid-area: sidepanel;
+  margin-top: 30px;
+}
+
+header {
+  grid-area: header;
+}
+
+.field-hand {
+  grid-area: hand;
+}
+
+.field-box {
+  grid-area: desc;
+  .card {
+    margin: 0;
+  }
+}
+
+.Wordclass {
+  grid-area: word;
+}
+.start-game-button-wrapper {
+  grid-area: hand;
+  position: relative;
+}
+.start-game-button {
+  font-family: Montserrat Alternates;
+  font-style: normal;
+  font-size: 36px;
+  color: white;
+  width: 330px;
+  height: 100px;
+  background: linear-gradient(90deg, #F27A54 0%, #A154F2 100%);
+  border-radius: 50px;
+  text-transform: uppercase;
+  transition: border, box-shadow .3s;
+  position: absolute;
+  bottom: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: pointer;
+  &:hover {
+      box-shadow: 0px 0px 30px #EC7760;
+  }
+}

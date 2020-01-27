@@ -1,6 +1,15 @@
+.env
+debug.log
 node_modules
-
+.DS_Store
 .idea
+.history
+.env
 idea/
+src/web/frontend/css
 dist/*
 !dist/.gitkeep
+!dist/web/.gitkeep
+!dist/web/frontend/.gitkeep
+!dist/web/frontend/fonts/.gitkeep
+!dist/web/frontend/css/.gitkeep

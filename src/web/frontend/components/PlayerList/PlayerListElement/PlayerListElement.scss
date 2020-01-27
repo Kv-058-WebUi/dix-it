@@ -1,0 +1,144 @@
+.PlayerListElement {
+    background: rgba(26, 38, 54, 0.7);
+    border: 1px solid #23131D;
+    font-weight: 800;
+    border-radius: 20px;
+    color: #E5E5E5;
+    height: 48;
+    padding: 0 30px;
+    margin: 5px;
+    padding-left:17px;
+    width: 394.64px;
+    height: 49.89px;
+
+    .player-mark {
+        right: -45px;
+        color: rgb(229, 229, 229);
+        font-family: Montserrat;
+        font-weight: normal;
+        font-size: 18px;
+        float: right;
+        margin-top: 15px;
+        margin-right: -90px;
+    }
+
+    .storyteller-mark {
+        background-image: url('./corona-storyteller.png');
+        background-size: contain;
+        background-position: center;
+        height: 30px;
+        width: 34px;
+        float: left;
+        margin-left: -60px;
+        margin-top: 8px;
+    }
+
+    &_offline {
+        filter: grayscale(1);
+    }
+
+    &_red {
+        .PlayerAvatar {
+            box-shadow: 0px 0px 20px red;
+        }
+        .PlayerName {
+            color: red;
+        }
+    }
+
+    &_blue {
+        .PlayerAvatar {
+            box-shadow: 0px 0px 20px blue;
+        }
+        .PlayerName {
+            color: blue;
+        }
+    }
+
+    &_teal {
+        .PlayerAvatar {
+            box-shadow: 0px 0px 20px teal;
+        }
+        .PlayerName {
+            color: teal;
+        }
+    }
+
+    &_purple {
+        .PlayerAvatar {
+            box-shadow: 0px 0px 20px purple;
+        }
+        .PlayerName {
+            color: purple;
+        }
+    }
+
+    &_yellow {
+        .PlayerAvatar {
+            box-shadow: 0px 0px 20px yellow
+        }
+        .PlayerName {
+            color: yellow
+        }
+    }
+
+    &_orange {
+        .PlayerAvatar {
+            box-shadow: 0px 0px 20px orange;
+        }
+        .PlayerName {
+            color: orange;
+        }
+    }
+
+    &_green {
+        .PlayerAvatar {
+            box-shadow: 0px 0px 20px green;
+        }
+        .PlayerName {
+            color: green;
+        }
+    }
+        
+}
+
+.PlayerAvatar {
+    box-shadow: 0px 0px 20px #FFFFFF;
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    float:left;
+    margin-top: 4px;
+
+}
+
+.PlayerScore{
+    float: right;
+    font-size: 24px;
+    margin-top: 11px;
+    font-family: 'Montserrat', sans-serif;
+    color: #E5E5E5;
+    color: rgba(229,229,229,0.65);
+}
+
+.winnerList {
+    .PlayerAvatar {
+        box-shadow: 0px 0px 5px #FFFFFF;;
+    }
+}
+
+.PlayerName{
+    float:left;
+    margin-left: 15px;
+    font-size: 24px;
+    margin-top: 11px;
+    color: rgba(229,229,229,0.65);
+    font-family: Montserrat, sans-serif;
+    font-style: normal;
+    font-weight: 800;
+    max-width: 270px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+

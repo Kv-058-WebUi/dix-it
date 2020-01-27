@@ -1,6 +1,12 @@
-var HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackRootPlugin = require('html-webpack-root-plugin');
-let path = require('path');
+const CopyPlugin = require('copy-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
+const dotenv = require("dotenv");
+const path = require('path');
+const SRC = path.resolve(__dirname, 'node_modules');
+
+dotenv.config();
 
 module.exports = {
     mode: "development",
@@ -13,17 +19,25 @@ module.exports = {
         filename: "[name].bundle.js",
         chunkFilename: '[name].chunk.js',
         path: __dirname + "/dist/web/frontend",
-        publicPath: "/assets/"
+        publicPath: "/",
+        //publicPath: "/assets/", //prod
     },
 
     // Enable sourcemaps for debugging webpack's output.
     devtool: "source-map",
 
     devServer: {
-        contentBase: path.join(__dirname, 'dist/web/frontend'),
+        writeToDisk: true,
+        contentBase: path.resolve('public'),
         compress: true,
-        port: 3000,
-        hot: true
+        port: process.env.CLIENT_PORT,
+        publicPath: '/',
+        hot: true,
+        historyApiFallback: true,
+        proxy: {
+            '/api': process.env.SERVER_URL+':'+process.env.SERVER_PORT,
+            '/ng': 'http://localhost:4200',
+        }
     },
 
     resolve: {
@@ -37,34 +51,46 @@ module.exports = {
             {
                 test: /\.tsx?$/,
                 loader: "ts-loader",
+                options: {
+                    transpileOnly: true
+                }
             },
 
             {
                 test: /\.(woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
+                use: [{
+                    loader: 'file-loader',
+                    options: {
+                        name: '[name].[ext]',
+                        outputPath: 'fonts/'
+                    }
+                }]
+            },
+            {
+                test: /\.mp3$/,
                 use: [
                     {
                         loader: 'file-loader',
                         options: {
                             name: '[name].[ext]',
-                            outputPath: 'fonts/'
+                            outputPath: 'sounds/'
                         }
                     }
                 ]
             },
             {
                 test: /\.(jpe?g|gif|png|svg)$/i,
-                use: [
-                    {
-                        loader: 'url-loader',
-                        options: {
-                            limit: 10000
-                        }
+                use: [{
+                    loader: 'file-loader',
+                    options: {
+                        name: '[name].[ext]',
+                        outputPath: 'images/'
                     }
-            ]
+                }]
             },
 
             // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
-            {enforce: "pre", test: /\.js$/, loader: "source-map-loader"},
+            { enforce: "pre", test: /\.js$/, loader: "source-map-loader" },
             {
                 test: /\.(s*)css$/,
                 use: ['style-loader', 'css-loader', 'sass-loader']
@@ -78,5 +104,13 @@ module.exports = {
         },
         usedExports: true
     },
-    plugins: [new HtmlWebpackPlugin(), new HtmlWebpackRootPlugin()]
+    plugins: [
+        new Dotenv(),
+        new HtmlWebpackPlugin(),
+        new HtmlWebpackRootPlugin(),
+        new CopyPlugin([{
+            from: path.join(__dirname, 'src/web/frontend/images'),
+            to: path.join(__dirname, 'dist/web/frontend/images')
+        }])
+    ]
 };

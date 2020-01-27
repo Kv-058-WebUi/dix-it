@@ -1,0 +1,40 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { 
+    margin: 0; 
+    font-family: Roboto, "Helvetica Neue", sans-serif; 
+    background-color: #131519;
+    background-image: url('./assets/img/start_frame_bg.png');
+    background-size: cover;
+}
+
+$scrollbarSize: 10px;
+
+::-webkit-scrollbar {
+  width: $scrollbarSize;
+  height: $scrollbarSize;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: $scrollbarSize;
+  background: #4d4d4d;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: $scrollbarSize;
+  background:  #a5a5a5;
+
+  &:hover {
+    background: #ccc;
+  }
+}
+
+::-webkit-scrollbar-corner {
+  background: none;
+  width: $scrollbarSize;
+  height: $scrollbarSize;
+}
+.tooltip {
+    background-color: rgba(26, 38, 54, 0.7);
+}

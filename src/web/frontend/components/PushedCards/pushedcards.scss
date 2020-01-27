@@ -1,0 +1,43 @@
+.field-box {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  height: 270px;
+  width: 575px;
+  margin: auto;
+}
+.five-cards {
+  width: 400px;
+}
+.votes-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-end;
+  width: 90px;
+  height: 38px;
+  flex-wrap: wrap;
+  margin: -28px auto 0;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.vote-item {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  margin: 2px;
+
+  &_storyteller {
+    background-image: url('../PlayerList/PlayerListElement/corona-storyteller.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+}
+.card-votes-container {
+  position: relative;
+}

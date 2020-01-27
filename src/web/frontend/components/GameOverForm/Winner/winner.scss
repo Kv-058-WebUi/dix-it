@@ -1,0 +1,51 @@
+.winnerContainer{
+display: flex;
+align-items: center;
+flex-direction: column;
+    .winnerLogo {
+        width: 190px;
+        height: 190px;
+        border-radius: 50%;
+        margin-bottom: 10px;
+    }
+    &::before {
+        content: url('./corona.png');
+        position: absolute;
+        width: 171.03px;
+        height: 149.88px;
+        left: 125.13px;
+        top: -170.61px;
+        transform: rotate(+20deg);
+    }
+    .winnerNickname, .winnerScore {
+        font-size: 24px;
+        margin-top: 11px;
+        color: white;
+        font-family: 'Montserrat', sans-serif;
+        font-style: normal;
+        font-weight: 800;
+    }
+    .winnerNickname {
+        text-shadow: 0px 0px 20px #24C39A;
+    }
+    .winnerScore {
+        font-size: 20px; 
+        color: #24C39A   
+    }
+    .playerlistContainer {
+        margin-top: 10px;
+    }
+    .winnerContainer {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .PlayerListElement {
+        .player-mark,
+        .storyteller-mark {
+            display: none;
+        }
+    }
+}

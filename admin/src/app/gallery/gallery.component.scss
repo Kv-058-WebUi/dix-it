@@ -1,0 +1,38 @@
+.gallery-container {
+    width: 100%;
+    min-width: 57vw;
+    margin-top: 10px;
+    padding: 15px 20px 15px 35px;
+    background-color: rgba(26, 38, 54, 0.7);
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+.scroll-container {
+    width: 58vw;
+    height: 400px;
+    overflow-y: scroll;
+}
+.gallery-card {
+    position: relative;
+    z-index: 0;
+    border-radius: 15px;
+    height: 140px;
+    width: 100px;
+}
+.scroll-message {
+    text-align: center;
+    padding: 5px 0;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 20px;
+    font-weight: 500;
+    margin: 0;
+    margin-top: 20px;
+}
+.delete {
+    position: absolute;
+    z-index: 1;
+    top: 5px;
+    right: 1px;
+    background: none;
+    border: none;
+}

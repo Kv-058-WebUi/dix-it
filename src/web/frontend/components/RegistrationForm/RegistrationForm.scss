@@ -1,0 +1,31 @@
+.RegistrationForm-ButtonContainer {
+  bottom: 0;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.RegistrationForm-ControlButtons {
+  margin: 20px 0;
+  font-family: Montserrat;
+}
+.RegistrationForm-Error {
+  color: #f44336;
+  font-family: Roboto, sans-serif;
+  font-size: 15px;
+  margin-bottom: 10px;
+  min-height: 15px;
+}
+
+a {
+  text-decoration: none;
+}
+
+h1 {
+  color: #E5E5E5;
+}
+
+p {
+  font-family: Roboto, sans-serif;
+  font-size: 10px;
+}

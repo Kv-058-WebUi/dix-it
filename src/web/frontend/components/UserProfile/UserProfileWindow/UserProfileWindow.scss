@@ -1,0 +1,137 @@
+.mainwindow {
+  position: absolute;
+  width: 1410px;
+  height: 640px;
+  left: 153px;
+  top: 120px;
+  margin-bottom: 1px;
+  background: rgba(2, 1, 6, 0.5);
+  border-radius: 15px;
+  display: block;
+}
+
+.Online {
+  justify-content: center;
+  align-items: center;
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 15px;
+  line-height: 24px;
+  color: #24C39A;
+  margin-left: 90px;
+}
+
+.Name {
+  width: 410px;
+  height: 66px;
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.375) 50%, rgba(2, 1, 6, 0) 100%);
+  border-radius: 5px;
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 30px;
+  line-height: 37px;
+  display: inline-block;
+  position: absolute;
+  left: 250px;
+  top: 30px;
+  color: #FFFFFF;
+  padding: 13px;
+}
+
+.UserWindow {
+  display: block;
+  width: 300px;
+
+  img {
+    width: 180px;
+    height: 180px;
+    margin-left: 30px;
+    margin-top: 30px;
+    border-radius: 5px;
+  }
+}
+
+.InfoText {
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 24px;
+  color: #919396;
+  margin-left: 8px;
+}
+
+.GT {
+  color: #919396;
+}
+
+.WT {
+  color: #FFFFFF;
+}
+
+.email {
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 24px;
+  color: #3574FC;
+  position: absolute;
+  left: 250px;
+  top: 110px;
+}
+
+.createdA {
+  position: absolute;
+  left: 240px;
+  top: 150px;
+}
+
+.lastO{
+  position: absolute;
+  left: 625px;
+  top: 150px;
+}
+
+.idNum{
+  position: absolute;
+  left: 950px;
+  top: 150px;
+}
+
+.YouPass{
+  position: absolute;
+  left: 300px;
+  top: 270px;
+  align-content: center;
+}
+
+.PlayMore{
+  font-family: Montserrat Alternates;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 21px;
+  line-height: 24px;
+  color: #ffffff;
+  }
+
+  .WordMap{
+    font-family: Montserrat Alternates;
+    font-style: normal;
+    font-weight: 4  00;
+    font-size: 31px;
+    line-height: 24px;
+    color: red;
+    position: absolute;
+    left:550px;
+    top:200px;
+    background: rgba(207, 32, 32, 0.151);
+    border-radius: 15px;
+    padding:15px
+  }
+
+  .words{
+    margin-top: 30px;
+  }

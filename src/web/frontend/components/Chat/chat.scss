@@ -1,0 +1,136 @@
+.chat {
+  background: rgba(26, 38, 54, 0.7);
+  border-radius: 10px;
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.chat__messages-area {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  height: 480px;
+}
+
+.message {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  flex-shrink: 0;
+
+  &:first-of-type {
+    margin-top:auto;
+  }
+}
+
+.message__container {
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 22px;
+  color: white;
+  margin: 2px;
+
+  &.bot__message {
+    margin: 2px auto;
+    color: #BDC3D1;
+    max-width: 100%;
+
+    .message__content {
+      background: none;
+      max-width: 100%;
+    }
+  }
+}
+
+.message__creator {
+  font-size: 16px;
+  color: white;
+}
+
+.message__info {
+  display: flex;
+  margin: 0 13px;
+}
+
+.message__info_hidden {
+  display: none;
+}
+
+.message__content {
+  margin: 0 10px;
+  background: #68707B;
+  border-radius: 10px 10px 10px 10px;
+  min-width: 10px;
+  max-width: 260px;
+  font-weight: normal;
+  p {
+    margin: 0 10px;
+    overflow-wrap: break-word;
+  }
+}
+
+.message__content_arrow {
+  border-radius: 10px 10px 10px 1px;
+}
+
+.message__timestamp {
+  font-size: 13px;
+  color: white;
+  margin: 0 5px;
+}
+
+.message_self {
+  justify-content: flex-end;
+  .message__container {
+    .message__creator {
+      display: none;
+    }
+    .message__info {
+      justify-content: flex-end;
+    }
+    .message__content {
+      background: #4D679F;
+      border-radius: 10px 10px 10px 10px;
+    }
+    .message__content_arrow {
+      border-radius: 10px 10px 1px 10px;
+    }
+  }
+}
+
+.input-area {
+  justify-self: flex-end;
+  #newMessage {
+    font-family: Roboto, sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 16px;
+    height: 40px;
+    width: 75%;
+    background-color: rgba(4, 10, 20, 0.5);
+    color: #FFFFFF;
+    vertical-align:middle;
+    outline: none;
+    padding-left: 5px;
+  }
+  button {
+    width: 25%;
+    height: 40px;
+    background-color: rgba(4, 10, 20, 0.5);
+    color: #FFFFFF;
+    font-family: Montserrat, sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 20px;
+    #arrowIcon {
+      vertical-align:middle;
+    }
+  }
+}

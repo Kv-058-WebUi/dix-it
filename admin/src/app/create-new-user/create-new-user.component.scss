@@ -1,0 +1,66 @@
+.create-user {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 100%;
+    .create-user__form {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    .create-user__form-group {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        .create-user__input {
+            background: #FFFFFF;
+            border-radius: 20px;
+            outline: none;
+            padding: 0 15px;
+            font-family: Roboto;
+            font-style: normal;
+            height: 35px;
+            font-size: 30px;
+            line-height: 35px;
+            margin-bottom: 15px;
+        }
+    }
+}
+.create-user label, p{
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 25px;
+    display: flex;
+    align-items: center;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 2px;
+}
+.create-user button {
+    font-size: 25px;
+    padding: 7px 15px;
+    border: 1px solid;
+}
+.create-user__submit {
+    button{
+        margin-right: 20px;
+    }
+}
+.create-user__cancel-button {
+    border: 3px solid #FBFBFB;
+    box-sizing: border-box;
+    background: rgba(26, 38, 54, 0.7);
+    color: #FFFFFF;
+}
+.create-user button {
+    font-size: 15px;
+    line-height: 20px;
+    height: 35px;
+    padding: 7px 15px;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 12px;
+}
