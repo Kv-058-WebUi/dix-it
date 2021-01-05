@@ -82,7 +82,7 @@
     "@types/redux": "^3.6.0",
     "@types/socket.io": "^2.1.4",
     "@types/socket.io-client": "^1.4.32",
-    "axios": "^0.19.1",
+    "axios": "^0.21.1",
     "bcryptjs": "^2.4.3",
     "classnames": "^2.2.6",
     "cookie": "^0.4.0",
