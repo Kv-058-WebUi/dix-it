@@ -94,7 +94,7 @@
     "express": "^4.17.1",
     "fireworks-canvas": "^2.4.0",
     "generate-password": "^1.4.2",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "jwt-decode": "^2.2.0",
     "mime": "^2.4.4",
     "ngx-scroll-event": "^1.0.8",
